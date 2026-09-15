@@ -1,6 +1,6 @@
 # Shared engineering knowledge
 
-Hardware Knowledge includes offline guidance for PCB, schematic, EMC and mechanical review.
+Circuit Context includes offline guidance for PCB, schematic, EMC and mechanical review.
 `search_guidelines` returns concise summaries with applicability, limitations
 and citations. `get_guideline` adds required inputs, suggested verification
 and `related_ids` for explicit follow-up reads of supporting guidance.
@@ -15,7 +15,7 @@ module and no CAD constraints are applied automatically.
 
 Pass this to `search_guidelines`, then pass a returned ID to
 `get_guideline`, for example `{"id": "reference-plane-continuity"}`.
-Read `hardware-knowledge://catalogue` for filter values, IDs and source editions.
+Read `circuit-context://catalogue` for filter values, IDs and source editions.
 Clients that cannot read resources can still use both tools.
 The standalone server uses CAD-independent tool and resource names.
 
@@ -91,7 +91,7 @@ Samtec, Laird, Espressif, JLCPCB, KiCad and Tektronix guidance. Editions and sec
 are listed in the catalogue and returned with each hit. Older application notes are
 engineering references, not evidence of current interface certification limits.
 
-These are Hardware Knowledge editorial summaries, not reproduced manuals or vendor
+These are Circuit Context editorial summaries, not reproduced manuals or vendor
 endorsements. Required inputs and verification steps are editorial prompts, not
 claims that an automated checker exists for each item. The corpus has not had
 independent hardware-engineer review. Antenna synthesis, safety insulation
@@ -123,15 +123,15 @@ page content; they are not stable document revision identifiers.
 
 ## Storage and maintenance
 
-`src/hardware_knowledge/data/` contains `sources.json` and twelve collections:
+`src/circuit_context/data/` contains `sources.json` and twelve collections:
 `general.json`, `two_layer.json`, `emc.json`, `interfaces.json` and
 `mechanical.json`, plus `gpio.json`, `uart.json`, `spi.json`, `i2c.json`,
 `usb_c.json`, `usb_c_layout.json` and `usb_pd.json`.
 The loader fingerprints all thirteen files and validates source
 references, unique IDs, related-guide links and classification before indexing. Interface-level
 records require a family. A content-addressed SQLite cache is created lazily under
-`~/.hardware-knowledge/cache/`; override that directory with
-`HARDWARE_KNOWLEDGE_DIR`. It contains only bundled guidance, never project
+`~/.circuit-context/cache/`; override that directory with
+`CIRCUIT_CONTEXT_DIR`. It contains only bundled guidance, never project
 files or user queries. There are no network requests, API keys, vector database
 services or generation-model calls at runtime. The separate authoring capture script
 downloads only explicitly selected catalogue sources. Cache writes publish a complete index atomically.

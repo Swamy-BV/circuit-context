@@ -26,7 +26,7 @@ capture commands. Some publisher downloads may remain unavailable.
 This first version copies the existing knowledge corpus and retrieval behavior
 into a standalone package. It does not remove the embedded copy from KiCadFlow
 or switch existing clients. KiCadFlow's old tool names remain there; this server
-uses `search_guidelines`, `get_guideline` and `hardware-knowledge://catalogue`.
+uses `search_guidelines`, `get_guideline` and `circuit-context://catalogue`.
 Consolidating the duplicate corpus and updating integrations is a separate change.
 
 ## Next steps

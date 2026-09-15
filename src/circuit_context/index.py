@@ -31,7 +31,7 @@ NOTICE = (
 
 def _cache_path(digest: str) -> Path:
     root = Path(os.environ.get(
-        "HARDWARE_KNOWLEDGE_DIR", str(Path.home() / ".hardware-knowledge" / "cache")
+        "CIRCUIT_CONTEXT_DIR", str(Path.home() / ".circuit-context" / "cache")
     )).expanduser()
     return root / f"pcb-v{_SCHEMA}-{digest}.sqlite3"
 

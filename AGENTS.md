@@ -1,10 +1,10 @@
-# Hardware Knowledge
+# Circuit Context
 
 A CAD-independent library and read-only MCP server for engineering guidance.
 
 ## Boundaries
 
-- `src/hardware_knowledge/data/`: editorial guidance and source metadata.
+- `src/circuit_context/data/`: editorial guidance and source metadata.
 - `models.py`, `corpus.py`: validation, identities and corpus fingerprint.
 - `index.py`: offline retrieval and rebuildable cache; no model or CAD imports.
 - `server.py`: thin MCP adapter. `__main__.py`: CLI adapter.

@@ -6,87 +6,87 @@
     {
       "source_path": "src/kicad_flow/knowledge/__init__.py",
       "source_sha256": "a481745abfadb0c8dd8c171d8b1d0e8e10463d9682c6ab64c834788b7d5f9fbd",
-      "destination": "src/hardware_knowledge/__init__.py"
+      "destination": "src/circuit_context/__init__.py"
     },
     {
       "source_path": "src/kicad_flow/knowledge/corpus.py",
       "source_sha256": "c6767f110781fd7e95d1c5ba5bf123724d1998e2da448a9ebdabb2d85f8ba685",
-      "destination": "src/hardware_knowledge/corpus.py"
+      "destination": "src/circuit_context/corpus.py"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/emc.json",
       "source_sha256": "6600a6a8ebe2d8a703589d8060bf2028ab649492ead10cf164e42cbe566a9709",
-      "destination": "src/hardware_knowledge/data/emc.json"
+      "destination": "src/circuit_context/data/emc.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/general.json",
       "source_sha256": "ab8f1b9e89dc9dd00ace2b78540530e927cf170c6c2d7b8b6f114244bf602f62",
-      "destination": "src/hardware_knowledge/data/general.json"
+      "destination": "src/circuit_context/data/general.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/gpio.json",
       "source_sha256": "d8e96262c2a6ef32f48c6e2cb1a98411b9b3ff34142e22fc55f4b8daabbfd6fe",
-      "destination": "src/hardware_knowledge/data/gpio.json"
+      "destination": "src/circuit_context/data/gpio.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/i2c.json",
       "source_sha256": "75b9364ba43687c64926e8c2beb808d9b2f650feff6adc75fdedd76a016b9db5",
-      "destination": "src/hardware_knowledge/data/i2c.json"
+      "destination": "src/circuit_context/data/i2c.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/interfaces.json",
       "source_sha256": "466e6c3258dcfd80ea742bedd310be227f621844655d598c4e301384e55a05bb",
-      "destination": "src/hardware_knowledge/data/interfaces.json"
+      "destination": "src/circuit_context/data/interfaces.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/mechanical.json",
       "source_sha256": "a8a03beea4957ceee616f0cb2316c945062f6f5275642b413840731bbbef7c5d",
-      "destination": "src/hardware_knowledge/data/mechanical.json"
+      "destination": "src/circuit_context/data/mechanical.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/sources.json",
       "source_sha256": "ffc82edbf4d669bb148f1dcdac34975f94e87d2786031702f613713b37ac0eb7",
-      "destination": "src/hardware_knowledge/data/sources.json"
+      "destination": "src/circuit_context/data/sources.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/spi.json",
       "source_sha256": "70aeb002899b0a9e91bc2a5938d8270123e4890db6ca5fca708bffbba86b5c08",
-      "destination": "src/hardware_knowledge/data/spi.json"
+      "destination": "src/circuit_context/data/spi.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/two_layer.json",
       "source_sha256": "7cf1c9af0d91fb8037c9098747b7f5056ab3fb0ae2f1f5955c714bf27469c3b6",
-      "destination": "src/hardware_knowledge/data/two_layer.json"
+      "destination": "src/circuit_context/data/two_layer.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/uart.json",
       "source_sha256": "2806305074b80826936584f6d97ead95a7ab0bfde0bf5d109ce71a617028684f",
-      "destination": "src/hardware_knowledge/data/uart.json"
+      "destination": "src/circuit_context/data/uart.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/usb_c.json",
       "source_sha256": "df640e4dbc0f091176027e9c83866a9fbff8e508c609b2c4dbc6e3ece6113cf0",
-      "destination": "src/hardware_knowledge/data/usb_c.json"
+      "destination": "src/circuit_context/data/usb_c.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/usb_c_layout.json",
       "source_sha256": "7cdbee048fdc13662bab6d5cde8b6618233dad4df80c4f0751cee433b119bc8f",
-      "destination": "src/hardware_knowledge/data/usb_c_layout.json"
+      "destination": "src/circuit_context/data/usb_c_layout.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/data/usb_pd.json",
       "source_sha256": "98cf2ffc19939b33a75f322848166154230fc331535797800566d09b27159a32",
-      "destination": "src/hardware_knowledge/data/usb_pd.json"
+      "destination": "src/circuit_context/data/usb_pd.json"
     },
     {
       "source_path": "src/kicad_flow/knowledge/index.py",
       "source_sha256": "f56ad12e385f1b9a1e669e9832a4cc6ecb7173ae5c476af2847f33da12514fa5",
-      "destination": "src/hardware_knowledge/index.py"
+      "destination": "src/circuit_context/index.py"
     },
     {
       "source_path": "src/kicad_flow/knowledge/models.py",
       "source_sha256": "c28d6d6d40c7d9c3b0c6219eafc1e1c5f40e012ed2630297d80d2ca02ebb82c2",
-      "destination": "src/hardware_knowledge/models.py"
+      "destination": "src/circuit_context/models.py"
     },
     {
       "source_path": "docs/pcb-knowledge.md",
@@ -186,7 +186,7 @@
     {
       "source_path": "src/kicad_flow/server/tools_knowledge.py",
       "source_sha256": "37590210141d9d14f0747454261f4138a835f2d267b279d781356707fbdd1855",
-      "destination": "src/hardware_knowledge/server.py"
+      "destination": "src/circuit_context/server.py"
     }
   ]
 }

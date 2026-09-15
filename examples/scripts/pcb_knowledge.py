@@ -15,7 +15,7 @@ from typing import Any
 
 from fastmcp import Client
 
-from hardware_knowledge.server import mcp
+from circuit_context.server import mcp
 
 OUT = Path("out/knowledge").resolve()
 PROMPTS = Path(__file__).resolve().parents[1] / "prompts"
@@ -29,13 +29,13 @@ CASES = (
 
 async def exercise(cache: Path, mode: str) -> dict[str, Any]:
     """Check results, bounds and failure handling without invoking a model."""
-    os.environ["HARDWARE_KNOWLEDGE_DIR"] = str(cache)
+    os.environ["CIRCUIT_CONTEXT_DIR"] = str(cache)
     rows = []
     async with Client(mcp, mode=mode) as client:
         tools = {tool.name: tool for tool in await client.list_tools()}
         for name in ("search_guidelines", "get_guideline"):
             assert tools[name].annotations.read_only_hint
-        resources = await client.read_resource("hardware-knowledge://catalogue")
+        resources = await client.read_resource("circuit-context://catalogue")
         catalogue = json.loads(resources[0].text)
         assert not list(cache.glob("*.sqlite3")), "catalogue should not build cache"
         identifiers = {g["id"] for g in catalogue["guidelines"]}
@@ -212,7 +212,7 @@ async def exercise(cache: Path, mode: str) -> dict[str, Any]:
 async def main() -> None:
     """Run both protocol modes using isolated cache directories."""
     OUT.mkdir(parents=True, exist_ok=True)
-    previous = os.environ.get("HARDWARE_KNOWLEDGE_DIR")
+    previous = os.environ.get("CIRCUIT_CONTEXT_DIR")
     results = []
     try:
         for mode in ("auto", "legacy"):
@@ -220,9 +220,9 @@ async def main() -> None:
                 results.append(await exercise(Path(directory), mode))
     finally:
         if previous is None:
-            os.environ.pop("HARDWARE_KNOWLEDGE_DIR", None)
+            os.environ.pop("CIRCUIT_CONTEXT_DIR", None)
         else:
-            os.environ["HARDWARE_KNOWLEDGE_DIR"] = previous
+            os.environ["CIRCUIT_CONTEXT_DIR"] = previous
     (OUT / "retrieval.json").write_text(json.dumps(results, indent=2), encoding="utf-8")
     for row in results:
         print(f"{row['mode']}: {len(row['cases'])} retrieval cases passed; "

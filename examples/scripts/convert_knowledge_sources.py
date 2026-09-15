@@ -108,7 +108,7 @@ def main() -> int:
     )
     args = parser.parse_args()
     catalogue = json.loads(
-        (ROOT / "src/hardware_knowledge/data/sources.json").read_text(
+        (ROOT / "src/circuit_context/data/sources.json").read_text(
             encoding="utf-8"
         )
     )

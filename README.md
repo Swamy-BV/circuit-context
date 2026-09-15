@@ -1,4 +1,4 @@
-# Hardware Knowledge
+# Circuit Context
 
 Source-backed hardware engineering guidance for engineers and AI assistants.
 Search recommendations, read their conditions and exceptions, and follow citations
@@ -11,17 +11,17 @@ Requires Python 3.10 or newer.
 
 ```sh
 python -m pip install ".[mcp]"
-hardware-knowledge serve
+circuit-context serve
 ```
 
 `serve` runs a read-only MCP server over stdio. Configure an MCP client to run
-`hardware-knowledge` with the argument `serve`. It exposes:
+`circuit-context` with the argument `serve`. It exposes:
 
 | Interface | Purpose |
 | --- | --- |
 | `search_guidelines` | Find bounded, cited summaries with explicit filters |
 | `get_guideline` | Read one guide's inputs, verification, limitations and sources |
-| `hardware-knowledge://catalogue` | Browse coverage, IDs, filter values and source editions |
+| `circuit-context://catalogue` | Browse coverage, IDs, filter values and source editions |
 
 For example, search `{"query": "return path", "domain": "pcb"}`, then read a
 returned ID with `get_guideline`. A two-layer review can start directly with
@@ -30,13 +30,13 @@ returned ID with `get_guideline`. A two-layer review can start directly with
 ## Other ways to use it
 
 ```sh
-hardware-knowledge search "return path" --domain pcb
-hardware-knowledge get two-layer-emc-workflow
-hardware-knowledge catalogue
+circuit-context search "return path" --domain pcb
+circuit-context get two-layer-emc-workflow
+circuit-context catalogue
 ```
 
 ```python
-from hardware_knowledge import get_guideline, search_guidelines
+from circuit_context import get_guideline, search_guidelines
 
 hits = search_guidelines("termination", interface="can")
 guide = get_guideline("can-end-termination")
@@ -58,8 +58,8 @@ Applicability, required inputs, verification, limitations and source editions st
 attached to each guide. Missing coverage is reported. The corpus has not undergone
 independent hardware-engineer review and does not establish product compliance.
 
-The generated index lives in `~/.hardware-knowledge/cache/`; override it with
-`HARDWARE_KNOWLEDGE_DIR`. It contains guidance, not user queries or project files.
+The generated index lives in `~/.circuit-context/cache/`; override it with
+`CIRCUIT_CONTEXT_DIR`. It contains guidance, not user queries or project files.
 
 - [Coverage and authoring](docs/pcb-knowledge.md)
 - [Two-layer stackup and EMC](docs/two-layer-emc.md)

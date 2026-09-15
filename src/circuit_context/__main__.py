@@ -32,7 +32,7 @@ def main() -> None:
         except ModuleNotFoundError as exc:
             if exc.name != "fastmcp":
                 raise
-            parser.error('Install the MCP extra: pip install "hardware-knowledge[mcp]"')
+            parser.error('Install the MCP extra: pip install "circuit-context[mcp]"')
         mcp.run(transport="stdio")
         return
     try:

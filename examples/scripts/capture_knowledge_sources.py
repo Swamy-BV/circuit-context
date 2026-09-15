@@ -19,7 +19,7 @@ from urllib.request import Request, urlopen
 import pymupdf
 
 ROOT = Path(__file__).resolve().parents[2]
-CATALOGUE = ROOT / "src/hardware_knowledge/data/sources.json"
+CATALOGUE = ROOT / "src/circuit_context/data/sources.json"
 OUT = ROOT / "out/knowledge/sources"
 MAX_BYTES = 32 * 1024 * 1024
 
@@ -58,7 +58,7 @@ def capture(source: dict[str, Any]) -> dict[str, Any]:
     row["expected_sha256"] = source["sha256"]
     try:
         request = Request(
-            source["url"], headers={"User-Agent": "HardwareKnowledge/0.1"}
+            source["url"], headers={"User-Agent": "CircuitContext/0.1"}
         )
         with urlopen(request, timeout=25) as response:
             raw = response.read(MAX_BYTES + 1)
