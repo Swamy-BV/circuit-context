@@ -15,6 +15,7 @@ _COLLECTIONS = (
     "usb_c.json", "usb_c_layout.json", "usb_pd.json", "four_layer.json",
     "pcb_calculations.json",
     "serial_flash.json", "sdmmc.json", "digital_audio.json", "debug.json",
+    "layout_practices.json",
 )
 
 

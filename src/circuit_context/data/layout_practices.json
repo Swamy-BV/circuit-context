@@ -1,0 +1,445 @@
+[
+  {
+    "id": "placement-grid-selection",
+    "title": "Choose a placement grid without changing footprint geometry",
+    "topic": "placement",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "placement grid",
+      "0.25 mm",
+      "alignment",
+      "off grid",
+      "snap"
+    ],
+    "summary": "Use a documented placement grid and origin for orderly alignment. A 0.25 mm grid is an optional project choice; use finer or local grids for constrained placement and snap routing to actual pads.",
+    "applies_to": "PCB placement; not a schematic connectivity grid.",
+    "required_inputs": [
+      "Footprint pitch, mechanical datums and routing density"
+    ],
+    "verification": [
+      "Check component coordinates and actual pad connectivity after placement."
+    ],
+    "limitations": "Never distort footprint pad pitch or move mechanically fixed parts to satisfy a cosmetic grid.",
+    "citations": [
+      {
+        "source_id": "altium-placement-grids",
+        "locator": "Imperial or Metric Grid; Defining the Purpose of a Grid; object hotspot snapping"
+      }
+    ],
+    "related_ids": [
+      "enclosure-outline-review"
+    ]
+  },
+  {
+    "id": "functional-placement-zones",
+    "title": "Group circuits by function while preserving return paths",
+    "topic": "placement",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "functional partitioning",
+      "analog digital power",
+      "placement zones"
+    ],
+    "summary": "Keep related circuits together and separate noisy switching paths from sensitive inputs. Plan inter-block signals and returns before routing.",
+    "applies_to": "Mixed-signal and power PCB floorplanning.",
+    "required_inputs": [
+      "Functional blocks, noise sources and sensitive receivers"
+    ],
+    "verification": [
+      "Review current loops and reference continuity at every block crossing."
+    ],
+    "limitations": "Functional partitioning does not require cutting the ground plane; symmetry does not override electrical placement.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Practical PCB Design Rules, pages 10-12, Figures 7-10"
+      }
+    ],
+    "related_ids": [
+      "reference-plane-continuity",
+      "mixed-signal-grounding",
+      "decoupling-loop"
+    ]
+  },
+  {
+    "id": "crosstalk-spacing-review",
+    "title": "Set signal spacing from coupling and timing requirements",
+    "topic": "routing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "crosstalk spacing",
+      "minimum clearance",
+      "parallel run",
+      "3W"
+    ],
+    "summary": "Fabrication clearance is not a signal-integrity target. Review aggressor edge rate, parallel length, separation and distance to the reference plane; increase spacing or change the route where coupling exceeds the victim noise budget.",
+    "applies_to": "Adjacent signal routes, especially switching signals near analog sense lines.",
+    "required_inputs": [
+      "Stackup, edge rates, parallel lengths and receiver noise margin"
+    ],
+    "verification": [
+      "Model or measure coupled noise at the victim under worst intended switching activity."
+    ],
+    "limitations": "No universal 3W rule guarantees acceptable coupling. Preserve the specified geometry inside a differential pair.",
+    "citations": [
+      {
+        "source_id": "ti-sszt935",
+        "locator": "Discussion of Figures 2-4: coupling, spacing and reference-plane distance"
+      }
+    ],
+    "related_ids": [
+      "controlled-impedance",
+      "emc-clock-edge-rate"
+    ]
+  },
+  {
+    "id": "pad-entry-geometry",
+    "title": "Review pad entry and narrow copper features",
+    "topic": "routing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "pad entry",
+      "pad center",
+      "acid trap",
+      "slivers",
+      "neck down"
+    ],
+    "summary": "Use pad snapping to form a deliberate connection; centered entry is a useful default, not a universal requirement. Inspect narrow copper necks, slivers and gaps against the fabrication rules.",
+    "applies_to": "Trace-to-pad connections and dense copper geometry.",
+    "required_inputs": [
+      "Pad geometry, trace width and fabricator feature limits"
+    ],
+    "verification": [
+      "Run connectivity and clearance checks on final copper, then inspect manufacturing output."
+    ],
+    "limitations": "Do not infer etching failure from an angle alone or force a detour solely to reach a pad center. Special breakout and Kelvin geometries require their own review.",
+    "citations": [
+      {
+        "source_id": "altium-placement-grids",
+        "locator": "Object hotspot snapping to pad centers"
+      },
+      {
+        "source_id": "eurocircuits-copper",
+        "locator": "Copper Webs and Slivers; Avoid Peelables"
+      }
+    ],
+    "related_ids": [
+      "teardrop-review"
+    ]
+  },
+  {
+    "id": "teardrop-review",
+    "title": "Use teardrops where connection robustness benefits",
+    "topic": "manufacturing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "teardrop",
+      "drill breakout",
+      "track pad transition"
+    ],
+    "summary": "Consider teardrops at vulnerable trace-to-pad, via and neck-down junctions, particularly where drill misregistration or flex stress can weaken a connection.",
+    "applies_to": "Fabrication and mechanical robustness of copper junctions.",
+    "required_inputs": [
+      "Drill tolerances, junction geometry and assembly process"
+    ],
+    "verification": [
+      "Repour and rerun clearance checks after generation; inspect the final copper and any controlled-impedance transition."
+    ],
+    "limitations": "Teardrops are optional and do not replace annular-ring rules or qualify a flex design. Dense pads may leave insufficient room.",
+    "citations": [
+      {
+        "source_id": "altium-teardrops",
+        "locator": "Introduction; Using Teardrops"
+      }
+    ],
+    "related_ids": [
+      "pad-entry-geometry",
+      "controlled-impedance"
+    ]
+  },
+  {
+    "id": "enclosure-outline-review",
+    "title": "Define enclosure fit and manufacturable outline geometry",
+    "topic": "mechanical",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "board outline",
+      "enclosure",
+      "rounded corners",
+      "milling radius",
+      "symmetry"
+    ],
+    "summary": "Define the outline, holes and cutouts from mechanical datums and tolerances. Account for the milling tool radius at internal corners before checking enclosure fit.",
+    "applies_to": "Routed rigid PCB outlines and cutouts.",
+    "required_inputs": [
+      "Enclosure drawing, tolerances, mounting points and milling capability"
+    ],
+    "verification": [
+      "Compare the closed outline and hole positions with mechanical CAD and the fabrication drawing."
+    ],
+    "limitations": "External rounding and visual symmetry are choices, not universal manufacturing requirements. Eurocircuits describes a 2 mm tool giving 1 mm internal radius; confirm the selected service.",
+    "citations": [
+      {
+        "source_id": "eurocircuits-mechanical",
+        "locator": "PCB Contour; Internal Corners; Cut-outs and Slots"
+      }
+    ],
+    "related_ids": [
+      "connector-edge-access"
+    ]
+  },
+  {
+    "id": "connector-edge-access",
+    "title": "Place connectors from mating geometry and enclosure access",
+    "topic": "mechanical",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "connector perimeter",
+      "board edge connector",
+      "mating clearance"
+    ],
+    "summary": "Place external connectors using the selected part drawing and enclosure opening. Check mating travel, overhang, retention and service access rather than measuring from silkscreen text.",
+    "applies_to": "External connector placement; USB4105 is one device-specific example.",
+    "required_inputs": [
+      "Connector drawing, board-edge datum, enclosure and mating plug envelope"
+    ],
+    "verification": [
+      "Check the assembled mechanical envelope and demonstrate insertion and removal."
+    ],
+    "limitations": "Not every connector belongs on the perimeter; internal board-to-board connectors may require interior placement. Do not transfer USB4105 dimensions to another part.",
+    "citations": [
+      {
+        "source_id": "gct-usb4105",
+        "locator": "Recommended PCB layout and mating views"
+      },
+      {
+        "source_id": "samtec-mating",
+        "locator": "Page 2, rework spacing and unmating"
+      }
+    ],
+    "related_ids": [
+      "connector-unmating-access"
+    ]
+  },
+  {
+    "id": "edge-guard-stitching",
+    "title": "Evaluate a stitched edge guard rather than a lone perimeter trace",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "edge shielding",
+      "perimeter ground",
+      "via fence",
+      "edge guarding"
+    ],
+    "summary": "Where edge radiation is relevant, evaluate ground copper tied to the appropriate reference planes with a via fence. A perimeter trace alone does not form the multilayer shielding structure.",
+    "applies_to": "Multilayer edge-radiation review; ADI evidence is from iCoupler evaluation boards.",
+    "required_inputs": [
+      "Stackup, relevant frequencies, ground domains and copper-to-edge limits"
+    ],
+    "verification": [
+      "Check every fence connection and isolation keepout; measure emissions and supply noise after layout changes."
+    ],
+    "limitations": "ADI notes that reflected energy can increase plane noise. Its 4 mm evaluation-board via pitch is not a universal rule or compliance guarantee. Never bridge an isolation barrier with ground copper.",
+    "citations": [
+      {
+        "source_id": "adi-an1109",
+        "locator": "Edge Guarding, Figures 9-10; Interplane Capacitance fill discussion"
+      }
+    ],
+    "related_ids": [
+      "reference-plane-continuity",
+      "shield-apertures"
+    ]
+  },
+  {
+    "id": "silkscreen-exposed-copper",
+    "title": "Keep legend clear of exposed copper and openings",
+    "topic": "manufacturing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "silkscreen copper",
+      "silkscreen vias",
+      "soldermask opening",
+      "legend clipping"
+    ],
+    "summary": "Keep silkscreen clear of solderable pads, exposed copper, holes and cutouts using the manufacturing and assembly clipping rules. Copper covered by soldermask is not itself a silkscreen exclusion.",
+    "applies_to": "Legend clearance review on soldermasked PCBs.",
+    "required_inputs": [
+      "Final soldermask openings, via treatment and assembler clipping rules"
+    ],
+    "verification": [
+      "Inspect the production legend after clipping; confirm that required labels remain intact."
+    ],
+    "limitations": "Do not rely on tentative via tenting to preserve a label. Printing over a suitably masked filled/capped via is process-dependent; an open hole remains unsuitable.",
+    "citations": [
+      {
+        "source_id": "eurocircuits-legend",
+        "locator": "Design Rules; Minimum Clearances; Legend Clipping"
+      },
+      {
+        "source_id": "jlcpcb-via-covering",
+        "locator": "Tented Vias; Epoxy-Filled & Capped Vias"
+      }
+    ],
+    "related_ids": [
+      "silkscreen-readability",
+      "polarity-marking-review"
+    ]
+  },
+  {
+    "id": "silkscreen-readability",
+    "title": "Choose legible text geometry for the ordered process",
+    "topic": "manufacturing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "silkscreen text height",
+      "font",
+      "inverted text",
+      "1.5 mm",
+      "2 mm",
+      "sans serif"
+    ],
+    "summary": "Check rendered stroke width, character height, spacing and orientation against the fabricator limits. A 1.5-2 mm text height can be a project readability preference, not a universal minimum.",
+    "applies_to": "PCB legend labels and service markings.",
+    "required_inputs": [
+      "Fabricator legend limits and final label geometry"
+    ],
+    "verification": [
+      "Review final-size output and production clipping, including fine gaps in inverted text."
+    ],
+    "limitations": "No particular font is required. Eurocircuits lists 1.0 mm text height and 0.10 mm strokes; these are service-specific, not portable defaults.",
+    "citations": [
+      {
+        "source_id": "eurocircuits-legend",
+        "locator": "Text and Line Specifications; Approving the Legend Clipping"
+      }
+    ],
+    "related_ids": [
+      "silkscreen-exposed-copper"
+    ]
+  },
+  {
+    "id": "polarity-marking-review",
+    "title": "Make pin one and polarity unambiguous",
+    "topic": "manufacturing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "pin 1 marking",
+      "polarity indicator",
+      "diode cathode",
+      "connector orientation"
+    ],
+    "summary": "Provide unambiguous pin-one or orientation markings consistent with the exact component datasheet. Verify polarized components and connectors against their footprint numbering and assembly data.",
+    "applies_to": "Polarized and orientation-sensitive SMD and through-hole components.",
+    "required_inputs": [
+      "Component datasheet, footprint mapping and assembly orientation"
+    ],
+    "verification": [
+      "Compare markings with the assembled view and ensure essential indicators survive clipping."
+    ],
+    "limitations": "A square pad or generic dot alone does not establish cathode, positive terminal or ground. If pin one is not defined, use an explicit orientation cue.",
+    "citations": [
+      {
+        "source_id": "eurocircuits-orientation",
+        "locator": "Orientation of Surface Mount Components; Orientation of Through Hole Components"
+      }
+    ],
+    "related_ids": [
+      "silkscreen-exposed-copper"
+    ]
+  },
+  {
+    "id": "soldermask-color-selection",
+    "title": "Check mask color against process capability and inspection needs",
+    "topic": "manufacturing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "soldermask color",
+      "matte black",
+      "mask dam",
+      "mask bridge"
+    ],
+    "summary": "Choose mask color after checking the ordered process, mask bridges, legend visibility, price and lead time. Color is not evidence of electrical quality.",
+    "applies_to": "Rigid PCB soldermask options.",
+    "required_inputs": [
+      "Copper weight, pad spacing and current fabrication capabilities"
+    ],
+    "verification": [
+      "Confirm the selected color and finish together in the quote and DFM review."
+    ],
+    "limitations": "Do not assume every color has identical fine-pitch capability or cost. Capability tables may distinguish black/white from other masks; use the current service limits.",
+    "citations": [
+      {
+        "source_id": "jlcpcb-capabilities",
+        "locator": "Soldermask: Soldermask bridge row"
+      }
+    ],
+    "related_ids": [
+      "surface-finish-selection",
+      "silkscreen-readability"
+    ]
+  }
+]

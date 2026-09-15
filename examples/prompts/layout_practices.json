@@ -1,0 +1,95 @@
+{
+  "description": "Layout and DFM applicability checks. AI expectations require manual behavior evaluation.",
+  "cases": [
+    {
+      "prompt": "Must every component use a 0.25 mm placement grid?",
+      "query": "placement grid",
+      "expected_id": "placement-grid-selection",
+      "ai_expectation": "Never distort footprint pad pitch or move mechanically fixed parts to satisfy a cosmetic grid."
+    },
+    {
+      "prompt": "Should analog, digital and power sections have split grounds?",
+      "query": "functional partitioning",
+      "expected_id": "functional-placement-zones",
+      "ai_expectation": "Functional partitioning does not require cutting the ground plane; symmetry does not override electrical placement."
+    },
+    {
+      "prompt": "Does minimum fabrication clearance prevent crosstalk?",
+      "query": "crosstalk spacing",
+      "expected_id": "crosstalk-spacing-review",
+      "ai_expectation": "No universal 3W rule guarantees acceptable coupling. Preserve the specified geometry inside a differential pair."
+    },
+    {
+      "prompt": "Must every trace enter the exact center of a pad to prevent acid traps?",
+      "query": "pad entry",
+      "expected_id": "pad-entry-geometry",
+      "ai_expectation": "Do not infer etching failure from an angle alone or force a detour solely to reach a pad center. Special breakout and Kelvin geometries require their own review."
+    },
+    {
+      "prompt": "Should I add teardrops everywhere?",
+      "query": "teardrop",
+      "expected_id": "teardrop-review",
+      "ai_expectation": "Teardrops are optional and do not replace annular-ring rules or qualify a flex design. Dense pads may leave insufficient room."
+    },
+    {
+      "prompt": "Are rounded external corners mandatory for milling?",
+      "query": "milling radius",
+      "expected_id": "enclosure-outline-review",
+      "ai_expectation": "External rounding and visual symmetry are choices, not universal manufacturing requirements. Eurocircuits describes a 2 mm tool giving 1 mm internal radius; confirm the selected service."
+    },
+    {
+      "prompt": "Should every connector sit on the board perimeter?",
+      "query": "connector perimeter",
+      "expected_id": "connector-edge-access",
+      "ai_expectation": "Not every connector belongs on the perimeter; internal board-to-board connectors may require interior placement. Do not transfer USB4105 dimensions to another part."
+    },
+    {
+      "prompt": "Does a perimeter ground trace guarantee EMC?",
+      "query": "edge shielding",
+      "expected_id": "edge-guard-stitching",
+      "ai_expectation": "ADI notes that reflected energy can increase plane noise. Its 4 mm evaluation-board via pitch is not a universal rule or compliance guarantee. Never bridge an isolation barrier with ground copper."
+    },
+    {
+      "prompt": "Can silkscreen overlap soldermasked copper?",
+      "query": "silkscreen copper",
+      "expected_id": "silkscreen-exposed-copper",
+      "ai_expectation": "Do not rely on tentative via tenting to preserve a label. Printing over a suitably masked filled/capped via is process-dependent; an open hole remains unsuitable."
+    },
+    {
+      "prompt": "Can I put text over any via?",
+      "query": "silkscreen vias",
+      "expected_id": "silkscreen-exposed-copper",
+      "ai_expectation": "Do not rely on tentative via tenting to preserve a label. Printing over a suitably masked filled/capped via is process-dependent; an open hole remains unsuitable."
+    },
+    {
+      "prompt": "Is 2 mm the mandatory silkscreen minimum?",
+      "query": "silkscreen text height",
+      "expected_id": "silkscreen-readability",
+      "ai_expectation": "No particular font is required. Eurocircuits lists 1.0 mm text height and 0.10 mm strokes; these are service-specific, not portable defaults."
+    },
+    {
+      "prompt": "Is inverted text always more readable?",
+      "query": "inverted text",
+      "expected_id": "silkscreen-readability",
+      "ai_expectation": "No particular font is required. Eurocircuits lists 1.0 mm text height and 0.10 mm strokes; these are service-specific, not portable defaults."
+    },
+    {
+      "prompt": "Does a square pad always mark the negative terminal?",
+      "query": "pin 1 marking",
+      "expected_id": "polarity-marking-review",
+      "ai_expectation": "A square pad or generic dot alone does not establish cathode, positive terminal or ground. If pin one is not defined, use an explicit orientation cue."
+    },
+    {
+      "prompt": "Does matte black affect fine-pitch mask capability?",
+      "query": "matte black",
+      "expected_id": "soldermask-color-selection",
+      "ai_expectation": "Do not assume every color has identical fine-pitch capability or cost. Capability tables may distinguish black/white from other masks; use the current service limits."
+    },
+    {
+      "prompt": "Does ENIG guarantee longer product life?",
+      "query": "surface finish",
+      "expected_id": "surface-finish-selection",
+      "ai_expectation": "No finish or mask color is guaranteed to avoid cost adders. This entry supplies no universal pitch cutoff or reliability qualification. ENIG flatness or bare-board storage claims do not establish a longer assembled-product lifespan."
+    }
+  ]
+}

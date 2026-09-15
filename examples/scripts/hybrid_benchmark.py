@@ -27,6 +27,7 @@ FILES = (
     "four_layer_knowledge",
     "pcb_calculations",
     "peripheral_knowledge",
+    "layout_practices",
     "semantic_knowledge",
 )
 STRATEGIES = (

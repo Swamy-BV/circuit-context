@@ -21,6 +21,9 @@ ARCHIVE = ROOT / "out/knowledge/sources"
 OUT = ROOT / "out/knowledge/markdown"
 NOTES = ROOT / "docs/knowledge-source-notes.json"
 SELECTORS = {
+    "altium-placement-grids": "field--name-body",
+    "altium-teardrops": "field--name-body",
+    "ti-sszt935": "conbody",
     "segger-um08001": "mw-parser-output",
     "jlcpcb-finishes": "jlc-article-page-container",
     "jlcpcb-capabilities": "jlc-wm-capabilities",

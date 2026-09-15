@@ -172,12 +172,15 @@
     "verification": [
       "Check package compatibility and confirm the ordered finish with the assembler."
     ],
-    "limitations": "No finish or mask color is guaranteed to avoid cost adders. This entry supplies no universal pitch cutoff or reliability qualification.",
+    "limitations": "No finish or mask color is guaranteed to avoid cost adders. This entry supplies no universal pitch cutoff or reliability qualification. ENIG flatness or bare-board storage claims do not establish a longer assembled-product lifespan.",
     "citations": [
       {
         "source_id": "jlcpcb-finishes",
         "locator": "Advantages and disadvantages of HASL and ENIG: surface flatness and cost"
       }
+    ],
+    "related_ids": [
+      "soldermask-color-selection"
     ]
   },
   {

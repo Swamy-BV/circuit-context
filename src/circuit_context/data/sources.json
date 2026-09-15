@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-15.3",
+  "version": "2026-09-15.4",
   "sources": [
     {
       "id": "ti-scaa082a",
@@ -600,6 +600,96 @@
       "accessed": "2026-09-15",
       "sha256": null,
       "capture_note": "Publisher web text reviewed, especially sections 3, 4 and 6; not an exact routing specification."
+    },
+    {
+      "id": "altium-placement-grids",
+      "publisher": "Altium",
+      "title": "Working with Grids & Guides",
+      "url": "https://www.altium.com/documentation/altium-designer/pcb/grids-guides",
+      "revision": "Updated June 12, 2023",
+      "accessed": "2026-09-15",
+      "sha256": "c37cae1aa7ee34db0a30ca99c02ae66dc585c6d4edbfbf8112029f94b84439bb",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "altium-teardrops",
+      "publisher": "Altium",
+      "title": "Removing Unused Pads & Adding Teardrops",
+      "url": "https://www.altium.com/documentation/altium-designer/pcb/removing-unused-pads-adding-teardrops",
+      "revision": "Updated December 19, 2022",
+      "accessed": "2026-09-15",
+      "sha256": "5e75bdfb6077ece999f5951cbeb81d86417b5743b2e08f85ac1555945ce500d2",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "eurocircuits-copper",
+      "publisher": "Eurocircuits",
+      "title": "Copper Layers",
+      "url": "https://www.eurocircuits.com/technical-guidelines/pcb-design-guidelines/copper-layers/",
+      "revision": "Web edition accessed 2026-09-15; no numbered revision",
+      "accessed": "2026-09-15",
+      "sha256": "f0e17d7665044a776a23424cfab0a109f3544ee34a9b422b931bbc19d507bc3a",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "eurocircuits-mechanical",
+      "publisher": "Eurocircuits",
+      "title": "Mechanical Layer",
+      "url": "https://www.eurocircuits.com/technical-guidelines/pcb-design-guidelines/mechanical-layer/",
+      "revision": "Web edition accessed 2026-09-15; no numbered revision",
+      "accessed": "2026-09-15",
+      "sha256": "d94a7070268010cccf48b4d7ac28b8712207a07820d3a400d28f7930af5f0149",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "eurocircuits-legend",
+      "publisher": "Eurocircuits",
+      "title": "Legend Print",
+      "url": "https://www.eurocircuits.com/technical-guidelines/pcb-design-guidelines/legend-print/",
+      "revision": "Page update February 27, 2024; accessed 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": "457dd3aeffb32bb1dcf70718686c822ec0452e177bd2598d13fd792001fe9b1c",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "eurocircuits-orientation",
+      "publisher": "Eurocircuits",
+      "title": "Component Orientation",
+      "url": "https://www.eurocircuits.com/technical-guidelines/pcb-assembly-guidelines/component-orientation/",
+      "revision": "Web edition accessed 2026-09-15; no numbered revision",
+      "accessed": "2026-09-15",
+      "sha256": "d69a0e7fc31fff87f393eb12fe9e2e80cfb6b641a707dfbdab927591a0d20b21",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "ti-sszt935",
+      "publisher": "Texas Instruments",
+      "title": "SSZT935: regulator signal routing and crosstalk",
+      "url": "https://www.ti.com/document-viewer/lit/html/SSZT935/GUID-0FCA647D-9DF5-4B70-AFC8-2E976F7A12D6",
+      "revision": "SSZT935, October 2017",
+      "accessed": "2026-09-15",
+      "sha256": "8461fc9547aa65613cdadde78d0e8905ced1cf59ddb43bcf14afaed42f0a5bda",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "adi-an1109",
+      "publisher": "Analog Devices",
+      "title": "AN-1109: Recommendations for Control of Radiated Emissions with iCoupler Devices",
+      "url": "https://www.analog.com/en/resources/app-notes/an-1109.html",
+      "revision": "AN-1109 web edition accessed 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Selected publisher web extraction reviewed; direct capture timed out on 2026-09-15. No local original or checksum is claimed."
+    },
+    {
+      "id": "jlcpcb-via-covering",
+      "publisher": "JLCPCB",
+      "title": "Via Covering in PCBs",
+      "url": "https://jlcpcb.com/help/article/pcb-via-covering",
+      "revision": "Web edition accessed 2026-09-15; no numbered revision",
+      "accessed": "2026-09-15",
+      "sha256": "8c28c40f7f2069ee454a105a49553dde830e4cec6dc7b522d74510071d6931c4",
+      "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
     }
   ]
 }
