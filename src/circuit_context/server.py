@@ -71,7 +71,8 @@ def get_guideline(id: str) -> dict[str, Any]:
     Use the exact ID returned by search_guidelines or the knowledge
     resource. related_ids link to supporting guides for explicit follow-up reads;
     they are not expanded automatically. Start a two-layer EMC review with
-    two-layer-emc-workflow. Basic interface entry points are gpio-overview,
+    two-layer-emc-workflow. Four-layer review starts with four-layer-workflow.
+    Basic interface entry points are gpio-overview,
     uart-overview, spi-overview and i2c-overview. USB-C starts at usb-c-overview;
     impedance decisions start at impedance-requirement-selection.
     Routing-pattern records include

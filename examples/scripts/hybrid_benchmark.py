@@ -24,6 +24,7 @@ FILES = (
     "two_layer_knowledge",
     "basic_interface_knowledge",
     "usb_c_knowledge",
+    "four_layer_knowledge",
     "semantic_knowledge",
 )
 STRATEGIES = (

@@ -1,0 +1,334 @@
+[
+  {
+    "id": "four-layer-workflow",
+    "title": "Four-layer stackup selection and review workflow",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "four layer workflow",
+      "4 layer review",
+      "stackup options"
+    ],
+    "summary": "Review layer roles together with fabrication and circuit requirements. Compare alternatives using the linked guides before selecting a construction.",
+    "applies_to": "Planning a four-layer board; workflow is an editorial synthesis.",
+    "required_inputs": [
+      "Device and interface requirements; power rails; mechanical constraints; fabricator capabilities"
+    ],
+    "verification": [
+      "Record the selected construction and inspect routing, power integrity and product EMC evidence."
+    ],
+    "limitations": "No stackup guarantees compliance. Retrieved guidance does not select CAD constraints automatically.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Sections 2.1-2.2, pages 9-10"
+      }
+    ],
+    "related_ids": [
+      "four-layer-dual-ground",
+      "four-layer-power-plane",
+      "four-layer-shielded",
+      "four-layer-dielectric-spacing",
+      "four-layer-power-reference",
+      "four-layer-pdn",
+      "four-layer-source-limits",
+      "four-layer-escalation",
+      "controlled-impedance",
+      "layer-transition-return",
+      "reference-plane-continuity",
+      "decoupling-loop",
+      "fabrication-profile",
+      "layout-intent-handoff",
+      "emc-emissions-immunity-plan"
+    ]
+  },
+  {
+    "id": "four-layer-dual-ground",
+    "title": "Four-layer option with two inner ground references",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "dual ground",
+      "two inner ground",
+      "SGGS",
+      "signal ground ground signal"
+    ],
+    "summary": "Consider L1 signal/power, L2 GND, L3 GND, L4 signal/power when both outer routing layers need adjacent ground. Budget surface power distribution explicitly.",
+    "applies_to": "Nonisolated layouts where surface routing can accommodate power.",
+    "required_inputs": [
+      "Rail distribution and routing demand"
+    ],
+    "verification": [
+      "Inspect both outer routes and their ground references."
+    ],
+    "limitations": "This option trades a dedicated power plane for ground referencing; it is not mandatory for every design.",
+    "citations": [
+      {
+        "source_id": "adi-emi-part4",
+        "locator": "Determining Layer Count and Stack-Up, numbered option 1; For a 4-Layer Board"
+      }
+    ],
+    "related_ids": [
+      "four-layer-power-plane",
+      "four-layer-dielectric-spacing",
+      "power-conductor-sizing",
+      "ground-pour-stitching",
+      "layer-transition-return"
+    ]
+  },
+  {
+    "id": "four-layer-power-plane",
+    "title": "Four-layer option with an inner power plane",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "SGPS",
+      "signal ground power signal",
+      "inner power plane"
+    ],
+    "summary": "L1 signal, L2 GND, L3 power, L4 signal is an NXP example. Review the actual reference of L4 routes, especially where L3 contains separate rails.",
+    "applies_to": "Four-layer designs considering a dedicated power layer.",
+    "required_inputs": [
+      "Power islands and critical bottom routes"
+    ],
+    "verification": [
+      "Map each bottom route to its adjacent copper."
+    ],
+    "limitations": "The MCXA example is device-scoped; it does not make every bottom-layer route acceptable.",
+    "citations": [
+      {
+        "source_id": "nxp-an14395",
+        "locator": "Section 3.1.1.2, Figure 9, page 9"
+      }
+    ],
+    "related_ids": [
+      "four-layer-power-reference",
+      "four-layer-dual-ground",
+      "reference-plane-continuity"
+    ]
+  },
+  {
+    "id": "four-layer-shielded",
+    "title": "Review the fabrication and rework cost of outer ground layers",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "outer ground",
+      "buried signals",
+      "GSSG",
+      "shielded stackup"
+    ],
+    "summary": "An alternative uses outer ground layers with inner signal/power routing. Assess component access and via transitions before choosing this arrangement.",
+    "applies_to": "Designs evaluating buried routing between outer ground layers.",
+    "required_inputs": [
+      "Breakout and assembly requirements"
+    ],
+    "verification": [
+      "Review access to buried connections and reference continuity."
+    ],
+    "limitations": "NXP notes difficult rework. Surface pads and openings mean the outer copper is not a complete enclosure.",
+    "citations": [
+      {
+        "source_id": "nxp-an10897",
+        "locator": "Section 3.1.1.1, Figure 18, page 15"
+      }
+    ],
+    "related_ids": [
+      "four-layer-dual-ground",
+      "layer-transition-return"
+    ]
+  },
+  {
+    "id": "four-layer-dielectric-spacing",
+    "title": "Specify dielectric gaps rather than only total board thickness",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "four layer dielectric",
+      "prepreg",
+      "thick core",
+      "outer dielectric",
+      "reference separation"
+    ],
+    "summary": "For outer signals and inner planes, review thin outer dielectric gaps and a thicker center core. Total board thickness alone does not specify signal-to-reference spacing.",
+    "applies_to": "Four-layer constructions with outer signal layers.",
+    "required_inputs": [
+      "Fabricator dielectric and copper thicknesses"
+    ],
+    "verification": [
+      "Check each signal-to-plane gap in the approved build."
+    ],
+    "limitations": "A thicker center reduces inner-plane coupling; do not assume all adjacent copper layers are tightly coupled.",
+    "citations": [
+      {
+        "source_id": "nxp-an10897",
+        "locator": "Section 3.1.1.1, page 15"
+      }
+    ],
+    "related_ids": [
+      "four-layer-pdn",
+      "controlled-impedance",
+      "board-thickness-choice"
+    ]
+  },
+  {
+    "id": "four-layer-power-reference",
+    "title": "Review fast signals adjacent to power copper",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "power reference",
+      "bottom signal power island",
+      "ground power transition"
+    ],
+    "summary": "Prefer a continuous ground reference for fast interfaces. If power referencing is unavoidable, review the AC return connection between power and ground; a ground via alone cannot join different reference nets.",
+    "applies_to": "High-speed signal conditioners and USB hubs; apply exact device requirements.",
+    "required_inputs": [
+      "Reference nets and transition locations"
+    ],
+    "verification": [
+      "Inspect the return circuit, including its capacitor connections."
+    ],
+    "limitations": "Return-path capacitors are not series data-line coupling capacitors. Do not bridge isolation barriers using this guidance.",
+    "citations": [
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Section 3.5, Figures 3-7 and 3-10, pages 8-11"
+      }
+    ],
+    "related_ids": [
+      "four-layer-power-plane",
+      "layer-transition-return",
+      "reference-plane-continuity"
+    ]
+  },
+  {
+    "id": "four-layer-pdn",
+    "title": "Evaluate inner-plane capacitance and discrete decoupling together",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "plane capacitance",
+      "power ground spacing",
+      "four layer PDN"
+    ],
+    "summary": "Closely spaced power and ground planes improve high-frequency coupling. Check their actual separation and overlap before relying on this effect.",
+    "applies_to": "Four-layer power-distribution review.",
+    "required_inputs": [
+      "Dielectric construction and rail transient requirements"
+    ],
+    "verification": [
+      "Review the supply impedance and local bypass connections."
+    ],
+    "limitations": "Four layers do not justify removing device-required decoupling capacitors.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Section 2.2, page 10; section 2.4, page 13"
+      }
+    ],
+    "related_ids": [
+      "four-layer-dielectric-spacing",
+      "decoupling-loop",
+      "emc-filter-resonance"
+    ]
+  },
+  {
+    "id": "four-layer-source-limits",
+    "title": "Keep vendor stackup examples and EMC heuristics conditional",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "vendor stackup example",
+      "20 H",
+      "20H",
+      "EMC guarantee"
+    ],
+    "summary": "Treat NXP construction dimensions and the 20-H edge-setback suggestion as contextual guidance, not universal manufacturing limits or compliance evidence.",
+    "applies_to": "Transferring application-note recommendations to another product.",
+    "required_inputs": [
+      "Source device scope and product requirements"
+    ],
+    "verification": [
+      "Record which assumptions transfer and which need verification."
+    ],
+    "limitations": "A layer-count label or heuristic cannot certify an assembled product.",
+    "citations": [
+      {
+        "source_id": "nxp-an14395",
+        "locator": "Sections 3.1.1.2-3.1.2, page 9"
+      }
+    ],
+    "related_ids": [
+      "four-layer-workflow",
+      "emc-emissions-immunity-plan"
+    ]
+  },
+  {
+    "id": "four-layer-escalation",
+    "title": "Reconsider four layers when routing requirements cannot be met",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "four layer escalation",
+      "six layer upgrade",
+      "routing congestion"
+    ],
+    "summary": "Consider more layers when required routing structures and reference continuity cannot fit the four-layer construction.",
+    "applies_to": "Dense or demanding designs evaluating a four-layer limit.",
+    "required_inputs": [
+      "Critical routing feasibility"
+    ],
+    "verification": [
+      "Review the most constrained paths before fixing layer count."
+    ],
+    "limitations": "A vendor comparison table is not a prediction that every four-layer board fails EMC.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Section 2.2, Tables 3-4, pages 9-10"
+      }
+    ],
+    "related_ids": [
+      "four-layer-workflow",
+      "two-layer-escalation"
+    ]
+  }
+]
+

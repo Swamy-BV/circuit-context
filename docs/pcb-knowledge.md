@@ -4,8 +4,8 @@ Circuit Context includes offline guidance for PCB, schematic, EMC and mechanical
 `search_guidelines` returns concise summaries with applicability, limitations
 and citations. `get_guideline` adds required inputs, suggested verification
 and `related_ids` for explicit follow-up reads of supporting guidance.
-The calling AI uses that evidence when reasoning; no model runs inside this
-module and no CAD constraints are applied automatically.
+The calling AI uses that evidence when reasoning. Optional local retrieval models
+rank evidence; no CAD constraints are applied automatically.
 
 ## Use
 
@@ -31,6 +31,8 @@ For GPIO, UART, SPI and I2C, start with the family overview. See
 device scope and the explicit retrieval sequence. Search and catalogue entries
 include `kind`; full reads return pattern details only for routing-pattern records.
 For USB-C, start with `usb-c-overview`; see [USB-C hardware guidance](usb-c-guidance.md).
+For four-layer boards, start with `four-layer-workflow`; see
+[four-layer guidance](four-layer-stackup.md).
 For impedance selection, read `impedance-requirement-selection` before choosing a target.
 
 Use optional filters to narrow the evidence:

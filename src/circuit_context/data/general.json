@@ -17,12 +17,13 @@
     "applies_to": "Multilayer boards carrying fast digital or sensitive analog signals.",
     "required_inputs": [
       "Signal requirements and edge rates",
-      "Fabricator stackup and layer roles"
+      "Fabricator stackup and layer roles",
+      "Per-layer copper and dielectric thicknesses, not only finished board thickness"
     ],
     "verification": [
       "Read back board stackup and net rules; inspect each critical route's reference layer."
     ],
-    "limitations": "Example stackups are conditional. Layer count alone does not establish signal integrity.",
+    "limitations": "Example stackups are conditional. Layer count alone does not establish signal integrity. Compare ground-reference and power-distribution tradeoffs explicitly.",
     "citations": [
       {
         "source_id": "ti-scaa082a",
@@ -33,7 +34,10 @@
     "domains": [
       "pcb"
     ],
-    "interfaces": []
+    "interfaces": [],
+    "related_ids": [
+      "four-layer-workflow"
+    ]
   },
   {
     "id": "reference-plane-continuity",
@@ -238,7 +242,7 @@
       "stub",
       "reference change"
     ],
-    "summary": "When signals change reference planes, provide an appropriate return-current transition. Review via stubs and pair symmetry as part of the channel.",
+    "summary": "When changing between ground references, connect those ground planes near the signal transition. For a ground-to-power reference change, review an appropriate AC return path instead. Review via stubs and pair symmetry.",
     "applies_to": "High-speed routes using vias or changing reference layers.",
     "required_inputs": [
       "Signal/reference layer transitions",
@@ -258,7 +262,10 @@
     "domains": [
       "pcb"
     ],
-    "interfaces": []
+    "interfaces": [],
+    "related_ids": [
+      "four-layer-power-reference"
+    ]
   },
   {
     "id": "connector-esd",

@@ -62,5 +62,13 @@
         "The recommended PCB layout is explicitly a component-side view and marks the PCB edge separately from the component outline. The mating view and ordering grid distinguish plug clearance from selectable shell-stake length. The pin table lists separate A6/B6 D+ and A7/B7 D- contacts. These dimensions and ratings belong to USB4105 drawing B4, not every USB-C connector."
       ]
     }
+  },
+  "ti-scaa082a": {
+    "sha256": "24681796ac36e50f9c6ef5e0b98945b6236ddb9fa620da97597ba62a85990206",
+    "pages": {
+      "9": [
+        "Table 3 was visually reviewed. Its four listed constructions receive poor EMC ratings; the table does not establish the test outcome of every possible four-layer product."
+      ]
+    }
   }
 }

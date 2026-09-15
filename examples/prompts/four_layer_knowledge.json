@@ -1,0 +1,59 @@
+{
+  "description": "Four-layer retrieval and manual reasoning expectations; no compliance claims.",
+  "cases": [
+    {
+      "prompt": "Four-layer stackup selection and review workflow",
+      "query": "four layer workflow",
+      "expected_id": "four-layer-workflow",
+      "ai_expectation": "No stackup guarantees compliance. Retrieved guidance does not select CAD constraints automatically."
+    },
+    {
+      "prompt": "Four-layer option with two inner ground references",
+      "query": "dual ground",
+      "expected_id": "four-layer-dual-ground",
+      "ai_expectation": "This option trades a dedicated power plane for ground referencing; it is not mandatory for every design."
+    },
+    {
+      "prompt": "Four-layer option with an inner power plane",
+      "query": "inner power plane",
+      "expected_id": "four-layer-power-plane",
+      "ai_expectation": "The MCXA example is device-scoped; it does not make every bottom-layer route acceptable."
+    },
+    {
+      "prompt": "Review the fabrication and rework cost of outer ground layers",
+      "query": "outer ground buried",
+      "expected_id": "four-layer-shielded",
+      "ai_expectation": "NXP notes difficult rework. Surface pads and openings mean the outer copper is not a complete enclosure."
+    },
+    {
+      "prompt": "Specify dielectric gaps rather than only total board thickness",
+      "query": "four layer dielectric",
+      "expected_id": "four-layer-dielectric-spacing",
+      "ai_expectation": "A thicker center reduces inner-plane coupling; do not assume all adjacent copper layers are tightly coupled."
+    },
+    {
+      "prompt": "Review fast signals adjacent to power copper",
+      "query": "power reference",
+      "expected_id": "four-layer-power-reference",
+      "ai_expectation": "Return-path capacitors are not series data-line coupling capacitors. Do not bridge isolation barriers using this guidance."
+    },
+    {
+      "prompt": "Evaluate inner-plane capacitance and discrete decoupling together",
+      "query": "plane capacitance",
+      "expected_id": "four-layer-pdn",
+      "ai_expectation": "Four layers do not justify removing device-required decoupling capacitors."
+    },
+    {
+      "prompt": "Keep vendor stackup examples and EMC heuristics conditional",
+      "query": "20H",
+      "expected_id": "four-layer-source-limits",
+      "ai_expectation": "A layer-count label or heuristic cannot certify an assembled product."
+    },
+    {
+      "prompt": "Reconsider four layers when routing requirements cannot be met",
+      "query": "four layer escalation",
+      "expected_id": "four-layer-escalation",
+      "ai_expectation": "A vendor comparison table is not a prediction that every four-layer board fails EMC."
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-14.7",
+  "version": "2026-09-15.1",
   "sources": [
     {
       "id": "ti-scaa082a",
@@ -490,6 +490,16 @@
       "accessed": "2026-09-14",
       "sha256": "fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5",
       "capture_note": "Publisher PDF captured; mechanical example only. Dimensions are not applied to other connector families."
+    },
+    {
+      "id": "nxp-an14395",
+      "publisher": "NXP",
+      "title": "EMC Guidelines for MCXA14x/15x MCU Designs",
+      "url": "https://www.nxp.com/docs/en/application-note/AN14395.pdf",
+      "revision": "AN14395 Rev. 2.0, 10 February 2025",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Reviewed publisher web PDF extraction, section 3.1, page 9. Direct capture returned HTTP 404 on 2026-09-15; checksum unknown. Device-family examples are not universal fabrication requirements."
     }
   ]
 }

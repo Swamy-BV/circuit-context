@@ -86,7 +86,7 @@
       "Read back the selected stackup and confirm the fabrication order matches it.",
       "Check mating dimensions and board deflection during assembly."
     ],
-    "limitations": "1.6 mm does not automatically fail EMI/EMC, and 0.8 mm does not guarantee a pass. Reducing separation does not imply a proportional emissions reduction. Finished thickness is not exactly dielectric separation. Confirm mechanical suitability and current price; this is not a structural calculation.",
+    "limitations": "1.6 mm does not automatically fail EMI/EMC, and 0.8 mm does not guarantee a pass. Reducing separation does not imply a proportional emissions reduction. Finished thickness is not exactly dielectric separation. Confirm mechanical suitability and current price; this is not a structural calculation. On multilayer boards, use each reference separation rather than total thickness as the coupling input.",
     "citations": [
       {
         "source_id": "ti-spma056",
@@ -799,7 +799,8 @@
     "related_ids": [
       "stackup-planning",
       "controlled-impedance",
-      "two-layer-emc-test-plan"
+      "two-layer-emc-test-plan",
+      "four-layer-workflow"
     ]
   },
   {
