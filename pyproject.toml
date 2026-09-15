@@ -11,6 +11,7 @@ dependencies = ["pydantic>=2.7,<3"]
 [project.optional-dependencies]
 mcp = ["fastmcp>=4.0.0,<5"]
 ingest = ["pymupdf>=1.24"]
+search = ["fastembed==0.7.4"]
 dev = ["ruff>=0.9", "mypy>=1.13", "build>=1.2"]
 
 [project.scripts]
@@ -40,3 +41,8 @@ python_version = "3.10"
 files = ["src"]
 strict = true
 ignore_missing_imports = false
+
+[[tool.mypy.overrides]]
+module = ["fastembed.*", "huggingface_hub.*", "tokenizers.*"]
+ignore_missing_imports = true
+follow_imports = "silent"

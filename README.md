@@ -51,8 +51,21 @@ answers with an internal LLM.
 
 The initial corpus has 98 editorial guides and 49 source records, imported from
 KiCadFlow's engineering guidance. JSON is the maintained source; SQLite FTS5/BM25
-provides offline keyword retrieval. Search is lexical, with explicit filters and
-no automatic semantic expansion. Embeddings and reranking remain planned work.
+provides offline keyword retrieval by default. Optional local semantic search
+handles paraphrases; hybrid search combines both using reciprocal rank fusion.
+An optional cross-encoder reranks the candidates.
+
+```sh
+python -m pip install ".[mcp,search]"
+circuit-context prepare-search --reranker
+circuit-context search "Where does returning current go when a signal changes layers?" --method hybrid
+```
+
+Model downloads happen only during explicit preparation. Queries run locally.
+Use `--rerank` to enable the second stage, or MCP arguments
+`{"query": "...", "method": "hybrid", "rerank": true}`. Neither semantic
+similarity nor reranking establishes that the corpus contains an answer.
+See [setup and measured tradeoffs](docs/hybrid-retrieval.md).
 
 Applicability, required inputs, verification, limitations and source editions stay
 attached to each guide. Missing coverage is reported. The corpus has not undergone
@@ -71,10 +84,11 @@ The generated index lives in `~/.circuit-context/cache/`; override it with
 ## Development
 
 ```sh
-python -m pip install -e ".[mcp,dev,ingest]"
+python -m pip install -e ".[mcp,dev,ingest,search]"
 python -m ruff check .
 python -m mypy
 python examples/scripts/pcb_knowledge.py
+python examples/scripts/hybrid_contract.py
 python -m build
 ```
 

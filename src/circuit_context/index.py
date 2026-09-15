@@ -104,6 +104,9 @@ def catalogue() -> dict[str, Any]:
     return {
         "version": corpus.version, "corpus_sha256": digest,
         "engine": "sqlite-fts5-bm25", "notice": NOTICE,
+        "retrieval_methods": ["keyword", "semantic", "hybrid"],
+        "default_method": "keyword",
+        "optional_setup": "prepare-search; add --reranker for optional reranking",
         "available_filters": _filters(corpus),
         "guidelines": [{"id": g.id, "title": g.title, "topic": g.topic,
                         "level": g.level, "kind": g.kind, "domains": g.domains,
@@ -122,10 +125,11 @@ def _filters(corpus: Corpus) -> dict[str, list[str]]:
     }
 
 
-def search(query: str, topic: str = "", limit: int = 3,
+def query_context(query: str, topic: str = "", limit: int = 3,
            match: Literal["all", "any"] = "all", *, level: str = "",
-           interface: str = "", domain: str = "") -> dict[str, Any]:
-    """Retrieve bounded, cited summaries; unknown topics and empty terms fail."""
+           interface: str = "", domain: str = "",
+                  ) -> tuple[Corpus, str, list[str], dict[str, str]]:
+    """Validate a search and return shared inputs for every retrieval path."""
     if not 1 <= limit <= 5:
         raise ValueError("limit must be between 1 and 5")
     if not 1 <= len(query.strip()) <= 500:
@@ -145,10 +149,18 @@ def search(query: str, topic: str = "", limit: int = 3,
     ))
     if not terms:
         raise ValueError("query needs searchable terms, e.g. return path or stackup")
+    return corpus, digest, terms, filters
+
+
+def keyword_ids(corpus: Corpus, digest: str, terms: list[str],
+                filters: dict[str, str], match: str, limit: int) -> list[str]:
+    """Return filtered BM25 candidates without truncating to the public hit limit."""
     # Treat FTS operators/quotes as plain tokens, never as executable syntax.
     expression = (" AND " if match == "all" else " OR ").join(
         f'"{term}"' for term in terms
     )
+    topic, level = filters["topic"], filters["level"]
+    interface, domain = filters["interface"], filters["domain"]
     path = _database(corpus, digest)
     with closing(sqlite3.connect(path.as_uri() + "?mode=ro", uri=True)) as db:
         rows = db.execute(
@@ -159,11 +171,18 @@ def search(query: str, topic: str = "", limit: int = 3,
             "AND (? = '' OR instr('|' || domains || '|', '|' || ? || '|') > 0) "
             "ORDER BY bm25(guidance, 0, 0, 0, 0, 0, 8, 5, 2, 1), id LIMIT ?",
             (expression, topic, topic, level, level, interface, interface,
-             domain, domain, limit + 1),
+             domain, domain, limit),
         ).fetchall()
+    return [row[0] for row in rows]
+
+
+def search_response(corpus: Corpus, digest: str, identifiers: list[str],
+                    terms: list[str], filters: dict[str, str], match: str,
+                    limit: int) -> dict[str, Any]:
+    """Attach the same scopes and citations regardless of the retrieval method."""
     by_id = {g.id: g for g in corpus.guidelines}
     hits = []
-    for (identifier,) in rows[:limit]:
+    for identifier in identifiers[:limit]:
         item = by_id[identifier]
         hits.append({
             "id": item.id, "title": item.title, "topic": item.topic,
@@ -175,7 +194,7 @@ def search(query: str, topic: str = "", limit: int = 3,
     return {
         "ok": True, "version": corpus.version, "corpus_sha256": digest,
         "match": match, "filters": filters, "query_terms": terms, "count": len(hits),
-        "has_more": len(rows) > limit, "results": hits, "notice": NOTICE,
+        "has_more": len(identifiers) > limit, "results": hits, "notice": NOTICE,
         "next_step": (
             "Read relevant IDs with get_guideline for inputs and verification."
             if hits else
@@ -183,6 +202,17 @@ def search(query: str, topic: str = "", limit: int = 3,
             "explicit match='any'; consult primary sources for missing coverage."
         ),
     }
+
+
+def search(query: str, topic: str = "", limit: int = 3,
+           match: Literal["all", "any"] = "all", *, level: str = "",
+           interface: str = "", domain: str = "") -> dict[str, Any]:
+    """Retrieve bounded, cited summaries using the original keyword baseline."""
+    corpus, digest, terms, filters = query_context(
+        query, topic, limit, match, level=level, interface=interface, domain=domain,
+    )
+    identifiers = keyword_ids(corpus, digest, terms, filters, match, limit + 1)
+    return search_response(corpus, digest, identifiers, terms, filters, match, limit)
 
 
 def get(identifier: str) -> dict[str, Any]:

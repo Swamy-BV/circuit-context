@@ -1,0 +1,18 @@
+{
+  "description": "Additional natural-language retrieval probes. Written before evaluating the local models; original keyword fixtures are unchanged.",
+  "cases": [
+    {"query": "Do all signal wires need a fifty ohm target?", "expected_id": "impedance-requirement-selection"},
+    {"query": "The signal changes copper layers. Where can its returning current go?", "expected_id": "layer-transition-return"},
+    {"query": "What happens if the copper under a fast signal has a slit in it?", "expected_id": "reference-plane-continuity"},
+    {"query": "How can we protect an external plug against a person discharging static into it?", "expected_id": "connector-esd"},
+    {"query": "Should the analog ground and digital ground on my converter be separated?", "expected_id": "mixed-signal-grounding"},
+    {"query": "How do I calculate the resistors that pull the two bus wires high?", "filters": {"interface": "i2c"}, "expected_id": "i2c-pullup-window"},
+    {"query": "Where should the resistors at the ends of a CAN cable go?", "filters": {"interface": "can"}, "expected_id": "can-end-termination"},
+    {"query": "How short should the branches off an RS485 trunk be?", "filters": {"interface": "rs485"}, "expected_id": "rs485-termination-stubs"},
+    {"query": "The bypass capacitor is nearby but its ground connection takes a long detour.", "expected_id": "decoupling-loop"},
+    {"query": "How do we decide whether two copper layers are no longer sufficient?", "expected_id": "two-layer-escalation"},
+    {"query": "Can the bottom side carry a small signal detour while most of it remains ground?", "expected_id": "two-layer-bottom-jump"},
+    {"query": "Could tightening a screw next to a ceramic capacitor damage it?", "filters": {"domain": "mechanical"}, "expected_id": "mlcc-screw-flex"}
+  ]
+}
+

@@ -50,11 +50,13 @@ an interface filter excludes untagged general guidance. Search general return
 paths separately if needed. Empty filters impose no restriction; values are
 lowercase and exact, such as `can`, `rs485`, `i2c`, `usb`, `ethernet`, `wireless`.
 
-Search is SQLite FTS5/BM25 with English stemming. It treats operators and
+Default search is SQLite FTS5/BM25 with English stemming. It treats operators and
 punctuation as ordinary query text and removes common question stopwords.
 Use short engineering terms. The default `match="all"` requires every remaining
-term; `match="any"` explicitly broadens retrieval. There is no automatic semantic
-expansion or fallback. A missing result can mean unmatched wording or missing
+term; `match="any"` explicitly broadens retrieval. Optional `method="semantic"`
+or `method="hybrid"` enables prepared local embeddings; `match` then applies only
+to the keyword path. There is no automatic fallback. See
+[hybrid retrieval](hybrid-retrieval.md). A missing result can mean wording or missing
 coverage; it is not a design answer. `limit` is 1-5, default 3; unknown filter
 values are rejected. CAN remains a searchable interface term even though it is
 also an English word.

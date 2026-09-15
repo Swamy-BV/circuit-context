@@ -6,7 +6,7 @@ import argparse
 import json
 import sqlite3
 
-from . import index
+from . import index, retrieval
 
 
 def main() -> None:
@@ -15,6 +15,12 @@ def main() -> None:
     commands = parser.add_subparsers(dest="command", required=True)
     commands.add_parser("serve", help="Run the read-only stdio MCP server")
     commands.add_parser("catalogue", help="List coverage and source editions")
+    prepare = commands.add_parser(
+        "prepare-search", help="Download pinned models and build local vectors",
+    )
+    prepare.add_argument("--reranker", action="store_true")
+    prepare.add_argument("--offline", action="store_true",
+                         help="Rebuild using previously verified local models")
     get = commands.add_parser("get", help="Read a guide by its exact ID")
     get.add_argument("id")
     search = commands.add_parser("search", help="Search editorial guidance")
@@ -25,6 +31,10 @@ def main() -> None:
     search.add_argument("--domain", default="")
     search.add_argument("--limit", type=int, default=3)
     search.add_argument("--match", choices=("all", "any"), default="all")
+    search.add_argument("--method", choices=("keyword", "semantic", "hybrid"),
+                        default="keyword")
+    search.add_argument("--rerank", action="store_true")
+    search.add_argument("--candidate-limit", type=int, default=20)
     args = parser.parse_args()
     if args.command == "serve":
         try:
@@ -36,14 +46,20 @@ def main() -> None:
         mcp.run(transport="stdio")
         return
     try:
-        if args.command == "get":
+        if args.command == "prepare-search":
+            from .semantic import prepare as prepare_search
+
+            result = prepare_search(args.offline, args.reranker)
+        elif args.command == "get":
             result = index.get(args.id)
         elif args.command == "catalogue":
             result = index.catalogue()
         else:
-            result = index.search(
+            result = retrieval.search(
                 args.query, args.topic, args.limit, args.match,
                 level=args.level, interface=args.interface, domain=args.domain,
+                method=args.method, rerank=args.rerank,
+                candidate_limit=args.candidate_limit,
             )
     except (OSError, ValueError, sqlite3.Error) as exc:
         parser.error(str(exc))

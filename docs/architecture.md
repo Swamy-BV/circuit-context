@@ -9,7 +9,9 @@ Publisher documents -> local capture -> Markdown and review artifacts
                                             |
                              versioned JSON guides and citations
                                             |
-                                  SQLite keyword retrieval
+                             BM25 / semantic search -> RRF
+                                            |
+                                optional local reranking
                                             |
                                Python / CLI / read-only MCP
                                             |
@@ -23,11 +25,9 @@ capture commands. Some publisher downloads may remain unavailable.
 
 ## Extraction boundary
 
-This first version copies the existing knowledge corpus and retrieval behavior
-into a standalone package. It does not remove the embedded copy from KiCadFlow
-or switch existing clients. KiCadFlow's old tool names remain there; this server
-uses `search_guidelines`, `get_guideline` and `circuit-context://catalogue`.
-Consolidating the duplicate corpus and updating integrations is a separate change.
+The corpus lives in this standalone package; the embedded guidance was removed
+from KiCadFlow. Clients configure this server separately using `search_guidelines`,
+`get_guideline` and `circuit-context://catalogue`. CAD tools remain independent.
 
 ## Next steps
 
@@ -35,11 +35,12 @@ Consolidating the duplicate corpus and updating integrations is a separate chang
    incompatible revisions, unsupported claims and citation fidelity.
 2. Compare source conversion with Docling while retaining footnotes, formulas,
    table conditions, diagrams and precise page ranges.
-3. Benchmark semantic retrieval and reranking against the current lexical baseline.
-   Introduce new dependencies only with measured benefit on this corpus.
+3. Expand the hybrid retrieval benchmark with independently authored questions
+   and evaluate abstention before changing the default keyword strategy.
 4. Add evidence-level revision handling and explicit supersession if original
    source passages become searchable alongside editorial records.
 
-The initial version has no embedding model, reranker, graph database or generated
+Optional local embeddings and reranking are described in
+[hybrid retrieval](hybrid-retrieval.md). There is no graph database or generated
 answer endpoint. Source review notes record specific reviewed pages; they do not
 imply complete review of every document.

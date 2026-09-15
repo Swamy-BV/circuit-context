@@ -7,6 +7,8 @@ A CAD-independent library and read-only MCP server for engineering guidance.
 - `src/circuit_context/data/`: editorial guidance and source metadata.
 - `models.py`, `corpus.py`: validation, identities and corpus fingerprint.
 - `index.py`: offline retrieval and rebuildable cache; no model or CAD imports.
+- `retrieval.py`: strategy selection and RRF; `semantic.py`: prepared vector index.
+- `local_models.py`: pinned model preparation and offline CPU inference.
 - `server.py`: thin MCP adapter. `__main__.py`: CLI adapter.
 - `examples/scripts/`: MCP checks and offline source-processing utilities.
 - `docs/`: authoring, architecture and source-review notes.
@@ -23,7 +25,8 @@ Before committing, run `python -m ruff check .`, `python -m mypy`, and
 and exercise its packaged corpus from outside the source tree. Keep prompt cases
 intact when adapting an API; report regressions rather than weakening expectations.
 
-Network access belongs to explicit authoring capture commands. Runtime retrieval
+Network access belongs to explicit authoring capture and `prepare-search` commands.
+Runtime retrieval
 is offline. Source captures and generated indexes/reports belong under ignored
 paths. Preserve the inherited AGPL license and provenance. Do not add retrieval
 frameworks or change ranking behavior without a task and comparative evaluation.

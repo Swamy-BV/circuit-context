@@ -8,7 +8,7 @@ from typing import Annotated, Any, Literal
 from fastmcp import FastMCP
 from pydantic import Field
 
-from . import index
+from . import index, retrieval
 
 INSTRUCTIONS = (
     "Source-backed engineering guidance for schematics, PCB layout, interfaces "
@@ -32,10 +32,19 @@ def search_guidelines(
     level: Literal["", "general", "interface", "mechanical"] = "",
     interface: str = "",
     domain: Literal["", "schematic", "pcb", "mechanical"] = "",
+    method: Literal["keyword", "semantic", "hybrid"] = "keyword",
+    rerank: bool = False,
+    candidate_limit: Annotated[int, Field(ge=5, le=100)] = 20,
 ) -> dict[str, Any]:
     """Retrieve cited PCB, schematic, EMI/EMC and mechanical engineering guidance.
 
-    Offline keyword search, not a board check or device datasheet search.
+    Offline guidance search, not a board check or device datasheet search.
+    method=keyword uses BM25; semantic uses local embeddings; hybrid fuses both
+    using RRF. rerank optionally reorders the candidate pool with a local model.
+    Semantic/rerank modes require explicit prepare-search setup; never download
+    during a query or silently fall back. Keyword remains the default baseline.
+    match applies only to the keyword path, not semantic neighbors. Semantic
+    results do not establish that the corpus can answer the question.
     Use short engineering terms; all requires every non-stopword (stemming is
     enabled), any explicitly broadens the search. No match can mean unmatched
     wording or missing coverage. Read a hit with get_guideline for
@@ -46,8 +55,11 @@ def search_guidelines(
     circuit-context://catalogue. Empty filters search all records.
     """
     try:
-        return index.search(query, topic, limit, match, level=level,
-                            interface=interface, domain=domain)
+        return retrieval.search(
+            query, topic, limit, match, level=level, interface=interface,
+            domain=domain, method=method, rerank=rerank,
+            candidate_limit=candidate_limit,
+        )
     except (OSError, ValueError, sqlite3.Error) as exc:
         return {"ok": False, "error": str(exc)}
 

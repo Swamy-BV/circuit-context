@@ -18,4 +18,5 @@ jobs:
       - run: python -m ruff check .
       - run: python -m mypy
       - run: python examples/scripts/pcb_knowledge.py
+      - run: python examples/scripts/hybrid_contract.py
       - run: python -m build
