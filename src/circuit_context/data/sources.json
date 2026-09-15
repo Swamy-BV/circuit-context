@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-15.1",
+  "version": "2026-09-15.2",
   "sources": [
     {
       "id": "ti-scaa082a",
@@ -500,6 +500,26 @@
       "accessed": "2026-09-15",
       "sha256": null,
       "capture_note": "Reviewed publisher web PDF extraction, section 3.1, page 9. Direct capture returned HTTP 404 on 2026-09-15; checksum unknown. Device-family examples are not universal fabrication requirements."
+    },
+    {
+      "id": "ti-sprabv0",
+      "publisher": "Texas Instruments",
+      "title": "Hardware Design Guide for KeyStone II Devices",
+      "url": "https://www.ti.com/lit/an/sprabv0/sprabv0.pdf",
+      "revision": "SPRABV0, March 2014",
+      "accessed": "2026-09-15",
+      "sha256": "7d0a5501ccb934b57e91a564ad5588c6c731391c6e2cca7949d59bc43dfc5fbc",
+      "capture_note": "Publisher PDF captured and selected equation/table page visually reviewed. Other pages are not claimed as reviewed. Numeric values retain model and material scope."
+    },
+    {
+      "id": "isola-fr408hr-construction",
+      "publisher": "Isola",
+      "title": "FR408HR Dk/Df Construction Table",
+      "url": "https://www.isola-group.com/wp-content/uploads/data-sheets/FR408HR__Dk_Df_Tables.pdf",
+      "revision": "Revision D, October 25, 2019",
+      "accessed": "2026-09-15",
+      "sha256": "a25fa60de8a0ff3baa3c08a719a7892796a2c658987568c58e89f8f27fef716b",
+      "capture_note": "Publisher PDF captured and selected equation/table page visually reviewed. Other pages are not claimed as reviewed. Numeric values retain model and material scope."
     }
   ]
 }

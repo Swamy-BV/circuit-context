@@ -19,4 +19,5 @@ jobs:
       - run: python -m mypy
       - run: python examples/scripts/pcb_knowledge.py
       - run: python examples/scripts/hybrid_contract.py
+      - run: python examples/scripts/pcb_calculation_example.py
       - run: python -m build

@@ -25,6 +25,7 @@ CASES = (
     PROMPTS / "basic_interface_knowledge.json",
     PROMPTS / "usb_c_knowledge.json",
     PROMPTS / "four_layer_knowledge.json",
+    PROMPTS / "pcb_calculations.json",
 )
 
 

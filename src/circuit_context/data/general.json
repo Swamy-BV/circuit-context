@@ -148,7 +148,11 @@
       "schematic",
       "pcb"
     ],
-    "interfaces": []
+    "interfaces": [],
+    "related_ids": [
+      "ground-loop-review",
+      "shared-return-impedance"
+    ]
   },
   {
     "id": "controlled-impedance",
@@ -171,7 +175,9 @@
     "applies_to": "Single-ended or differential routes with a specified impedance target.",
     "required_inputs": [
       "Fabricator stackup identifier and geometry",
-      "Target impedance and transmission-line structure"
+      "Target impedance and transmission-line structure",
+      "Material construction, frequency, Dk, finished copper and applicable soldermask model",
+      "Fabrication tolerance and requested impedance tolerance"
     ],
     "verification": [
       "Use a suitable impedance calculator or field solver; record assumptions and read back the chosen net-class dimensions."
@@ -189,7 +195,11 @@
     ],
     "interfaces": [],
     "related_ids": [
-      "impedance-requirement-selection"
+      "impedance-requirement-selection",
+      "pcb-material-construction",
+      "pcb-material-loss",
+      "microstrip-width-estimate",
+      "trace-width-calculation-record"
     ]
   },
   {

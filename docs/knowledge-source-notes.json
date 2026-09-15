@@ -70,5 +70,21 @@
         "Table 3 was visually reviewed. Its four listed constructions receive poor EMC ratings; the table does not establish the test outcome of every possible four-layer product."
       ]
     }
+  },
+  "ti-sprabv0": {
+    "sha256": "7d0a5501ccb934b57e91a564ad5588c6c731391c6e2cca7949d59bc43dfc5fbc",
+    "pages": {
+      "117": [
+        "Figure 48 uses natural logarithm, with 87 divided by sqrt(er + 1.41), multiplied by ln(5.98 H / (0.8 W + T)). Figure 47 identifies reference spacing H and copper thickness T separately."
+      ]
+    }
+  },
+  "isola-fr408hr-construction": {
+    "sha256": "a25fa60de8a0ff3baa3c08a719a7892796a2c658987568c58e89f8f27fef716b",
+    "pages": {
+      "1": [
+        "Revision D, October 25, 2019. Each frequency cell contains Dk above Df; construction, resin fraction and dielectric thickness identify each row. Do not flatten both numbers into one dielectric constant."
+      ]
+    }
   }
 }

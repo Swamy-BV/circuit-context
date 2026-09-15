@@ -13,6 +13,7 @@ _COLLECTIONS = (
     "general.json", "two_layer.json", "emc.json", "interfaces.json", "mechanical.json",
     "gpio.json", "uart.json", "spi.json", "i2c.json",
     "usb_c.json", "usb_c_layout.json", "usb_pd.json", "four_layer.json",
+    "pcb_calculations.json",
 )
 
 

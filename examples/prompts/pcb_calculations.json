@@ -1,0 +1,41 @@
+{
+  "description": "Calculation applicability and grounding retrieval; manual AI expectations are not automated reasoning checks.",
+  "cases": [
+    {
+      "prompt": "Select dielectric data for the actual laminate construction",
+      "query": "FR4 resin content",
+      "expected_id": "pcb-material-construction",
+      "ai_expectation": "FR408HR values do not characterize every FR-4 board; published nominal data are not fabrication tolerances."
+    },
+    {
+      "prompt": "Separate dielectric loss from impedance targeting",
+      "query": "Df material loss",
+      "expected_id": "pcb-material-loss",
+      "ai_expectation": "A material table alone does not model connector, conductor and via losses."
+    },
+    {
+      "prompt": "Use a bounded microstrip estimate with explicit units",
+      "query": "50 ohm calculation",
+      "expected_id": "microstrip-width-estimate",
+      "ai_expectation": "TI discusses best accuracy around 50-100 ohms. This is not a coupled-pair, coplanar or soldermask-aware solver; source examples are not guaranteed widths."
+    },
+    {
+      "prompt": "Keep impedance, heating and voltage-drop calculations separate",
+      "query": "calculation record",
+      "expected_id": "trace-width-calculation-record",
+      "ai_expectation": "KiCad 9 documentation describes IPC-2221 track-width estimates. Check the installed version; those estimates are not measured thermal qualification or IPC-2152 certification."
+    },
+    {
+      "prompt": "Review system ground loops without cutting signal references",
+      "query": "ground loop star",
+      "expected_id": "ground-loop-review",
+      "ai_expectation": "Do not treat all multiple ground connections as faults or split a plane automatically. This guidance does not authorize altering protective-earth or isolation provisions."
+    },
+    {
+      "prompt": "Check noise caused by shared return impedance",
+      "query": "shared return impedance",
+      "expected_id": "shared-return-impedance",
+      "ai_expectation": "This mechanism is distinct from merely spotting a geometric loop. Follow the converter-specific grounding requirements."
+    }
+  ]
+}

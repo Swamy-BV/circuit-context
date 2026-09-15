@@ -1,0 +1,224 @@
+[
+  {
+    "id": "pcb-material-construction",
+    "title": "Select dielectric data for the actual laminate construction",
+    "topic": "impedance",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "FR4",
+      "FR-4",
+      "Dk",
+      "dielectric constant",
+      "resin content",
+      "laminate"
+    ],
+    "summary": "Use construction- and frequency-specific dielectric data. FR-4 is not one fixed permittivity; Isola tables distinguish reinforcement, resin content and thickness.",
+    "applies_to": "PCB engineering review; apply the stated model and source scope.",
+    "required_inputs": [
+      "Fabricator material and construction; frequency; applicable Dk data"
+    ],
+    "verification": [
+      "Confirm the construction used by the impedance model."
+    ],
+    "limitations": "FR408HR values do not characterize every FR-4 board; published nominal data are not fabrication tolerances.",
+    "citations": [
+      {
+        "source_id": "isola-fr408hr-construction",
+        "locator": "Revision D, page 1, Core Data table"
+      }
+    ],
+    "related_ids": [
+      "controlled-impedance",
+      "four-layer-dielectric-spacing"
+    ]
+  },
+  {
+    "id": "pcb-material-loss",
+    "title": "Separate dielectric loss from impedance targeting",
+    "topic": "impedance",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "Df",
+      "loss tangent",
+      "dielectric loss",
+      "material loss"
+    ],
+    "summary": "Record dissipation factor separately from dielectric constant and retain its frequency and construction. Meeting an impedance target does not by itself establish acceptable channel loss.",
+    "applies_to": "PCB engineering review; apply the stated model and source scope.",
+    "required_inputs": [
+      "Channel bandwidth and applicable Dk/Df data"
+    ],
+    "verification": [
+      "Review loss against the selected interface budget."
+    ],
+    "limitations": "A material table alone does not model connector, conductor and via losses.",
+    "citations": [
+      {
+        "source_id": "isola-fr408hr-construction",
+        "locator": "Revision D, page 1, Dk/Df columns"
+      }
+    ],
+    "related_ids": [
+      "pcb-material-construction",
+      "usb-channel-constraints"
+    ]
+  },
+  {
+    "id": "microstrip-width-estimate",
+    "title": "Use a bounded microstrip estimate with explicit units",
+    "topic": "impedance",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "50 ohm calculation",
+      "microstrip formula",
+      "width synthesis",
+      "natural logarithm"
+    ],
+    "summary": "For the source surface-microstrip approximation: Z0 = 87/sqrt(er+1.41) * ln(5.98*h/(0.8*w+t)). Use consistent length units for h, w and t; er is dimensionless and Z0 is ohms.",
+    "applies_to": "PCB engineering review; apply the stated model and source scope.",
+    "required_inputs": [
+      "Target impedance, reference spacing h, width w, finished copper t, relative permittivity er"
+    ],
+    "verification": [
+      "Identify this approximate model; validate geometry with the fabrication solver."
+    ],
+    "limitations": "TI discusses best accuracy around 50-100 ohms. This is not a coupled-pair, coplanar or soldermask-aware solver; source examples are not guaranteed widths.",
+    "citations": [
+      {
+        "source_id": "ti-sprabv0",
+        "locator": "Appendix B, section 13.2.1, Figures 47-48 and following example, pages 117-118"
+      }
+    ],
+    "related_ids": [
+      "controlled-impedance",
+      "impedance-requirement-selection",
+      "pcb-material-construction"
+    ]
+  },
+  {
+    "id": "trace-width-calculation-record",
+    "title": "Keep impedance, heating and voltage-drop calculations separate",
+    "topic": "impedance",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "calculation record",
+      "trace sizing model",
+      "IPC-2221",
+      "current heating"
+    ],
+    "summary": "Record the calculator version, model, input units and assumptions. Use a transmission-line model for impedance and an electrical/thermal model for power conductors; review via behavior separately.",
+    "applies_to": "PCB engineering review; apply the stated model and source scope.",
+    "required_inputs": [
+      "Routing structure; copper and environment; current and allowable rise; applicable model"
+    ],
+    "verification": [
+      "Check geometry, heating and drop against their own requirements."
+    ],
+    "limitations": "KiCad 9 documentation describes IPC-2221 track-width estimates. Check the installed version; those estimates are not measured thermal qualification or IPC-2152 certification.",
+    "citations": [
+      {
+        "source_id": "kicad-calculator",
+        "locator": "TransLine, Via Size and Track Width sections; retain source edition"
+      }
+    ],
+    "related_ids": [
+      "controlled-impedance",
+      "power-conductor-sizing",
+      "microstrip-width-estimate"
+    ]
+  },
+  {
+    "id": "ground-loop-review",
+    "title": "Review system ground loops without cutting signal references",
+    "topic": "grounding",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "ground loop",
+      "star ground",
+      "multicard",
+      "cable ground"
+    ],
+    "summary": "Map ground connections through supplies, cables and interconnected boards before diagnosing unwanted loop currents. A proposed star connection can acquire additional paths through other equipment.",
+    "applies_to": "PCB engineering review; apply the stated model and source scope.",
+    "required_inputs": [
+      "Full system connections and sensitive reference nodes"
+    ],
+    "verification": [
+      "Trace possible return paths across the assembled system."
+    ],
+    "limitations": "Do not treat all multiple ground connections as faults or split a plane automatically. This guidance does not authorize altering protective-earth or isolation provisions.",
+    "citations": [
+      {
+        "source_id": "adi-mt031",
+        "locator": "Pages 11-14, multicard grounding and mixed-signal devices"
+      }
+    ],
+    "related_ids": [
+      "mixed-signal-grounding",
+      "reference-plane-continuity",
+      "emc-cable-return-path"
+    ]
+  },
+  {
+    "id": "shared-return-impedance",
+    "title": "Check noise caused by shared return impedance",
+    "topic": "grounding",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "common impedance",
+      "shared return",
+      "ground noise",
+      "return voltage"
+    ],
+    "summary": "A load current sharing impedance with a sensitive reference can create an error voltage. Review the current path and connection impedance, rather than assuming every GND-labelled point has identical potential.",
+    "applies_to": "PCB engineering review; apply the stated model and source scope.",
+    "required_inputs": [
+      "Aggressor current and sensitive measurement return"
+    ],
+    "verification": [
+      "Inspect shared return segments and measure reference disturbance under load."
+    ],
+    "limitations": "This mechanism is distinct from merely spotting a geometric loop. Follow the converter-specific grounding requirements.",
+    "citations": [
+      {
+        "source_id": "adi-mt031",
+        "locator": "Introduction and Figure 1, page 1"
+      }
+    ],
+    "related_ids": [
+      "ground-loop-review",
+      "mixed-signal-grounding",
+      "motor-current-sense-kelvin"
+    ]
+  }
+]

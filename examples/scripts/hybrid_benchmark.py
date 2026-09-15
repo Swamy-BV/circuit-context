@@ -25,6 +25,7 @@ FILES = (
     "basic_interface_knowledge",
     "usb_c_knowledge",
     "four_layer_knowledge",
+    "pcb_calculations",
     "semantic_knowledge",
 )
 STRATEGIES = (
