@@ -1,0 +1,495 @@
+{
+  "version": "2026-09-14.7",
+  "sources": [
+    {
+      "id": "ti-scaa082a",
+      "publisher": "Texas Instruments",
+      "title": "High-Speed Layout Guidelines",
+      "url": "https://www.ti.com/lit/an/scaa082a/scaa082a.pdf",
+      "revision": "SCAA082A, August 2017",
+      "accessed": "2026-09-14",
+      "sha256": "24681796ac36e50f9c6ef5e0b98945b6236ddb9fa620da97597ba62a85990206",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "adi-mt031",
+      "publisher": "Analog Devices",
+      "title": "Grounding Data Converters and Solving the Mystery of AGND and DGND",
+      "url": "https://www.analog.com/media/en/training-seminars/tutorials/MT-031.pdf",
+      "revision": "MT-031 Rev. A, October 2008",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via publisher web extraction. Direct local capture failed; checksum remains unknown. See docs/two-layer-source-review.md."
+    },
+    {
+      "id": "ti-slla414a",
+      "publisher": "Texas Instruments",
+      "title": "High-Speed Layout Guidelines for Signal Conditioners and USB Hubs",
+      "url": "https://www.ti.com/lit/an/slla414a/slla414a.pdf",
+      "revision": "SLLA414A, January 2026",
+      "accessed": "2026-09-14",
+      "sha256": "a5d930f7f6af20ddb04d8ab6fff62097a929a1141f5dffed184b6a8014ad0367",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "microchip-an2587",
+      "publisher": "Microchip",
+      "title": "EMI, EMC, EFT, and ESD Circuit Design Consideration for 32-bit Microcontrollers",
+      "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/00002587A.pdf",
+      "revision": "DS00002587A, 2017",
+      "accessed": "2026-09-14",
+      "sha256": "c67c7dc74ff3e92c7c3b43fbf32fb5c3ff2709f74ad5d032ac94d99a88f56259",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "jlcpcb-impedance",
+      "publisher": "JLCPCB",
+      "title": "User Guide to the JLCPCB Impedance Calculator",
+      "url": "https://jlcpcb.com/help/article/user-guide-to-the-jlcpcb-impedance-calculator",
+      "revision": "Web snapshot; no numbered revision",
+      "accessed": "2026-09-14",
+      "sha256": "ba8b71160b3fe4d0365d397de165c5ca68a25f6846ba7b05b0fc5f073eb67108",
+      "capture_note": "Downloaded source bytes hashed; original not bundled."
+    },
+    {
+      "id": "nxp-an10897",
+      "publisher": "NXP",
+      "title": "A guide to designing for ESD and EMC",
+      "url": "https://www.nxp.com/docs/en/application-note/AN10897.pdf",
+      "revision": "AN10897 Rev. 02, 19 January 2010",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web PDF extraction; direct download unavailable, so file checksum is unknown."
+    },
+    {
+      "id": "ti-rs485",
+      "publisher": "Texas Instruments",
+      "title": "The RS-485 Design Guide",
+      "revision": "SLLA272D, May 2021",
+      "url": "https://www.ti.com/lit/an/slla272d/slla272d.pdf",
+      "accessed": "2026-09-14",
+      "sha256": "b613117a93a95ff14444710f7d21aa67f70a3e77f6ddd8d4fcda8666477417db",
+      "capture_note": "Downloaded source bytes hashed; original not bundled."
+    },
+    {
+      "id": "ti-can",
+      "publisher": "Texas Instruments",
+      "title": "Controller Area Network Physical Layer Requirements",
+      "revision": "SLLA270, January 2008",
+      "url": "https://www.ti.com/lit/an/slla270/slla270.pdf",
+      "accessed": "2026-09-14",
+      "sha256": "10c315a683fa60954ba005d3392097a2e30cddcbf1eef10119a70d592b54ca81",
+      "capture_note": "Downloaded source bytes hashed; original not bundled."
+    },
+    {
+      "id": "ti-buck-emi",
+      "publisher": "Texas Instruments",
+      "title": "Simple Success with Conducted EMI and Radiated EMI for LMR160X0",
+      "revision": "SNVA755, June 2016",
+      "url": "https://www.ti.com/lit/an/snva755/snva755.pdf",
+      "accessed": "2026-09-14",
+      "sha256": "0866d991724dc57047231c47e1b1c7ab885ab8af1943bc9309b82c0a96a49428",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "ti-szza009",
+      "publisher": "Texas Instruments",
+      "title": "PCB Design Guidelines For Reduced EMI",
+      "revision": "SZZA009, November 1999",
+      "url": "https://www.ti.com/lit/an/szza009/szza009.pdf",
+      "accessed": "2026-09-14",
+      "sha256": "317f4cb67ff85ae16c769592cabc0128e69f1eaff6a98747ef77be217564e6d2",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "adi-ferrite",
+      "publisher": "Analog Devices",
+      "title": "AN-1368: Ferrite Bead Demystified",
+      "revision": "AN-1368, web edition accessed 2026-09-14",
+      "url": "https://www.analog.com/en/resources/app-notes/an-1368.html",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web extraction; source bytes not captured, so checksum is unknown."
+    },
+    {
+      "id": "nxp-i2c",
+      "publisher": "NXP",
+      "title": "I2C-bus specification and user manual",
+      "revision": "UM10204 Rev. 7.0, 1 October 2021; NXP Community hosted copy",
+      "url": "https://community.nxp.com/pwmxy87654/attachments/pwmxy87654/nxp-designs/931/1/UM10204.pdf",
+      "accessed": "2026-09-14",
+      "sha256": "dc91f00f65584e06ef36e26c93bf9d91a95fb3c8a1830a9223e53caf678b36af",
+      "capture_note": "Publisher PDF captured locally; edition and extracted text reviewed. Original is not bundled; Markdown conversion is separate from curated guidance."
+    },
+    {
+      "id": "microchip-ethernet",
+      "publisher": "Microchip / SMSC",
+      "title": "SMSC Ethernet Physical Layer Layout Guidelines",
+      "revision": "AN18.6 Rev. 0.8, 27 October 2008",
+      "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/OTH/ApplicationNotes/ApplicationNotes/en562748.pdf",
+      "accessed": "2026-09-14",
+      "sha256": "57c34e967af3bb8839a98c8d41ad35a6a83418c88bc75b016fdfbce452fd83e9",
+      "capture_note": "Downloaded source bytes hashed; original not bundled."
+    },
+    {
+      "id": "samtec-mating",
+      "publisher": "Samtec",
+      "title": "Multiple Connector Applications",
+      "revision": "Rev. E, April 2016",
+      "url": "https://suddendocs.samtec.com/processing/multi-connector_applications.pdf",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web extraction; source bytes not captured, so checksum is unknown."
+    },
+    {
+      "id": "murata-flex",
+      "publisher": "Murata",
+      "title": "What are the effects of mechanical stress on MLCCs?",
+      "revision": "FAQ 0027, web snapshot; no numbered revision",
+      "url": "https://www.murata.com/en-global/support/faqs/capacitor/ceramiccapacitor/mnt/0027",
+      "accessed": "2026-09-14",
+      "sha256": "616b96cf890d4af611e00623cc4c5e03f1f478790b3d83c9d290160fbd1c741d",
+      "capture_note": "Downloaded source bytes hashed; original not bundled."
+    },
+    {
+      "id": "murata-mounting",
+      "publisher": "Murata",
+      "title": "Monolithic Ceramic Capacitors: Caution / Notice",
+      "revision": "PDF snapshot; no numbered revision identified",
+      "url": "https://www.murata.com/-/media/webrenewal/support/faqs/products/capacitor/ceramiccapacitor/cncap.ashx?la=en",
+      "accessed": "2026-09-14",
+      "sha256": "0eef1a1ebb224ed3d0372430a29afc1632a084fdba1d229ab553b94e37fb7a1a",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "espressif-module",
+      "publisher": "Espressif",
+      "title": "ESP32-H2 Hardware Design Guidelines: PCB Layout Design",
+      "revision": "Latest documentation snapshot accessed 2026-09-14",
+      "url": "https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32h2/pcb-layout-design.html",
+      "accessed": "2026-09-14",
+      "sha256": "ee138bdc82086813bbb579f24cab18f8877e4dbe786fdb41412765fda594f5a3",
+      "capture_note": "Downloaded source bytes hashed; original not bundled."
+    },
+    {
+      "id": "st-emc",
+      "publisher": "STMicroelectronics",
+      "title": "EMC design guide for STM8, STM32 and legacy MCUs",
+      "revision": "AN1709 Rev. 4, July 2022",
+      "url": "https://www.st.com/content/st_com/en/technical-documents/AN1709.html",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web extraction; source bytes not captured, so checksum is unknown."
+    },
+    {
+      "id": "ti-esd-layout",
+      "publisher": "Texas Instruments",
+      "title": "ESD Protection Layout Guide",
+      "revision": "SLVA680A, April 2022",
+      "url": "https://www.ti.com/lit/an/slva680a/slva680a.pdf",
+      "accessed": "2026-09-14",
+      "sha256": "414236c18903e2489c6564c36718ed3743be9c595f4543098f167259b5ba8635",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "laird-shielding",
+      "publisher": "Laird Performance Materials",
+      "title": "Addressing 5G High Frequency EMI",
+      "revision": "Application note snapshot; no numbered revision identified",
+      "url": "https://www.laird.com/sites/default/files/2018-11/Addressing_5G_High_Freq_ency_EMI.PDF",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web extraction; source bytes not captured, so checksum is unknown."
+    },
+    {
+      "id": "microchip-lan951x",
+      "publisher": "Microchip / SMSC",
+      "title": "LAN9512/LAN9513/LAN9514 Layout Guidelines",
+      "revision": "AN19.20 Rev. 1.1, 4 February 2010",
+      "url": "https://www.microchip.com/content/dam/mchp/documents/OTH/ApplicationNotes/ApplicationNotes/en562751.pdf",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web extraction; source bytes not captured, so checksum is unknown."
+    },
+    {
+      "id": "ti-spma056",
+      "publisher": "Texas Instruments",
+      "title": "Tiva C Series TM4C129x System Design Guidelines",
+      "url": "https://www.ti.com/lit/an/spma056/spma056.pdf",
+      "revision": "SPMA056, October 2013",
+      "accessed": "2026-09-14",
+      "sha256": "ca66ba0d6baddb7601d76afe4ba09d6504daa940977e5056c3a961d441998f21",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "jlcpcb-capabilities",
+      "publisher": "JLCPCB",
+      "title": "Rigid PCB Capabilities",
+      "url": "https://jlcpcb.com/capabilities/pcb-capabilities",
+      "revision": "Web edition accessed 2026-09-14; no numbered revision",
+      "accessed": "2026-09-14",
+      "sha256": "b1f692861b330a10d714865b3fab71e197e7e640ba5d1049dd5e108808fb0c81",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "jlcpcb-finishes",
+      "publisher": "JLCPCB",
+      "title": "Comparing HASL and ENIG Surface Finishes for PCBs",
+      "url": "https://jlcpcb.com/blog/hasl-vs-enig-surface-finishes",
+      "revision": "Web edition accessed 2026-09-14; no numbered revision",
+      "accessed": "2026-09-14",
+      "sha256": "41b0869cb228fd1b5a56071a7efc664d6f44336a4188f017320e2c4800d599f1",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "kicad-calculator",
+      "publisher": "KiCad",
+      "title": "Calculator Tools",
+      "url": "https://docs.kicad.org/9.0/en/pcb_calculator/pcb_calculator.html",
+      "revision": "KiCad 9.0.9, documentation revision 152cd19e",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web extraction; original file not captured, so checksum is unknown."
+    },
+    {
+      "id": "kicad-pcb-zones",
+      "publisher": "KiCad",
+      "title": "PCB Editor: Working with zones",
+      "url": "https://docs.kicad.org/9.0/en/pcbnew/pcbnew.html",
+      "revision": "KiCad 9.0.9, documentation revision 152cd19e",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via web extraction; original file not captured, so checksum is unknown."
+    },
+    {
+      "id": "st-gpio",
+      "publisher": "STMicroelectronics",
+      "title": "Guidelines for GPIO hardware settings and low-power consumption on STM32 MCUs",
+      "url": "https://www.st.com/resource/en/application_note/DM00315319-.pdf",
+      "revision": "AN4899 Rev 4, May 2026",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read through primary-source web extraction; local download failed. No captured bytes or Markdown claimed for this source."
+    },
+    {
+      "id": "st-emc-rev5",
+      "publisher": "STMicroelectronics",
+      "title": "EMC design guide for STM8, STM32 and legacy MCUs",
+      "url": "https://www.st.com/resource/en/application_note/an1709-emc-design-guide-for-stm8-stm32-and-legacy-mcus-stmicroelectronics.pdf",
+      "revision": "AN1709 Rev 5, May 2026",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via publisher web extraction. Direct local capture failed; checksum remains unknown. See docs/two-layer-source-review.md."
+    },
+    {
+      "id": "ti-snva054c",
+      "publisher": "Texas Instruments",
+      "title": "AN-1229 SIMPLE SWITCHER PCB Layout Guidelines",
+      "url": "https://www.ti.com/lit/an/snva054c/snva054c.pdf",
+      "revision": "SNVA054C, April 2013",
+      "accessed": "2026-09-14",
+      "sha256": "2ddd88ce573c9a68a0b171ac18de40c3e32870b0711cc2502795c1837e99e35c",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "tek-emi-precompliance",
+      "publisher": "Tektronix",
+      "title": "EMI Pre-Compliance Testing and Troubleshooting with Tektronix EMCVu",
+      "url": "https://www.tek.com/en/documents/application-note/emi-pre-compliance-testing-and-troubleshooting-tektronix-emcvu",
+      "revision": "Web edition accessed 2026-09-14; no numbered revision",
+      "accessed": "2026-09-14",
+      "sha256": "077b999c0532abe9c941c91424f4614b91b3ce42f5a5ca8de69f9daef8e23413",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "adi-emi-part3",
+      "publisher": "Analog Devices",
+      "title": "Passing EMI Compliance Testing the First Time - Part 3: From Schematic to Placement and Grounding Architecture",
+      "url": "https://www.analog.com/en/resources/technical-articles/passing-emi-compliance-testing-the-first-time-part-3.html",
+      "revision": "James Niemann, June 23, 2026",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via publisher web extraction. Direct local capture failed; checksum remains unknown. See docs/two-layer-source-review.md."
+    },
+    {
+      "id": "adi-emi-part4",
+      "publisher": "Analog Devices",
+      "title": "Passing EMI Compliance Testing the First Time - Part 4: Power Routing and Stack-Up Planning",
+      "url": "https://www.analog.com/en/resources/technical-articles/passing-emi-compliance-testing-first-time-part-4.html",
+      "revision": "James Niemann, June 23, 2026",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via publisher web extraction. Direct local capture failed; checksum remains unknown. See docs/two-layer-source-review.md."
+    },
+    {
+      "id": "adi-emi-part5",
+      "publisher": "Analog Devices",
+      "title": "Passing EMI Compliance Testing the First Time - Part 5: Advanced Consideration for Precision Analog, Shielding, and Thermal Management",
+      "url": "https://www.analog.com/en/resources/technical-articles/passing-emi-compliance-testing-the-first-time-part-5.html",
+      "revision": "James Niemann, June 23, 2026",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via publisher web extraction. Direct local capture failed; checksum remains unknown. See docs/two-layer-source-review.md."
+    },
+    {
+      "id": "ti-slva959b",
+      "publisher": "Texas Instruments",
+      "title": "Best Practices for Board Layout of Motor Drivers",
+      "url": "https://www.ti.com/lit/an/slva959b/slva959b.pdf",
+      "revision": "SLVA959B, November 2018, revised October 2021",
+      "accessed": "2026-09-14",
+      "sha256": "89adbce11092779a4c024ea5832c3b3f62ff9c2a153646530dc8847f89c45eb9",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "microchip-touch-an0208",
+      "publisher": "Microchip Technology",
+      "title": "MXTAN0208: Design Guidelines for PCB Layouts",
+      "url": "https://ww1.microchip.com/downloads/aemDocuments/documents/HMID/ApplicationNotes/ApplicationNotes/AN0208_Design_Guidelines_for_PCB_Layouts.pdf",
+      "revision": "DS00004162A, August 2021",
+      "accessed": "2026-09-14",
+      "sha256": "941e4c54bdb0d203b7331f29185381b21559e83193d7d966dfb7b5770d5e41fb",
+      "capture_note": "Publisher response captured locally with extracted review text; original not bundled. PDF bytes parsed; HTML requires visual/editorial review."
+    },
+    {
+      "id": "adi-cn0282",
+      "publisher": "Analog Devices",
+      "title": "HDMI to VGA Converter with Audio Extraction",
+      "url": "https://www.analog.com/media/en/reference-design-documentation/reference-designs/CN0282.pdf",
+      "revision": "CN-0282, Rev. 0, July 2012",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read via publisher web extraction. Direct local capture failed; checksum remains unknown. See docs/two-layer-source-review.md."
+    },
+    {
+      "id": "adi-spi-intro",
+      "publisher": "Analog Devices",
+      "title": "Introduction to SPI Interface",
+      "url": "https://www.analog.com/en/resources/analog-dialogue/articles/introduction-to-spi-interface.html",
+      "revision": "Web edition accessed September 14, 2026",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read through primary-source web extraction; local download failed. No captured bytes or Markdown claimed for this source."
+    },
+    {
+      "id": "adi-an1248",
+      "publisher": "Analog Devices",
+      "title": "AN-1248: SPI Interface",
+      "url": "https://www.analog.com/en/resources/app-notes/an-1248.html",
+      "revision": "AN-1248, web edition accessed September 14, 2026",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read through primary-source web extraction; local download failed. No captured bytes or Markdown claimed for this source."
+    },
+    {
+      "id": "adi-uart",
+      "publisher": "Analog Devices",
+      "title": "UART: A Hardware Communication Protocol Understanding Universal Asynchronous Receiver/Transmitter",
+      "url": "https://www.analog.com/media/en/analog-dialogue/volume-54/number-4/uart-a-hardware-communication-protocol.pdf",
+      "revision": "Analog Dialogue Vol. 54 No. 4, December 2020",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read through primary-source web extraction; local download failed. No captured bytes or Markdown claimed for this source."
+    },
+    {
+      "id": "adi-rs232",
+      "publisher": "Analog Devices",
+      "title": "Fundamentals of RS-232 Serial Communications",
+      "url": "https://www.analog.com/en/resources/technical-articles/fundamentals-of-rs232-serial-communications.html",
+      "revision": "March 29, 2001, web article; historical physical-layer explanation, not current certification limits",
+      "accessed": "2026-09-14",
+      "sha256": null,
+      "capture_note": "Read through primary-source web extraction; local download failed. No captured bytes or Markdown claimed for this source."
+    },
+    {
+      "id": "ti-sbaa565",
+      "publisher": "Texas Instruments",
+      "title": "A Basic Guide to I2C",
+      "url": "https://www.ti.com/lit/an/sbaa565/sbaa565.pdf",
+      "revision": "SBAA565, November 2022",
+      "accessed": "2026-09-14",
+      "sha256": "d8c1cf181e634998e1d4b13ff9ab0f8b58394c9880914e395641342e05961b21",
+      "capture_note": "Publisher PDF captured locally; edition and extracted text reviewed. Original is not bundled; Markdown conversion is separate from curated guidance."
+    },
+    {
+      "id": "ti-scba004e",
+      "publisher": "Texas Instruments",
+      "title": "Implications of Slow or Floating CMOS Inputs",
+      "url": "https://www.ti.com/lit/an/scba004e/scba004e.pdf",
+      "revision": "SCBA004E, July 1994, revised July 2021",
+      "accessed": "2026-09-14",
+      "sha256": "5d7713f57a2ce8dff1613efba91dcabcea6f306147380225f3f157ae5632f63e",
+      "capture_note": "Publisher PDF captured locally; edition and extracted text reviewed. Original is not bundled; Markdown conversion is separate from curated guidance."
+    },
+    {
+      "id": "usbif-typec25",
+      "publisher": "USB-IF",
+      "title": "USB Type-C Cable and Connector Specification Release 2.5",
+      "url": "https://www.usb.org/document-library/usb-type-cr-cable-and-connector-specification-release-25",
+      "revision": "Release 2.5; publisher listing April 8, 2026; release package 202603",
+      "accessed": "2026-09-14",
+      "sha256": "e147a010286eb51cfe2d2789b5a01817f716145d7c053196c8b6e7afcebb3748",
+      "capture_note": "Captured publisher release listing only; linked ZIP specification was not downloaded or converted. The hash identifies the HTML, not the specification."
+    },
+    {
+      "id": "usbif-pd32",
+      "publisher": "USB-IF",
+      "title": "USB Power Delivery specification release listing",
+      "url": "https://www.usb.org/document-library/usb-power-delivery",
+      "revision": "Revision 3.2 Version 1.2; linked archive USB_PD_R3.2_V1.2(3).zip observed September 14, 2026",
+      "accessed": "2026-09-14",
+      "sha256": "b6a17e96061a61c99347ec6ec06a3d84918eb352e60d03d27385e4a31314f476",
+      "capture_note": "Captured publisher release listing only; linked ZIP specification was not downloaded or converted. The hash identifies the HTML, not the specification."
+    },
+    {
+      "id": "ti-usbc-primer",
+      "publisher": "Texas Instruments",
+      "title": "A Primer on USB Type-C and USB Power Delivery Applications and Requirements",
+      "url": "https://www.ti.com/lit/slyy109",
+      "revision": "SLYY109B, March 2022",
+      "accessed": "2026-09-14",
+      "sha256": "9de5fa43fb2f33f1f26db2f1f1578687828905f8f432824b3179d8a04b430bed",
+      "capture_note": "Publisher PDF captured locally; edition and selected sections reviewed. Markdown is reference material, not approved engineering rules."
+    },
+    {
+      "id": "ti-tusb320",
+      "publisher": "Texas Instruments",
+      "title": "TUSB320 USB Type-C Configuration Channel Logic and Port Control",
+      "url": "https://www.ti.com/lit/ds/symlink/tusb320.pdf",
+      "revision": "SLLSEN9F, May 2015, revised March 2022",
+      "accessed": "2026-09-14",
+      "sha256": "1306e448c3f3b169f3b90854710033b9a1aede1d04ba35088f3d2e3ed260d2c4",
+      "capture_note": "Publisher PDF captured locally; edition and selected sections reviewed. Markdown is reference material, not approved engineering rules."
+    },
+    {
+      "id": "ti-usbc-protection",
+      "publisher": "Texas Instruments",
+      "title": "Circuit protection for your next USB Type-C design",
+      "url": "https://www.ti.com/lit/wp/slyy105/slyy105.pdf",
+      "revision": "SLYY105, October 2016; historical short-to-VBUS examples",
+      "accessed": "2026-09-14",
+      "sha256": "e910cd2a31f99e59939f76c96995c795888894e05fdcd586648d6de474890c12",
+      "capture_note": "Publisher PDF captured locally; edition and selected sections reviewed. Markdown is reference material, not approved engineering rules."
+    },
+    {
+      "id": "ti-usbc-epr",
+      "publisher": "Texas Instruments",
+      "title": "USB Type-C and USB Power Delivery: Designing for both Extended Power Range and battery-powered systems",
+      "url": "https://www.ti.com/lit/ta/ssztd49a/ssztd49a.pdf",
+      "revision": "SSZTD49A, September 2024, revised October 2024",
+      "accessed": "2026-09-14",
+      "sha256": "155e8b5ae435eebe9c98a147406bf43489eb3b45d726d6b8abeeb2fe30d0498c",
+      "capture_note": "Publisher PDF captured locally; edition and selected sections reviewed. Markdown is reference material, not approved engineering rules."
+    },
+    {
+      "id": "gct-usb4105",
+      "publisher": "Global Connector Technology",
+      "title": "USB4105 USB Type C Receptacle for USB 2.0 drawing",
+      "url": "https://gct.co/files/drawings/usb4105.pdf",
+      "revision": "USB4105 drawing B4, December 18, 2023; original drawing date October 4, 2019",
+      "accessed": "2026-09-14",
+      "sha256": "fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5",
+      "capture_note": "Publisher PDF captured; mechanical example only. Dimensions are not applied to other connector families."
+    }
+  ]
+}

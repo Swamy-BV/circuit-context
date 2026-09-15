@@ -1,0 +1,1072 @@
+[
+  {
+    "id": "two-layer-planning",
+    "title": "Plan two-layer signal routing around a ground reference",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "2 layer",
+      "double sided",
+      "stackup",
+      "layer assignment",
+      "top signals",
+      "bottom ground",
+      "MCU",
+      "sensor",
+      "GPIO"
+    ],
+    "summary": "Candidate two-layer stackup: top solder mask / F.Cu components, signals, power and connected ground / FR4 core / B.Cu mostly continuous ground / bottom solder mask. Protect the ground reference during placement and routing; read two-layer-emc-workflow for the complete review sequence.",
+    "applies_to": "Non-RF two-layer boards whose density, edge rates and interface requirements permit this arrangement.",
+    "required_inputs": [
+      "Board outline, component packages and routing density",
+      "Device layout requirements, signal edge rates and interface constraints",
+      "Fabricator layer construction and assembly constraints",
+      "Finished copper thickness on both sides, actual core thickness, finished board tolerance and solder-mask construction",
+      "Explicit net identities, current budgets, edge rates and interface constraints"
+    ],
+    "verification": [
+      "Record the physical construction: top mask, F.Cu, core, B.Cu, bottom mask; confirm actual values with the fabricator.",
+      "Consider 1 oz finished outer copper as a fabrication candidate only; determine actual weight and routing widths from current, thermal and manufacturing needs.",
+      "Place critical routes over uninterrupted B.Cu ground and connect useful F.Cu ground locally. Bottom component placement is conditional on return continuity and assembly needs.",
+      "Set caller-selected layer construction and net-class dimensions explicitly, read them back, refill zones, and inspect critical references."
+    ],
+    "limitations": "Top-only placement is an editorial starting preference, not a vendor requirement. TI also illustrates mixed routing on both layers. Two layers are not guaranteed suitable; a low clock frequency does not establish slow edges. The caller chooses any stackup change. A ground fill percentage is not a return-path test. The candidate construction is not proof of EMI/EMC compliance.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Sections 2.1-2.2, page 9, planning inputs and ground reference"
+      },
+      {
+        "source_id": "ti-spma056",
+        "locator": "Section 3.2.2, pages 6-7, conditional two-layer use and Figure 5"
+      }
+    ],
+    "related_ids": [
+      "board-thickness-choice",
+      "fabrication-profile",
+      "power-conductor-sizing",
+      "ground-pour-stitching",
+      "two-layer-bottom-jump"
+    ]
+  },
+  {
+    "id": "board-thickness-choice",
+    "title": "Choose board thickness from electrical and mechanical requirements",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "board thickness",
+      "two layer",
+      "2 layer",
+      "0.8 mm",
+      "1.6 mm",
+      "dielectric separation",
+      "flex",
+      "assembly",
+      "cost"
+    ],
+    "summary": "Reducing signal-to-reference separation can improve field containment. Compare a 0.8 mm board when mechanics allow with a 1.6 mm board when required for assembly or stiffness; use the actual dielectric separation. Total board thickness alone cannot establish EMI/EMC pass or fail.",
+    "applies_to": "Rigid two-layer boards where core thickness largely determines signal-reference separation.",
+    "required_inputs": [
+      "Fabricator construction, thickness tolerance and current quote",
+      "Connector drawings, support locations and assembly process",
+      "Signal requirements and sensitivity to board flex"
+    ],
+    "verification": [
+      "Read back the selected stackup and confirm the fabrication order matches it.",
+      "Check mating dimensions and board deflection during assembly."
+    ],
+    "limitations": "1.6 mm does not automatically fail EMI/EMC, and 0.8 mm does not guarantee a pass. Reducing separation does not imply a proportional emissions reduction. Finished thickness is not exactly dielectric separation. Confirm mechanical suitability and current price; this is not a structural calculation.",
+    "citations": [
+      {
+        "source_id": "ti-spma056",
+        "locator": "Sections 3.2.1-3.2.2, pages 6-7, reference separation and core construction"
+      },
+      {
+        "source_id": "jlcpcb-capabilities",
+        "locator": "PCB Specifications: Thickness and Board Thickness Tolerance"
+      },
+      {
+        "source_id": "murata-mounting",
+        "locator": "PDF page 16, Tightening Screws and board support"
+      }
+    ],
+    "related_ids": [
+      "two-layer-critical-routing",
+      "two-layer-escalation"
+    ]
+  },
+  {
+    "id": "fabrication-profile",
+    "title": "Set fabrication constraints from the chosen manufacturing process",
+    "topic": "manufacturing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "fabrication profile",
+      "manufacturing",
+      "DFM",
+      "6 mil",
+      "0.15 mm",
+      "0.3 mm drill",
+      "minimum spacing",
+      "annular ring",
+      "copper edge clearance",
+      "solder mask"
+    ],
+    "summary": "Select trace, spacing, drill, annular-ring, mask and edge-clearance constraints using the chosen fabricator, layer count and copper weight. Separate absolute capabilities from economical preferred dimensions.",
+    "applies_to": "Prototype rigid PCBs after a fabrication and assembly service has been selected.",
+    "required_inputs": [
+      "Current fabricator capabilities and quote for the selected copper weight and layer count",
+      "Package pitch, via pad/drill sizes, plated-hole and mask requirements"
+    ],
+    "verification": [
+      "Set explicit board/net-class constraints and read them back.",
+      "Run DRC and fabricator DFM against exported production files; review holes and edge clearances too."
+    ],
+    "limitations": "0.15 mm trace/spacing and 0.3 mm drill are provisional project examples, not universal minima or verified capacity limits. Exactly 6 mil is 0.1524 mm. Drill diameter alone does not specify a via; fabrication clearance does not establish safety insulation.",
+    "citations": [
+      {
+        "source_id": "jlcpcb-capabilities",
+        "locator": "PCB Specifications: drill/via sizes, track width and spacing by copper weight, annular rings, solder mask and trace-to-outline distance"
+      }
+    ]
+  },
+  {
+    "id": "surface-finish-selection",
+    "title": "Select surface finish using assembly needs and a current quote",
+    "topic": "manufacturing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "surface finish",
+      "HASL",
+      "ENIG",
+      "green mask",
+      "cost",
+      "fine pitch",
+      "flatness"
+    ],
+    "summary": "Compare HASL and ENIG against pad flatness, package pitch and assembly requirements. ENIG generally costs more than HASL; verify finish and mask pricing for the actual order.",
+    "applies_to": "Rigid PCB fabrication and assembly finish selection.",
+    "required_inputs": [
+      "Component package and assembly finish requirements",
+      "Current fabrication and assembly quote including mask and finish"
+    ],
+    "verification": [
+      "Check package compatibility and confirm the ordered finish with the assembler."
+    ],
+    "limitations": "No finish or mask color is guaranteed to avoid cost adders. This entry supplies no universal pitch cutoff or reliability qualification.",
+    "citations": [
+      {
+        "source_id": "jlcpcb-finishes",
+        "locator": "Advantages and disadvantages of HASL and ENIG: surface flatness and cost"
+      }
+    ]
+  },
+  {
+    "id": "power-conductor-sizing",
+    "title": "Size power traces and vias from current, voltage drop and heating",
+    "topic": "power",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "power trace width",
+      "power routing",
+      "current capacity",
+      "voltage drop",
+      "temperature rise",
+      "copper thickness",
+      "neck down",
+      "neckdown",
+      "via capacity"
+    ],
+    "summary": "Use current, copper thickness, conductor length and allowed temperature rise to evaluate power routing. Check voltage drop and the narrowest sections, pad neck-downs and vias rather than only the main trace width.",
+    "applies_to": "Non-RF power distribution requiring explicit conductor sizing; this entry identifies inputs, not a numerical ampacity result.",
+    "required_inputs": [
+      "Continuous and transient current, duty cycle and allowable voltage drop",
+      "Copper thickness, route length, neck-down geometry and via construction",
+      "Ambient conditions, thermal environment and permitted temperature rise"
+    ],
+    "verification": [
+      "Record the chosen electrical/thermal model and assumptions; calculate trace and via behavior separately.",
+      "Read back routing dimensions and validate drop and heating under worst intended load on hardware."
+    ],
+    "limitations": "A 0.5-1 mm width is not a universal power rule. Short neck-downs still need review. KiCad's documented track-width tool uses IPC-2221 formulas; a calculator estimate is not thermal qualification. No numeric current-capacity table or solver is bundled here.",
+    "citations": [
+      {
+        "source_id": "kicad-calculator",
+        "locator": "Via Size and Track Width sections; documented IPC-2221 calculation basis"
+      }
+    ]
+  },
+  {
+    "id": "two-layer-bottom-jump",
+    "title": "Review bottom-layer jumps by their effect on ground continuity",
+    "topic": "routing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "bottom layer jump",
+      "backside jumper",
+      "two layer",
+      "2 layer",
+      "2 mm",
+      "ground slot",
+      "via clearance",
+      "return detour"
+    ],
+    "summary": "Keep bottom-layer signal or power detours short where that layer supplies the ground reference. Review the filled copper around the complete detour and adjacent vias for interrupted return paths.",
+    "applies_to": "Two-layer boards using bottom ground beneath top-layer signals.",
+    "required_inputs": [
+      "Actual filled copper geometry including track/via clearances",
+      "Critical top routes, their reference paths and the proposed bottom detour"
+    ],
+    "verification": [
+      "Inspect whether clearances merge into a slot or narrow a ground connection.",
+      "Review the return-current detour for affected signals; record the routing compromise."
+    ],
+    "limitations": "A bottom run shorter than 2 mm is not automatically acceptable. DRC clearance success does not prove a good return path. A ground via cannot repair a slot unless connected copper provides an appropriate alternative path.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Section 1.6, pages 8-9, return-path slots; section 2.5, pages 15-17, vias and return current"
+      }
+    ],
+    "related_ids": [
+      "reference-plane-continuity",
+      "layer-transition-return"
+    ]
+  },
+  {
+    "id": "ground-pour-stitching",
+    "title": "Connect useful ground pours and inspect isolated copper",
+    "topic": "grounding",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "ground pour",
+      "stitching vias",
+      "via grid",
+      "pitch",
+      "copper island",
+      "floating copper",
+      "ground neck",
+      "two layer"
+    ],
+    "summary": "Connect useful top ground regions to the intended ground reference and inspect the actual fill. Prioritize short ground connections at decoupling and protection returns; remove unintended floating copper or connect it deliberately.",
+    "applies_to": "Non-isolated ground regions on ordinary boards, including two-layer layouts.",
+    "required_inputs": [
+      "Ground-net identities, device copper keepouts and filled-zone geometry",
+      "Decoupling and protection return connections and any reference changes"
+    ],
+    "verification": [
+      "Refill and inspect islands, narrow necks and whether stitching vias actually contact the intended ground regions.",
+      "Review functional return connections separately from any regular stitching grid.",
+      "Inspect nearby connected top ground as a possible local return path; do not substitute an isolated guard strip for an actual return connection.",
+      "Check shared ground necks so switching/load current does not corrupt sensitive references; a via fence is not a shield enclosure."
+    ],
+    "limitations": "No universal via pitch is supplied. Do not join isolated grounds or disregard device keepouts. KiCad island-removal settings do not remove islands from wholly unconnected zones; inspect the result rather than relying on the setting.",
+    "citations": [
+      {
+        "source_id": "kicad-pcb-zones",
+        "locator": "Working with zones: zone properties, Remove islands and wholly unconnected zones"
+      },
+      {
+        "source_id": "ti-esd-layout",
+        "locator": "Section 2.4, pages 7-8, low-inductance ground connections for protection"
+      },
+      {
+        "source_id": "adi-mt031",
+        "locator": "Low and High Frequency Decoupling, pages 3-4"
+      }
+    ],
+    "related_ids": [
+      "reference-plane-continuity",
+      "mixed-signal-grounding",
+      "decoupling-loop",
+      "esd-flow-through"
+    ]
+  },
+  {
+    "id": "mcu-pin-assignment",
+    "title": "Validate alternate functions before swapping MCU pins",
+    "topic": "placement",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "pin swapping",
+      "pin swap",
+      "pin assignment",
+      "pinmux",
+      "alternate function",
+      "uncross signals",
+      "MCU",
+      "STM32",
+      "boot debug",
+      "firmware"
+    ],
+    "summary": "Consider supported alternate pin assignments to simplify routing only after checking the exact device and package. Review peripheral mapping, voltage/current capability, boot and debug use, and firmware configuration together.",
+    "applies_to": "MCUs with documented selectable peripheral pin mappings; STM32 GPIO guidance is the cited example.",
+    "required_inputs": [
+      "Exact part/package datasheet, alternate-function table and reference manual",
+      "Required peripherals, boot/debug access and existing schematic assignments",
+      "Firmware pin configuration and electrical requirements of connected devices"
+    ],
+    "verification": [
+      "Check the complete proposed assignment for peripheral conflicts and reset-state behavior.",
+      "Update schematic connectivity and firmware consistently, then read root nets and synchronize the board."
+    ],
+    "limitations": "GPIO pins are not interchangeable by name or proximity. Generic guidance cannot establish legal swaps for an unspecified MCU. Routing convenience does not authorize changing the intended circuit or disabling programming access.",
+    "citations": [
+      {
+        "source_id": "st-gpio",
+        "locator": "Sections 4.1, 4.3.3-4.3.4 and 5, pin types, alternate functions and electrical characteristics"
+      }
+    ],
+    "related_ids": [
+      "emc-clock-edge-rate",
+      "emc-brownout-recovery"
+    ]
+  },
+  {
+    "id": "routing-priority",
+    "title": "Reserve critical loops and constrained paths before general routing",
+    "topic": "routing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "routing priority",
+      "routing order",
+      "power last",
+      "ground last",
+      "workflow",
+      "hot loop",
+      "sensitive analog",
+      "GPIO",
+      "two layer"
+    ],
+    "summary": "Plan critical power loops, decoupling returns, clocks and sensitive paths before general routing consumes their space. Maintain ground continuity throughout; choose routing order from the circuit's constraints.",
+    "applies_to": "Boards combining MCU interfaces, power conversion or sensitive analog circuitry.",
+    "required_inputs": [
+      "Mechanical constraints and functional placement",
+      "Converter topology, device layout requirements and sensitive nets",
+      "Interface constraints and intended return paths"
+    ],
+    "verification": [
+      "Review critical loops and reserved routing space before filling remaining GPIO routes.",
+      "Recheck ground continuity after route changes and zone refill."
+    ],
+    "limitations": "This is an editorial workflow, not a fixed ordering mandated by the sources. Power and ground must not be deferred indiscriminately. The caller selects placement and route order; this entry performs no routing.",
+    "citations": [
+      {
+        "source_id": "ti-buck-emi",
+        "locator": "Sections 3.1-3.2, pages 5-6, identify and minimize critical switching-current paths"
+      },
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Section 2.1, page 9, layout considerations during circuit design"
+      }
+    ],
+    "related_ids": [
+      "functional-placement",
+      "decoupling-loop",
+      "crystal-placement",
+      "two-layer-power-layout",
+      "two-layer-critical-routing"
+    ]
+  },
+  {
+    "id": "two-layer-emc-workflow",
+    "title": "Two-layer stackup and EMI/EMC design workflow",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "2 layer",
+      "stackup",
+      "EMI",
+      "EMC",
+      "complete design",
+      "workflow",
+      "pass compliance",
+      "ground reference"
+    ],
+    "summary": "Start with product requirements and two-layer feasibility; specify physical stackup, place critical loops, preserve returns, constrain interfaces and cable entry, then verify emissions and immunity. Read related guides as applicable; this is a review sequence, not an EMC pass certificate.",
+    "applies_to": "Non-RF MCU, sensor and control products considering a rigid two-layer PCB. Product-specific standards, device requirements and assembly constraints remain necessary.",
+    "required_inputs": [
+      "Target markets, product/environment requirements, applicable test editions and acceptance criteria",
+      "Schematic, BOM, outline, enclosure, cables, power/load modes and firmware configuration",
+      "Fabricator stackup, copper construction and all critical net requirements"
+    ],
+    "verification": [
+      "1. Establish emissions and immunity targets and missing inputs; do not invent limits or mark untested requirements passed.",
+      "2. Compare two-layer feasibility, choose layer roles and thickness, and record the complete construction and net-class rules.",
+      "3. Place mechanical anchors and functional circuits; reserve decoupling, power, crystal, sensitive analog and connector protection paths before general routing.",
+      "4. Review actual filled copper beneath critical routes, ground connections, bottom jumps, edge rates and interface-specific constraints.",
+      "5. Review cables, enclosure, protection, power filtering and recovery behavior as one assembled product.",
+      "6. Separate CAD findings, engineering review, precompliance measurements and formal test results; keep each unmeasured item explicitly unresolved.",
+      "7. Rework and retest or propose a four-layer stackup when remaining constraints cannot be met on two layers."
+    ],
+    "limitations": "Editorial workflow assembled from the cited sources. It is not exhaustive for every product and cannot guarantee passing EMI/EMC. The AI chooses which supporting guides apply; no automatic traversal, CAD writes or standards selection occurs.",
+    "citations": [
+      {
+        "source_id": "ti-spma056",
+        "locator": "Section 3.2, pages 6-7, conditional layer-count choices"
+      },
+      {
+        "source_id": "st-emc-rev5",
+        "locator": "Sections 2 and 5, definitions and application design guidance"
+      },
+      {
+        "source_id": "tek-emi-precompliance",
+        "locator": "EMI Troubleshooting and Pre-Compliance Testing"
+      }
+    ],
+    "related_ids": [
+      "emc-emissions-immunity-plan",
+      "two-layer-planning",
+      "surface-finish-selection",
+      "functional-placement",
+      "mcu-pin-assignment",
+      "routing-priority",
+      "two-layer-power-layout",
+      "two-layer-critical-routing",
+      "two-layer-interface-review",
+      "two-layer-connector-boundary",
+      "two-layer-emc-test-plan",
+      "two-layer-escalation",
+      "layout-intent-handoff",
+      "two-layer-power-return-budget",
+      "two-layer-reference-design-transfer"
+    ]
+  },
+  {
+    "id": "two-layer-critical-routing",
+    "title": "Control edges and local return paths on a two-layer board",
+    "topic": "routing",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "critical routing",
+      "same layer return",
+      "coplanar ground",
+      "fast edges",
+      "slow clock",
+      "board edge",
+      "slew rate"
+    ],
+    "summary": "Keep clocks and sensitive routes short with a continuous reference. Use the slowest supported output slew that still meets the receiver timing and loading requirements. Nearby connected ground can reduce local loop area; a floating guard trace cannot.",
+    "applies_to": "Non-RF two-layer digital and mixed-signal layouts, including low-clock-rate signals with fast transitions.",
+    "required_inputs": [
+      "Driver edge rates under load, topology, receiver thresholds and timing budget",
+      "Route lengths, neighboring aggressors and filled ground geometry"
+    ],
+    "verification": [
+      "Inspect routes near board edges and ground gaps; choose separation from actual coupling and fabrication requirements.",
+      "Verify selected slew settings at the receiver; assess source termination only for a compatible topology.",
+      "Inspect both forward and return connections. Adding top ground changes controlled-impedance geometry and must be included in its calculation.",
+      "Keep crystal circuitry compact and sensitive analog/reset routes away from switching nodes; follow the selected oscillator layout."
+    ],
+    "limitations": "No universal clock-frequency cutoff, edge setback, guard gap or series-resistor value. Nearby ground does not replace a continuous bottom reference or guarantee containment. Firmware slew settings require device support.",
+    "citations": [
+      {
+        "source_id": "st-emc-rev5",
+        "locator": "Sections 4.2.3, 5.1.1 and 5.1.7, edge timing, loop reduction and high-speed tracks"
+      }
+    ],
+    "related_ids": [
+      "emc-clock-edge-rate",
+      "emc-source-termination",
+      "controlled-impedance",
+      "crystal-placement",
+      "mixed-signal-grounding"
+    ]
+  },
+  {
+    "id": "two-layer-power-layout",
+    "title": "Close power loops locally and isolate sensitive feedback",
+    "topic": "power",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "switching power",
+      "switch node",
+      "feedback",
+      "decoupling",
+      "power supply",
+      "hot loop",
+      "input filter"
+    ],
+    "summary": "Route switching-current loops locally with their bypass components. Limit switch-node copper to what electrical and thermal needs require, and keep feedback away from noisy nodes. A broad ground plane supplements correct component placement; it cannot replace it.",
+    "applies_to": "Two-layer boards with IC decoupling and switching supplies; buck examples do not define every converter topology.",
+    "required_inputs": [
+      "Exact regulator topology, pinout and reference layout",
+      "Load transients, supply impedance, capacitor characteristics and thermal needs",
+      "Feedback sense points, ground topology and any device copper keepouts"
+    ],
+    "verification": [
+      "Identify the changing current loop for each converter switch state, then inspect its local connections and return.",
+      "Check every required IC supply bypass connection and local ground path; size bulk storage for actual transients and regulator requirements.",
+      "Inspect feedback/sense routes for shared high-current impedance and proximity to the switch node or inductor.",
+      "Check neck-downs and vias, regulator stability and any input-filter resonance; measure startup, load transients, ripple and heating."
+    ],
+    "limitations": "Follow the exact device reference layout where it conflicts with a generic ground preference. Do not automatically split ground, enlarge switching copper or add ferrites. Bulk values, keepouts and filter damping are circuit-specific.",
+    "citations": [
+      {
+        "source_id": "ti-snva054c",
+        "locator": "Sections 3, 6, 7 and 8: current paths, switching copper, ground plane and feedback"
+      }
+    ],
+    "related_ids": [
+      "decoupling-loop",
+      "emc-buck-hot-loop",
+      "power-conductor-sizing",
+      "emc-converter-input-filter",
+      "emc-ferrite-bias",
+      "emc-filter-resonance"
+    ]
+  },
+  {
+    "id": "two-layer-interface-review",
+    "title": "Apply interface and reset requirements before routing a two-layer board",
+    "topic": "routing",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "interface review",
+      "USB",
+      "SPI",
+      "I2C",
+      "CAN",
+      "RS485",
+      "Ethernet",
+      "reset",
+      "unused pins",
+      "boot"
+    ],
+    "summary": "Classify each interface by device, generation, topology and edge rate. Establish pull-ups, termination, impedance or timing only where required. Include reset, boot, debug and unused-pin configuration in immunity review.",
+    "applies_to": "MCU interfaces and reset circuits on non-RF two-layer products; some interfaces or packages may make two layers impractical.",
+    "required_inputs": [
+      "Exact endpoint datasheets, package, interface versions, topology and cable lengths",
+      "Firmware pin modes, reset defaults, boot/debug access and required recovery behavior"
+    ],
+    "verification": [
+      "Apply the relevant interface guide and exact endpoint requirements; inspect the root netlist before layout.",
+      "Specify required net-class properties and confirm effective assignments. Separately verify timing/impedance targets that the CAD rules cannot establish.",
+      "Verify reset and unused-pin states against the exact MCU; do not blindly drive every unused pin low.",
+      "Measure receiver waveforms and functional recovery, including unintended output changes, under the selected disturbance tests."
+    ],
+    "limitations": "No universal termination resistor, pull-up value, USB geometry or immunity threshold. Source-termination guidance for point-to-point outputs is not a rule for open-drain or multidrop buses. Reset recovery is acceptable only if the product criteria allow it.",
+    "citations": [
+      {
+        "source_id": "st-emc-rev5",
+        "locator": "Sections 4.1, 5.1.4 and 5.1.7: susceptibility, I/O configuration and high-speed tracks"
+      },
+      {
+        "source_id": "st-gpio",
+        "locator": "Sections 4-5, GPIO configurations and electrical characteristics"
+      }
+    ],
+    "related_ids": [
+      "usb-channel-constraints",
+      "usb-branch-stubs",
+      "i2c-pullup-window",
+      "i2c-capacitance-segments",
+      "can-end-termination",
+      "can-split-termination",
+      "rs485-termination-stubs",
+      "rs485-failsafe-loading",
+      "rs485-ground-potential",
+      "ethernet-mdi-symmetry",
+      "ethernet-mac-series-option",
+      "ethernet-magnetics-boundary",
+      "emc-brownout-recovery",
+      "motor-ground-grid",
+      "motor-current-sense-kelvin",
+      "capacitive-touch-ground-exception",
+      "precision-analog-thermal-gradients",
+      "gpio-overview",
+      "uart-overview",
+      "spi-overview",
+      "i2c-overview"
+    ]
+  },
+  {
+    "id": "two-layer-connector-boundary",
+    "title": "Keep cable noise and protection currents at the product boundary",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "connector boundary",
+      "cable return",
+      "shield bonding",
+      "chassis",
+      "TVS",
+      "ESD",
+      "common mode",
+      "enclosure"
+    ],
+    "summary": "Plan cable return conductors and shield/chassis connections with the enclosure. Place suitable protection and filtering near entry points, with short intended discharge paths and separation between exposed and protected routing.",
+    "applies_to": "External power and signal ports of two-layer products, whether the housing is conductive or insulating.",
+    "required_inputs": [
+      "Connector pinout, cable construction, shielding, enclosure and mounting arrangement",
+      "Exposure, selected immunity tests and device signal limits",
+      "Intended signal-ground, chassis and protective-earth relationships"
+    ],
+    "verification": [
+      "Trace signal and return through the complete cable assembly; confirm protection current does not share a sensitive path unnecessarily.",
+      "Inspect exposed-to-protected routing for paths that bypass protection or filtering.",
+      "Review bonds, shield seams and apertures when applicable; compare emissions with intended cables and enclosure installed.",
+      "Identify whether filtering addresses common-mode or differential-mode noise and check its loading on the interface."
+    ],
+    "limitations": "Neither a metal housing nor shield bonding is universally required. Do not short chassis, protective earth, isolated returns and signal ground by default. Filter type and bonding strategy need system evidence; this guide does not design safety insulation.",
+    "citations": [
+      {
+        "source_id": "ti-szza009",
+        "locator": "Sections 2.5.3-2.5.4: ground returns and signals leaving the PCB"
+      },
+      {
+        "source_id": "ti-esd-layout",
+        "locator": "Sections 2.1-2.4: protection placement, coupling and ground paths"
+      }
+    ],
+    "related_ids": [
+      "emc-cable-return-path",
+      "connector-esd",
+      "esd-flow-through",
+      "esd-protected-separation",
+      "shield-apertures",
+      "shield-cavity-materials"
+    ]
+  },
+  {
+    "id": "two-layer-emc-test-plan",
+    "title": "Verify the assembled two-layer product before claiming EMC compliance",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "EMI",
+      "EMC",
+      "test plan",
+      "precompliance",
+      "pre compliance",
+      "conducted emissions",
+      "radiated emissions",
+      "immunity",
+      "near field",
+      "LISN",
+      "release review"
+    ],
+    "summary": "Separate CAD checks, diagnostic probing, precompliance and formal product testing. Correlate board noise with cable currents and radiated emissions; assess immunity separately using the applicable product requirements.",
+    "applies_to": "Assembled non-RF products with agreed test scope and representative hardware, firmware, cables, enclosure and power sources.",
+    "required_inputs": [
+      "Applicable standard editions, test levels, configurations, performance criteria and laboratory plan",
+      "Hardware/firmware revisions, cable arrangements, supply/load range and operating modes",
+      "Measurement setup, calibration/corrections, ambient conditions and recorded results"
+    ],
+    "verification": [
+      "Before fabrication: read root connectivity, inspect filled copper and renders, run ERC/DRC/DFM, and record unresolved engineering findings.",
+      "On hardware: exercise startup, communications and switching/load modes; inspect supply, reset and receiver waveforms.",
+      "Use near-field probes for localization and relative comparisons; correlate cable-current and antenna measurements. Do not compare a near-field probe reading directly with a radiated-emissions limit.",
+      "For applicable conducted and radiated tests, use the required LISN/network, antenna, detectors, bandwidths, geometry and corrections; retain setup and worst-case results.",
+      "For applicable ESD, EFT/burst, surge, conducted/radiated immunity and supply disturbances, use qualified test procedures and record behavior against the agreed criteria. Applicability and levels come from the product plan.",
+      "Retest affected functions after changes. Record tested revision, margin and remaining limitations before release; an unperformed test stays not evaluated."
+    ],
+    "limitations": "Passing DRC, a quiet bench measurement, or precompliance alone does not establish product compliance. No test levels, universal margin or certification claim is supplied. EMC includes immunity as well as emissions; component ratings do not qualify the product.",
+    "citations": [
+      {
+        "source_id": "tek-emi-precompliance",
+        "locator": "Three-Step Process for EMI Troubleshooting; A Note on the Use of External Antennas; Pre-Compliance Testing"
+      },
+      {
+        "source_id": "st-emc-rev5",
+        "locator": "Sections 2-3: EMC definitions and limitations of component characterization"
+      }
+    ],
+    "related_ids": [
+      "emc-emissions-immunity-plan",
+      "emc-source-path-victim",
+      "emc-brownout-recovery"
+    ]
+  },
+  {
+    "id": "two-layer-escalation",
+    "title": "Identify when two layers cannot meet the design requirements",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "2 layer",
+      "four layer",
+      "4 layer",
+      "escalation",
+      "feasibility",
+      "1.6 mm",
+      "0.8 mm",
+      "EMI",
+      "EMC",
+      "ground cuts",
+      "routing density"
+    ],
+    "summary": "Propose a stackup change when routing density, return-path interruptions, interface geometry or measured noise prevent meeting requirements on two layers. A four-layer board can retain mechanical thickness while putting signals closer to an internal reference.",
+    "applies_to": "Layer-count review before routing commitment and after unresolved signal-integrity or EMC findings.",
+    "required_inputs": [
+      "Observed routing/reference problems, channel requirements and measurement evidence",
+      "Mechanical thickness requirements, fabricator stackups, cost and schedule"
+    ],
+    "verification": [
+      "Record the specific unmet requirement or unresolved risk; consider placement, shorter paths and suitable edge control before forcing more routes through ground.",
+      "If two layers remain unsuitable, compare a fabricator-supported four-layer construction with close signal/reference spacing; the caller chooses the change.",
+      "Recalculate affected geometry and repeat validation after a layer-count or construction change."
+    ],
+    "limitations": "Neither 1.6 mm thickness nor a particular MCU clock rate is an automatic failure criterion. Four layers are not an automatic pass. No numeric threshold for routing density or universally best four-layer ordering is supplied.",
+    "citations": [
+      {
+        "source_id": "ti-spma056",
+        "locator": "Sections 3.2.1-3.2.2, pages 6-7: reference spacing, four-layer benefits and conditional two-layer use"
+      }
+    ],
+    "related_ids": [
+      "stackup-planning",
+      "controlled-impedance",
+      "two-layer-emc-test-plan"
+    ]
+  },
+  {
+    "id": "layout-intent-handoff",
+    "title": "Carry layout intent from the schematic into board review",
+    "topic": "placement",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "layout intent",
+      "schematic handoff",
+      "two layer",
+      "critical nodes",
+      "placement constraints"
+    ],
+    "summary": "Annotate sensitive nodes, compact current loops and proximity requirements before placement. Net connectivity alone does not convey the physical constraints needed by a two-layer layout.",
+    "applies_to": "Schematic-to-PCB handoff, including boards with limited routing area.",
+    "required_inputs": [
+      "Device layout notes, circuit functions and mechanical constraints"
+    ],
+    "verification": [
+      "Record caller-selected constraints with their source and applicable nets.",
+      "Compare the placed circuit with those constraints before routing."
+    ],
+    "limitations": "Annotations are design intent, not automatic placement or proof that the layout satisfies them.",
+    "citations": [
+      {
+        "source_id": "adi-emi-part3",
+        "locator": "Schematics to Placement; Introduction, application constraints beyond pin count"
+      }
+    ],
+    "related_ids": [
+      "routing-priority",
+      "two-layer-emc-workflow"
+    ]
+  },
+  {
+    "id": "two-layer-power-return-budget",
+    "title": "Budget power distribution and returns before filling spare copper",
+    "topic": "stackup",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "power return budget",
+      "multiple rails",
+      "plane capacitance",
+      "power pour"
+    ],
+    "summary": "Reserve space for power delivery and nearby ground returns early. Two-layer power/ground capacitance is limited; local decoupling remains important. Overlapping supply domains can exhaust routing space.",
+    "applies_to": "Two-layer feasibility and power distribution planning.",
+    "required_inputs": [
+      "Supply domains, transient currents, decoupling and available board area"
+    ],
+    "verification": [
+      "Inspect each critical route with its connected return after zone refill.",
+      "Review whether power pours preserve required ground paths and device keepouts."
+    ],
+    "limitations": "ADI illustrates top power fill as one option. It is not a mandate to replace top ground everywhere. Impedance targets come from the interface; no universal 50-ohm rule is adopted.",
+    "citations": [
+      {
+        "source_id": "adi-emi-part4",
+        "locator": "System Routing; For a 2-Layer Board"
+      }
+    ],
+    "related_ids": [
+      "decoupling-loop",
+      "two-layer-escalation"
+    ]
+  },
+  {
+    "id": "motor-ground-grid",
+    "title": "Review ground connectivity in a compact two-layer motor driver",
+    "topic": "grounding",
+    "level": "interface",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [
+      "motor-driver"
+    ],
+    "keywords": [
+      "motor driver",
+      "two layer",
+      "ground grid",
+      "partitioning"
+    ],
+    "summary": "When a compact motor board cannot retain a complete plane, connected copper and vias can improve return continuity. Separate noisy and sensitive circuit areas during placement.",
+    "applies_to": "TI DRV motor-driver layouts.",
+    "required_inputs": [
+      "Exact driver grounding requirements and switching-current paths"
+    ],
+    "verification": [
+      "Refill and inspect connected returns on both layers."
+    ],
+    "limitations": "Functional partitioning does not imply cutting ground. A grid is not a guaranteed plane replacement; preserve device-specific ground connections.",
+    "citations": [
+      {
+        "source_id": "ti-slva959b",
+        "locator": "Sections 1.1-1.2.1, pages 3-6; Figure 1-3"
+      }
+    ],
+    "related_ids": [
+      "ground-pour-stitching",
+      "two-layer-escalation"
+    ]
+  },
+  {
+    "id": "motor-current-sense-kelvin",
+    "title": "Keep motor-current sensing separate from power-path voltage drops",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "motor-driver"
+    ],
+    "keywords": [
+      "motor driver",
+      "Kelvin sense",
+      "shunt resistor",
+      "sense amplifier",
+      "net tie"
+    ],
+    "summary": "Route paired sense connections from the shunt terminals to the amplifier. Avoid shared power copper and nearby switching aggressors; a net tie can express the intended junction.",
+    "applies_to": "Motor-driver shunt sensing.",
+    "required_inputs": [
+      "Shunt terminals, amplifier limits and device filter requirements"
+    ],
+    "verification": [
+      "Inspect both pickup points; check loaded measurement against the error budget."
+    ],
+    "limitations": "Ratsnest connectivity alone cannot verify Kelvin pickup. Filter values and sense topology remain device-specific.",
+    "citations": [
+      {
+        "source_id": "ti-slva959b",
+        "locator": "Sections 7.5-7.9, pages 32-34"
+      }
+    ],
+    "related_ids": [
+      "two-layer-power-layout"
+    ]
+  },
+  {
+    "id": "capacitive-touch-ground-exception",
+    "title": "Apply sensor-specific ground keepouts to capacitive-touch traces",
+    "topic": "grounding",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "capacitive-touch"
+    ],
+    "keywords": [
+      "capacitive touch",
+      "maXTouch",
+      "ground keepout",
+      "self capacitance",
+      "Y lines",
+      "two layer"
+    ],
+    "summary": "maXTouch sensor Y traces need parasitic-capacitance control and may require ground/power keepouts. Their rules differ from the controller clock and communication returns.",
+    "applies_to": "maXTouch sensor interconnect, conditional on sensing mode.",
+    "required_inputs": [
+      "Controller, sensor geometry, mutual/self-capacitance mode and device limits"
+    ],
+    "verification": [
+      "Inspect sensor keepouts and communication returns separately; verify touch sensitivity and noise."
+    ],
+    "limitations": "Do not extend this exception to ordinary digital routes or every touch controller.",
+    "citations": [
+      {
+        "source_id": "microchip-touch-an0208",
+        "locator": "Sections 3.1, 3.4-3.7, pages 4-6; section 7.4, page 17"
+      }
+    ],
+    "related_ids": [
+      "two-layer-critical-routing",
+      "two-layer-interface-review",
+      "touch-fpc-orientation"
+    ]
+  },
+  {
+    "id": "precision-analog-thermal-gradients",
+    "title": "Review heat flow as an error source in precision analog",
+    "topic": "thermal",
+    "level": "interface",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [
+      "analog"
+    ],
+    "keywords": [
+      "precision analog",
+      "thermal gradient",
+      "thermoelectric",
+      "microvolt",
+      "heat flow"
+    ],
+    "summary": "Temperature gradients across dissimilar junctions can introduce measurement offsets. Review heat sources and copper heat paths as part of placement, alongside electrical return paths.",
+    "applies_to": "Precision measurements where thermoelectric offsets matter, including two-layer sensor boards.",
+    "required_inputs": [
+      "Measurement error budget, dissipation, airflow and operating temperature range"
+    ],
+    "verification": [
+      "Measure offset during warm-up and representative load/temperature changes."
+    ],
+    "limitations": "Extra copper or thermal slots can change returns and mechanics; use a circuit-specific analysis before adding them. This is not a thermal solver.",
+    "citations": [
+      {
+        "source_id": "adi-emi-part5",
+        "locator": "The Movement of Heat in the PCB"
+      }
+    ],
+    "related_ids": [
+      "two-layer-emc-test-plan"
+    ]
+  },
+  {
+    "id": "two-layer-reference-design-transfer",
+    "title": "Check what a two-layer reference design actually demonstrates",
+    "topic": "verification",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "two layer",
+      "reference design",
+      "prototype",
+      "production",
+      "CN0282",
+      "HDMI"
+    ],
+    "summary": "ADI CN-0282 demonstrates a working two-layer converter while discussing advantages of four layers for impedance control and EMC. Reuse a reference only after comparing its layout, stackup, loads and test conditions with the intended product.",
+    "applies_to": "Using a vendor evaluation design as evidence for two-layer feasibility.",
+    "required_inputs": [
+      "Exact reference revision, device configuration, stackup and required product tests"
+    ],
+    "verification": [
+      "Separate demonstrated functionality from documented compliance tests.",
+      "Recheck signal integrity and emissions after changing geometry or drive strength."
+    ],
+    "limitations": "A working reference is not transferable EMC certification. Its short-route choices and omitted series resistors are not general routing rules.",
+    "citations": [
+      {
+        "source_id": "adi-cn0282",
+        "locator": "Layout Considerations, page 4; Evaluation and Test, page 5"
+      }
+    ],
+    "related_ids": [
+      "two-layer-escalation",
+      "two-layer-emc-test-plan"
+    ]
+  }
+]

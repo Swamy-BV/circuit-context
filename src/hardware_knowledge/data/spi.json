@@ -1,0 +1,288 @@
+[
+  {
+    "id": "spi-overview",
+    "title": "SPI overview: choose topology and device timing",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "spi"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "spi",
+      "overview",
+      "mode",
+      "cpol",
+      "cpha"
+    ],
+    "summary": "Select a single target, independent chip selects, a supported daisy chain, or an engineered off-board link.",
+    "applies_to": "Conventional single-data-rate SPI with device-defined timing and pin behavior.",
+    "required_inputs": [
+      "Devices, topology, SCK mode/rate and edge times",
+      "Chip-select timing, target output behavior and power states"
+    ],
+    "verification": [
+      "Compare both ends' setup/hold, data-valid and enable/disable timing."
+    ],
+    "limitations": "QSPI, OSPI, DDR and memory-mapped flash require separate device-specific channel guidance.",
+    "citations": [
+      {
+        "source_id": "adi-spi-intro",
+        "locator": "Interface; clock polarity/phase; Multi-Subnode Configuration, Figures 6-8"
+      },
+      {
+        "source_id": "adi-an1248",
+        "locator": "Timing specifications, additional considerations and topologies (standalone, daisy-chain and parallel)"
+      }
+    ],
+    "related_ids": [
+      "spi-point-to-point",
+      "spi-shared-bus",
+      "spi-daisy-chain",
+      "spi-off-board",
+      "emc-source-termination"
+    ]
+  },
+  {
+    "id": "spi-point-to-point",
+    "title": "SPI single-target routing pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "spi"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "spi",
+      "single",
+      "point to point",
+      "setup hold",
+      "miso",
+      "mosi"
+    ],
+    "summary": "Route controller clock, data and select to the target, and target data back to the controller. Budget the return-data timing path.",
+    "applies_to": "Conventional single-data-rate SPI with device-defined timing and pin behavior.",
+    "required_inputs": [
+      "SCK mode, device delays, board delays and timing margin",
+      "Driver edges, loading and reference layers"
+    ],
+    "verification": [
+      "Check setup/hold at both receiving ends and inspect SCK for extra crossings."
+    ],
+    "limitations": "No universal trace length, equal-length rule or series resistor value applies.",
+    "citations": [
+      {
+        "source_id": "adi-an1248",
+        "locator": "Timing specifications, additional considerations and topologies (standalone, daisy-chain and parallel)"
+      }
+    ],
+    "related_ids": [
+      "emc-source-termination",
+      "reference-plane-continuity",
+      "layer-transition-return"
+    ],
+    "pattern": {
+      "diagram": "C.SCK  ---> T.SCK\nC.MOSI ---> T.SDI\nC.CS   ---> T.CS\nC.MISO <--- T.SDO",
+      "placement": [
+        "Keep the target near the controller; optional damping belongs near each signal's driver."
+      ],
+      "routing": [
+        "Review SCK-to-target plus target-data-to-controller delay for MISO timing."
+      ],
+      "return_path": [
+        "Apply the linked plane-continuity and layer-transition guidance."
+      ],
+      "pitfalls": [
+        "Slowing the clock does not necessarily remove ringing caused by fast edges."
+      ]
+    }
+  },
+  {
+    "id": "spi-shared-bus",
+    "title": "SPI shared bus with independent chip selects",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "spi"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "spi",
+      "shared",
+      "multiple targets",
+      "multidrop",
+      "chip select",
+      "tristate",
+      "contention"
+    ],
+    "summary": "Share clock and data only when inactive targets release MISO. Give each target its own chip-select control.",
+    "applies_to": "Conventional single-data-rate SPI with device-defined timing and pin behavior.",
+    "required_inputs": [
+      "MISO disable timing and boot states for every target",
+      "Fanout, branch geometry, clock mode and loading"
+    ],
+    "verification": [
+      "Check contention during selection changes and timing at every target."
+    ],
+    "limitations": "Choose trunk, branches or buffering from timing and signal-integrity evidence, not a universal topology rule.",
+    "citations": [
+      {
+        "source_id": "adi-spi-intro",
+        "locator": "Interface; clock polarity/phase; Multi-Subnode Configuration, Figures 6-8"
+      },
+      {
+        "source_id": "adi-an1248",
+        "locator": "Timing specifications, additional considerations and topologies (standalone, daisy-chain and parallel)"
+      }
+    ],
+    "related_ids": [
+      "spi-point-to-point",
+      "emc-source-termination"
+    ],
+    "pattern": {
+      "diagram": "C.SCK/MOSI ---> shared nets ---> T1, T2\nC.CS1 ----------------------> T1.CS\nC.CS2 ----------------------> T2.CS\nC.MISO <--- T1.SDO / T2.SDO (only selected output drives)",
+      "placement": [
+        "Group targets so the shared clock does not acquire long branches."
+      ],
+      "routing": [
+        "Evaluate branch reflections and total capacitance; avoid extended test stubs."
+      ],
+      "return_path": [
+        "Keep the shared reference continuous beneath all branches."
+      ],
+      "pitfalls": [
+        "Some SDO/RDY functions or startup modes do not release the output as assumed."
+      ]
+    }
+  },
+  {
+    "id": "spi-daisy-chain",
+    "title": "SPI supported serial daisy-chain pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "spi"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "spi",
+      "daisy chain",
+      "serial chain",
+      "shift"
+    ],
+    "summary": "Connect target data outputs into subsequent inputs only when every device explicitly supports compatible daisy-chain operation.",
+    "applies_to": "Conventional single-data-rate SPI with device-defined timing and pin behavior.",
+    "required_inputs": [
+      "Chain support, ordering, frame lengths and timing for each device"
+    ],
+    "verification": [
+      "Validate complete-chain transfers and setup/hold between adjacent devices."
+    ],
+    "limitations": "Sharing chip selects alone does not create a supported chain.",
+    "citations": [
+      {
+        "source_id": "adi-spi-intro",
+        "locator": "Interface; clock polarity/phase; Multi-Subnode Configuration, Figures 6-8"
+      },
+      {
+        "source_id": "adi-an1248",
+        "locator": "Timing specifications, additional considerations and topologies (standalone, daisy-chain and parallel)"
+      }
+    ],
+    "related_ids": [
+      "spi-point-to-point"
+    ],
+    "pattern": {
+      "diagram": "C.MOSI -> T1.SDI; T1.SDO -> T2.SDI; T2.SDO -> C.MISO\nC.SCK -> T1.SCK, T2.SCK\nC.CS  -> T1.CS,  T2.CS",
+      "placement": [
+        "Place devices in their selected serial data order."
+      ],
+      "routing": [
+        "Keep inter-device data direct while checking shared-clock skew."
+      ],
+      "return_path": [
+        "Maintain the common reference for clock and serial data paths."
+      ],
+      "pitfalls": [
+        "Do not confuse this logical chain with a shared-MISO bus."
+      ]
+    }
+  },
+  {
+    "id": "spi-off-board",
+    "title": "SPI off-board link review pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "spi"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "spi",
+      "off board",
+      "cable",
+      "isolator",
+      "delay"
+    ],
+    "summary": "Review cable delay, loading, returns and protection before extending SPI off-board; consider dedicated link hardware when necessary.",
+    "applies_to": "Conventional single-data-rate SPI with device-defined timing and pin behavior.",
+    "required_inputs": [
+      "Cable construction, length, connectors and timing budget",
+      "Ground relationship, protection and any translator/isolator delays"
+    ],
+    "verification": [
+      "Check waveforms and timing across the complete link in both directions."
+    ],
+    "limitations": "There is no universal maximum SPI cable length. The pattern does not select a cable or link technology.",
+    "citations": [
+      {
+        "source_id": "adi-an1248",
+        "locator": "Timing specifications, additional considerations and topologies (standalone, daisy-chain and parallel)"
+      },
+      {
+        "source_id": "ti-szza009",
+        "locator": "Sections 2.5.3-2.5.4, ground returns and signals leaving the PCB"
+      }
+    ],
+    "related_ids": [
+      "spi-point-to-point",
+      "emc-cable-return-path",
+      "esd-flow-through"
+    ],
+    "pattern": {
+      "diagram": "Controller <-> optional link hardware <-> connector/cable <-> Target\nSCK/MOSI/CS forward; MISO reverse; returns planned with the cable",
+      "placement": [
+        "Keep connector-boundary protection and any link hardware on the intended signal path."
+      ],
+      "routing": [
+        "Include forward clock and reverse data propagation in the timing analysis."
+      ],
+      "return_path": [
+        "Assign nearby cable returns rather than treating the ground pin as sufficient evidence."
+      ],
+      "pitfalls": [
+        "A lower SCK frequency cannot repair an overvoltage or an unsuitable return path."
+      ]
+    }
+  }
+]

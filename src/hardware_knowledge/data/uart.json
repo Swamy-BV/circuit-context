@@ -1,0 +1,230 @@
+[
+  {
+    "id": "uart-overview",
+    "title": "UART overview: direct logic link or external transceiver",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "uart"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "uart",
+      "overview",
+      "usart",
+      "asynchronous",
+      "serial"
+    ],
+    "summary": "Select a direct logic link, debug header or external physical layer. Confirm directions, voltage compatibility, baud and framing.",
+    "applies_to": "Asynchronous logic-level UART/USART unless an external physical layer is explicitly selected.",
+    "required_inputs": [
+      "Devices, logic rails and baud/framing",
+      "On-board or external connection and flow-control requirements"
+    ],
+    "verification": [
+      "Read both endpoint specifications and verify a complete frame at the receiver."
+    ],
+    "limitations": "Synchronous USART, LIN and single-wire modes need separate patterns. Do not assume a universal baud-error tolerance.",
+    "citations": [
+      {
+        "source_id": "adi-uart",
+        "locator": "Interface and Data Transmission, pages 1-2; only connectivity and framing guidance used"
+      },
+      {
+        "source_id": "adi-rs232",
+        "locator": "RS-232 specification and driver/receiver functions"
+      }
+    ],
+    "related_ids": [
+      "uart-direct",
+      "uart-debug-header",
+      "uart-external-transceiver",
+      "gpio-overview"
+    ]
+  },
+  {
+    "id": "uart-direct",
+    "title": "UART direct TX-to-RX pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "uart"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "uart",
+      "direct",
+      "tx rx",
+      "baud",
+      "point to point"
+    ],
+    "summary": "Connect each transmitter to the other endpoint's receiver with compatible logic levels and a shared reference.",
+    "applies_to": "Asynchronous logic-level UART/USART unless an external physical layer is explicitly selected.",
+    "required_inputs": [
+      "TX/RX pin directions, framing and oscillator/baud-divider errors",
+      "Power sequencing and input limits"
+    ],
+    "verification": [
+      "Measure baud, framing and receiver voltage at operating corners."
+    ],
+    "limitations": "TX and RX are independent single-ended nets, not a differential pair; length matching is not a general UART requirement.",
+    "citations": [
+      {
+        "source_id": "adi-uart",
+        "locator": "Interface and Data Transmission, pages 1-2; only connectivity and framing guidance used"
+      }
+    ],
+    "related_ids": [
+      "reference-plane-continuity",
+      "layer-transition-return"
+    ],
+    "pattern": {
+      "diagram": "A.TX ---> B.RX\nA.RX <--- B.TX\nA.GND --- B.GND",
+      "placement": [
+        "Place endpoints to allow short, direct routes."
+      ],
+      "routing": [
+        "Keep TX and RX clear of noisy switching nodes; apply the linked return-path guidance."
+      ],
+      "return_path": [
+        "Carry a shared reference between endpoints."
+      ],
+      "pitfalls": [
+        "Matching baud settings does not prove that clock errors fit the receiver budget."
+      ]
+    }
+  },
+  {
+    "id": "uart-debug-header",
+    "title": "UART logic-level debug header pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "uart"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "uart",
+      "debug",
+      "header",
+      "adapter",
+      "console",
+      "backpower"
+    ],
+    "summary": "Label the header from the board's perspective, including its logic voltage and ground. Verify the adapter before connection.",
+    "applies_to": "Asynchronous logic-level UART/USART unless an external physical layer is explicitly selected.",
+    "required_inputs": [
+      "Adapter pinout, voltage and whether its power pin supplies or senses power",
+      "Board-off behavior and cable requirements"
+    ],
+    "verification": [
+      "Audit pin directions and check for unintended powering through the adapter."
+    ],
+    "limitations": "A USB-to-UART adapter is not necessarily voltage-compatible. Power connection is an explicit system decision.",
+    "citations": [
+      {
+        "source_id": "adi-uart",
+        "locator": "Interface and Data Transmission, pages 1-2; only connectivity and framing guidance used"
+      },
+      {
+        "source_id": "st-gpio",
+        "locator": "GPIO functional description and GPIO hardware configuration; apply with the selected STM32 datasheet"
+      }
+    ],
+    "related_ids": [
+      "uart-direct",
+      "emc-cable-return-path",
+      "esd-flow-through"
+    ],
+    "pattern": {
+      "diagram": "Board.TX ---> Adapter.RX\nBoard.RX <--- Adapter.TX\nBoard.GND --- Adapter.GND\nPower: connect only after supply-role review",
+      "placement": [
+        "Place the header accessibly; place chosen protection at the connector boundary."
+      ],
+      "routing": [
+        "Route protected signals onward without bypassing protection; see esd-flow-through."
+      ],
+      "return_path": [
+        "Include a ground conductor beside the signal path through the cable."
+      ],
+      "pitfalls": [
+        "Do not infer TX/RX direction from an unlabeled cable or connect supply pins blindly."
+      ]
+    }
+  },
+  {
+    "id": "uart-external-transceiver",
+    "title": "UART external physical-layer pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "uart"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "uart",
+      "external",
+      "rs232",
+      "rs485",
+      "transceiver",
+      "cable"
+    ],
+    "summary": "Use an appropriate transceiver when the external link requires RS-232 or RS-485 electrical signaling.",
+    "applies_to": "Asynchronous logic-level UART/USART unless an external physical layer is explicitly selected.",
+    "required_inputs": [
+      "Chosen physical layer, cable, grounding and transceiver",
+      "Direction control for half-duplex operation if applicable"
+    ],
+    "verification": [
+      "Verify logic-side compatibility and the selected physical-layer termination and protection."
+    ],
+    "limitations": "RS-232 and RS-485 are alternatives with different electrical requirements; neither connects directly to MCU UART pins.",
+    "citations": [
+      {
+        "source_id": "adi-rs232",
+        "locator": "RS-232 specification and driver/receiver functions"
+      },
+      {
+        "source_id": "ti-rs485",
+        "locator": "RS-485 physical-layer, termination and bus topology sections"
+      }
+    ],
+    "related_ids": [
+      "rs485-termination-stubs",
+      "rs485-ground-potential",
+      "emc-cable-return-path",
+      "esd-flow-through"
+    ],
+    "pattern": {
+      "diagram": "MCU UART <--> selected transceiver <--> connector <--> cable\nRS-232 OR RS-485: choose and document the physical layer",
+      "placement": [
+        "Place the transceiver and selected protection near the cable entry."
+      ],
+      "routing": [
+        "Follow the chosen physical-layer routing guide and its device datasheet."
+      ],
+      "return_path": [
+        "Design signal reference, ground offset and any isolation explicitly."
+      ],
+      "pitfalls": [
+        "Do not apply RS-485 termination to an RS-232 link."
+      ]
+    }
+  }
+]

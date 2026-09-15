@@ -1,0 +1,171 @@
+[
+  {
+    "id": "usb-pd-contract",
+    "title": "USB PD negotiation and current entitlement",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c",
+      "usb-pd"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "PD",
+      "contract",
+      "negotiation",
+      "9 V",
+      "12 V",
+      "15 V",
+      "20 V",
+      "current"
+    ],
+    "summary": "Require a valid supported PD contract before using negotiated voltage/current. Keep startup and fallback consumption within the permitted non-PD budget.",
+    "applies_to": "USB PD source/sink designs.",
+    "required_inputs": [
+      "Source capabilities, sink demand, controller policy and cable capabilities",
+      "Supported PD revision, startup supply and allowed fallback"
+    ],
+    "verification": [
+      "Observe requested/accepted contracts and confirm actual VBUS and load behavior; test unsupported requests and renegotiation."
+    ],
+    "limitations": "Rd alone cannot request 9/12/15/20 V. A generic PD trigger board does not prove safe fallback or sufficient cable capability.",
+    "citations": [
+      {
+        "source_id": "ti-usbc-primer",
+        "locator": "USB Type-C DFP/UFP and DRP/DRD block diagrams; USB PD and SuperSpeed sections, pages 3-10 (historical edition)"
+      },
+      {
+        "source_id": "usbif-pd32",
+        "locator": "Publisher release page and linked USB_PD_R3.2_V1.2(3).zip; edition identification only"
+      }
+    ],
+    "related_ids": [
+      "usb-c-sink-cc",
+      "usb-pd-power-path",
+      "usb-pd-epr-pps"
+    ]
+  },
+  {
+    "id": "usb-pd-power-path",
+    "title": "USB PD controller and protected power-path pattern",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c",
+      "usb-pd"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "PD",
+      "power path",
+      "VBUS",
+      "inrush",
+      "reverse current",
+      "charger",
+      "capacitor"
+    ],
+    "summary": "Coordinate PD policy with a suitably rated switch/converter/charger path. The negotiation controller alone does not establish regulation, thermal or protection performance.",
+    "applies_to": "Power delivery circuits with explicit source/sink roles.",
+    "required_inputs": [
+      "Contract envelope, power-stage topology and component ratings",
+      "Inrush, capacitance, reverse current, discharge and thermal budgets"
+    ],
+    "verification": [
+      "Verify startup, attach/detach, contract transitions, faults and board-off behavior.",
+      "Read back copper dimensions and check current, voltage drop and temperature under intended load."
+    ],
+    "limitations": "No universal VBUS capacitor, fuse, TVS or MOSFET value applies. Review limits at the connector separately from bulk capacitance behind a switch.",
+    "citations": [
+      {
+        "source_id": "ti-usbc-epr",
+        "locator": "SPR/EPR comparison and battery-powered system architecture; verify current PD requirements separately"
+      },
+      {
+        "source_id": "ti-usbc-protection",
+        "locator": "IEC ESD and short-to-VBUS events, pages 3-10; historical 20 V examples are not EPR ratings"
+      }
+    ],
+    "related_ids": [
+      "power-conductor-sizing",
+      "two-layer-power-layout",
+      "usb-c-verification"
+    ],
+    "pattern": {
+      "diagram": "CC1/CC2 <-> PD controller -> policy/status/control\nReceptacle VBUS <-> protected power path <-> converter/charger/system\nDirection follows the selected power role.",
+      "placement": [
+        "Place local bypassing, switches and protection to control the relevant power loops."
+      ],
+      "routing": [
+        "Route all required VBUS contacts and size neck-downs/vias for the selected envelope."
+      ],
+      "return_path": [
+        "Keep high-current returns from sharing sensitive measurement impedance."
+      ],
+      "pitfalls": [
+        "A buck/boost stage or battery charger may still be needed after negotiation."
+      ]
+    }
+  },
+  {
+    "id": "usb-pd-epr-pps",
+    "title": "USB PD SPR, EPR, PPS and AVS capability boundaries",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c",
+      "usb-pd"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "EPR",
+      "SPR",
+      "PPS",
+      "AVS",
+      "240 W",
+      "100 W",
+      "cable"
+    ],
+    "summary": "Select the required power range and supply features explicitly. EPR requires compatible controller, power path and cable; PPS and AVS are distinct capabilities.",
+    "applies_to": "Capability planning for USB PD products, including EPR.",
+    "required_inputs": [
+      "Controller revision/features, source profiles, cable rating and requested operating range"
+    ],
+    "verification": [
+      "Check capability advertisement and contract transitions with representative sources/cables, including unsupported combinations."
+    ],
+    "limitations": "100 W is not the current universal PD ceiling. Do not assume every PD port supports EPR, PPS or AVS, or import old application-note voltage/current tables as current normative limits.",
+    "citations": [
+      {
+        "source_id": "ti-usbc-epr",
+        "locator": "SPR/EPR comparison and battery-powered system architecture; verify current PD requirements separately"
+      },
+      {
+        "source_id": "usbif-pd32",
+        "locator": "Publisher release page and linked USB_PD_R3.2_V1.2(3).zip; edition identification only"
+      }
+    ],
+    "related_ids": [
+      "usb-pd-contract",
+      "usb-c-vconn-cable",
+      "usb-c-port-protection"
+    ]
+  }
+]

@@ -1,0 +1,368 @@
+{
+  "description": "Non-RF two-layer retrieval cases and separate manual AI expectations. Queries are explicit caller choices, not automatically generated from prompts. No AI reasoning is measured by the retrieval script.",
+  "cases": [
+    {
+      "prompt": "Plan a two-layer sensor PCB.",
+      "query": "two layer",
+      "filters": {
+        "topic": "stackup"
+      },
+      "expected_id": "two-layer-planning",
+      "ai_expectation": "Establish edge rates, density and device requirements; propose layer roles without guaranteeing two layers are sufficient."
+    },
+    {
+      "prompt": "Which layer should carry signals on my 2-layer board?",
+      "query": "2 layer assignment",
+      "expected_id": "two-layer-planning",
+      "ai_expectation": "Explain the top-routing/bottom-ground preference and allow caller-chosen exceptions after return-path review."
+    },
+    {
+      "prompt": "Should my PCB be 0.8 mm or 1.6 mm thick?",
+      "query": "board thickness",
+      "expected_id": "board-thickness-choice",
+      "ai_expectation": "Obtain connector, support, assembly and fabrication constraints; do not promise an EMI or cost outcome."
+    },
+    {
+      "prompt": "Will 0.8 mm cost the same?",
+      "query": "0.8 mm cost",
+      "filters": {
+        "domain": "mechanical"
+      },
+      "expected_id": "board-thickness-choice",
+      "ai_expectation": "Check the current quote and mechanical fit; the corpus does not provide live pricing."
+    },
+    {
+      "prompt": "Can I set 6 mil clearance and 0.3 mm drill everywhere?",
+      "query": "6 mil drill",
+      "expected_id": "fabrication-profile",
+      "ai_expectation": "Check selected copper weight, fabricator and via diameter; distinguish provisional dimensions from manufacturing and safety requirements."
+    },
+    {
+      "prompt": "Set an economical fabrication profile.",
+      "query": "fabrication profile",
+      "expected_id": "fabrication-profile",
+      "ai_expectation": "Obtain current manufacturing constraints and explicitly set/read back the selected board rules."
+    },
+    {
+      "prompt": "Is ENIG a free alternative to HASL?",
+      "query": "ENIG HASL",
+      "expected_id": "surface-finish-selection",
+      "ai_expectation": "Explain finish tradeoffs and obtain the current quote without claiming ENIG is free."
+    },
+    {
+      "prompt": "Choose power trace width.",
+      "query": "power trace width",
+      "expected_id": "power-conductor-sizing",
+      "ai_expectation": "Ask for current, copper, length, voltage-drop and thermal limits before calculating dimensions."
+    },
+    {
+      "prompt": "A wide power trace necks down at the capacitor. Is that OK?",
+      "query": "power neckdown",
+      "expected_id": "power-conductor-sizing",
+      "ai_expectation": "Review the constriction and vias with the actual current and thermal assumptions; no unconditional pass."
+    },
+    {
+      "prompt": "My bottom-layer jumper is 1.5 mm long so it passes, right?",
+      "query": "bottom layer jump",
+      "expected_id": "two-layer-bottom-jump",
+      "ai_expectation": "Reject length-only acceptance; inspect filled copper and affected top signal return paths."
+    },
+    {
+      "prompt": "Can two nearby vias create a slot in ground?",
+      "query": "via clearance ground slot",
+      "expected_id": "two-layer-bottom-jump",
+      "ai_expectation": "Inspect merged clearance geometry and the actual return detour rather than only via center spacing."
+    },
+    {
+      "prompt": "Put ground stitching vias on a regular grid.",
+      "query": "ground stitching pitch",
+      "expected_id": "ground-pour-stitching",
+      "ai_expectation": "Prioritize functional returns and actual connected copper; no invented universal pitch."
+    },
+    {
+      "prompt": "Does remove islands guarantee there is no floating copper?",
+      "query": "floating copper island",
+      "expected_id": "ground-pour-stitching",
+      "ai_expectation": "Read the unconnected-zone exception and inspect the final fill."
+    },
+    {
+      "prompt": "Swap MCU pins so the traces no longer cross.",
+      "query": "MCU pin swapping",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "mcu-pin-assignment",
+      "ai_expectation": "Obtain exact part/package alternate functions and firmware mapping, and preserve boot/debug needs before proposing swaps."
+    },
+    {
+      "prompt": "Route GPIO first and leave ground and power for last.",
+      "query": "routing priority",
+      "expected_id": "routing-priority",
+      "ai_expectation": "Reserve critical power loops and constrained routes early; maintain ground continuity throughout."
+    },
+    {
+      "prompt": "Place connectors before the other functional groups.",
+      "query": "mechanical constraints placement",
+      "expected_id": "functional-placement",
+      "ai_expectation": "Use actual mating and enclosure drawings rather than arbitrary connector edge gaps."
+    },
+    {
+      "prompt": "This decoupling capacitor is close enough by body distance.",
+      "query": "decoupling complete loop",
+      "expected_id": "decoupling-loop",
+      "ai_expectation": "Inspect both supply and ground connections rather than accepting proximity alone."
+    },
+    {
+      "prompt": "My slow-clocked MCU does not need return-path review.",
+      "query": "edge rate",
+      "expected_id": "emc-clock-edge-rate",
+      "ai_expectation": "Check rise/fall time and interface requirements even though the board has no radio."
+    },
+    {
+      "prompt": "Find schematic-specific bottom-layer routing guidance.",
+      "query": "bottom layer jump",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": null,
+      "ai_expectation": "Report the empty filter intersection without silently relaxing it."
+    },
+    {
+      "prompt": "Use this corpus to certify thermal survival under a 200 A fault.",
+      "query": "200 A fault survival",
+      "expected_id": null,
+      "ai_expectation": "Report missing quantitative fault-survival coverage and obtain appropriate analysis; generic sizing guidance is insufficient."
+    },
+    {
+      "prompt": "Give me the full two-layer stackup workflow for EMI and EMC.",
+      "query": "two layer EMC stackup",
+      "expected_id": "two-layer-emc-workflow",
+      "ai_expectation": "Read the workflow and relevant linked guides; establish product requirements without guaranteeing compliance.",
+      "expected_related": [
+        "two-layer-planning",
+        "two-layer-power-layout",
+        "two-layer-interface-review",
+        "two-layer-connector-boundary",
+        "two-layer-emc-test-plan",
+        "two-layer-escalation"
+      ]
+    },
+    {
+      "prompt": "Give me a complete 2-layer EMC design.",
+      "query": "2 layer EMC workflow",
+      "expected_id": "two-layer-emc-workflow",
+      "ai_expectation": "Cover placement, returns, power, interfaces, cables, testing and escalation; do not stop at layer assignment.",
+      "expected_related": [
+        "two-layer-planning",
+        "two-layer-power-layout",
+        "two-layer-interface-review",
+        "two-layer-connector-boundary",
+        "two-layer-emc-test-plan",
+        "two-layer-escalation"
+      ]
+    },
+    {
+      "prompt": "Does a 1.6 mm board automatically fail EMC?",
+      "query": "1.6 mm EMI",
+      "expected_id": "board-thickness-choice",
+      "ai_expectation": "Explain that thickness alone cannot establish pass or fail; inspect actual reference separation and layout."
+    },
+    {
+      "prompt": "Guarantee a pass by making the board 0.8 mm thick.",
+      "query": "0.8 mm EMC",
+      "expected_id": "board-thickness-choice",
+      "ai_expectation": "Reject the guarantee and assess mechanics plus actual electrical and test evidence."
+    },
+    {
+      "prompt": "Specify the physical construction of the two-layer board.",
+      "query": "core solder mask",
+      "expected_id": "two-layer-planning",
+      "ai_expectation": "Record mask/copper/core/copper/mask and actual fabrication dimensions, not just a layer count."
+    },
+    {
+      "prompt": "We need 1.6 mm mechanically but cannot preserve ground on two layers.",
+      "query": "two layer escalation",
+      "expected_id": "two-layer-escalation",
+      "ai_expectation": "Propose a supported four-layer alternative retaining mechanical thickness; do not change layers automatically."
+    },
+    {
+      "prompt": "Can nearby top ground help on my two-layer board?",
+      "query": "same layer return",
+      "expected_id": "two-layer-critical-routing",
+      "ai_expectation": "Inspect the connected local return and any effect on impedance; do not promise a floating guard will help."
+    },
+    {
+      "prompt": "Slow the GPIO edges to reduce noise.",
+      "query": "critical routing slew",
+      "expected_id": "two-layer-critical-routing",
+      "ai_expectation": "Use a supported setting and verify receiver timing under load."
+    },
+    {
+      "prompt": "Make the switch-node copper as large as possible.",
+      "query": "switch node feedback",
+      "expected_id": "two-layer-power-layout",
+      "ai_expectation": "Balance thermal/current needs against unnecessary switching copper and protect sensitive feedback."
+    },
+    {
+      "prompt": "Can I use one routing policy for every interface?",
+      "query": "two layer interface review",
+      "expected_id": "two-layer-interface-review",
+      "ai_expectation": "Retrieve the applicable interface family and exact device/version requirements; check net-class assignments."
+    },
+    {
+      "prompt": "Tie the connector shield directly to digital ground everywhere.",
+      "query": "connector boundary shield",
+      "expected_id": "two-layer-connector-boundary",
+      "ai_expectation": "Establish chassis and grounding requirements; do not impose universal shield bonding."
+    },
+    {
+      "prompt": "How do we test this board before claiming compliance?",
+      "query": "two layer test plan",
+      "expected_id": "two-layer-emc-test-plan",
+      "ai_expectation": "Separate CAD, bench, precompliance and formal results; include assembled-product emissions and immunity."
+    },
+    {
+      "prompt": "The near-field scan is quiet. Does it pass radiated emissions?",
+      "query": "near field precompliance",
+      "expected_id": "two-layer-emc-test-plan",
+      "ai_expectation": "Do not compare a near-field result directly with the radiated limit; use the required calibrated setup."
+    },
+    {
+      "prompt": "It passed DRC. Can we mark EMC complete?",
+      "query": "EMC release review",
+      "expected_id": "two-layer-emc-test-plan",
+      "ai_expectation": "Keep unperformed product tests not evaluated and preserve the exact tested configuration."
+    },
+    {
+      "prompt": "Can passing emissions establish immunity?",
+      "query": "emissions immunity test plan",
+      "expected_id": "two-layer-emc-test-plan",
+      "ai_expectation": "Plan applicable immunity tests separately and record functional acceptance criteria."
+    },
+    {
+      "prompt": "Can I use the normal top-level EMC workflow with an exact USB filter?",
+      "query": "two layer EMC workflow",
+      "expected_id": null,
+      "ai_expectation": "Report the empty interface intersection and explicitly retrieve general guidance separately.",
+      "filters": {
+        "interface": "usb"
+      }
+    },
+    {
+      "prompt": "What should the schematic tell the PCB designer?",
+      "query": "layout intent",
+      "expected_id": "layout-intent-handoff",
+      "ai_expectation": "Carry explicit physical constraints and their source into review; do not infer placement from connectivity."
+    },
+    {
+      "prompt": "My netlist is complete. Can I skip layout notes?",
+      "query": "schematic handoff",
+      "expected_id": "layout-intent-handoff",
+      "ai_expectation": "Identify sensitive nodes and proximity constraints absent from connectivity."
+    },
+    {
+      "prompt": "Can I allocate power and ground after routing everything?",
+      "query": "power return budget",
+      "expected_id": "two-layer-power-return-budget",
+      "ai_expectation": "Reserve power and return space early and evaluate supply-domain congestion."
+    },
+    {
+      "prompt": "I have many rails on two layers. Fill every spare area with power?",
+      "query": "multiple rails",
+      "expected_id": "two-layer-power-return-budget",
+      "ai_expectation": "Compare connected returns and decoupling needs; do not apply one copper-fill policy everywhere."
+    },
+    {
+      "prompt": "My two-layer motor board ground is fragmented. What can I review?",
+      "query": "motor ground grid",
+      "expected_id": "motor-ground-grid",
+      "ai_expectation": "Read the exact driver requirements and inspect connected returns; do not equate a via grid with a solid plane.",
+      "filters": {
+        "level": "interface",
+        "interface": "motor-driver",
+        "domain": "pcb"
+      }
+    },
+    {
+      "prompt": "Should I split analog and digital grounds on a motor board?",
+      "query": "motor partitioning",
+      "expected_id": "motor-ground-grid",
+      "ai_expectation": "Distinguish placement partitioning from a physical cut and retain device-specific connections."
+    },
+    {
+      "prompt": "The shunt amplifier ground is electrically connected. Is that sufficient?",
+      "query": "Kelvin sense",
+      "expected_id": "motor-current-sense-kelvin",
+      "ai_expectation": "Verify terminal pickup and shared copper drops; connectivity is insufficient.",
+      "filters": {
+        "interface": "motor-driver",
+        "domain": "schematic"
+      }
+    },
+    {
+      "prompt": "How do I route motor-current feedback?",
+      "query": "shunt resistor",
+      "expected_id": "motor-current-sense-kelvin",
+      "ai_expectation": "Use exact shunt pickup points and device filter limits, avoiding switching aggressors."
+    },
+    {
+      "prompt": "Should every touch sensor trace have ground immediately beneath it?",
+      "query": "capacitive touch keepout",
+      "expected_id": "capacitive-touch-ground-exception",
+      "ai_expectation": "Separate maXTouch sensor Y-trace rules from clock/communication returns; ask which sensing mode.",
+      "filters": {
+        "interface": "capacitive-touch"
+      }
+    },
+    {
+      "prompt": "Does the ordinary ground-plane rule apply to self-capacitance sensing?",
+      "query": "self capacitance",
+      "expected_id": "capacitive-touch-ground-exception",
+      "ai_expectation": "Retrieve device-specific keepout guidance without removing ground under unrelated digital nets."
+    },
+    {
+      "prompt": "My sensor offset changes when a nearby load heats up. What should I review?",
+      "query": "thermal gradient",
+      "expected_id": "precision-analog-thermal-gradients",
+      "ai_expectation": "Consider thermal gradients and measure against an error budget; do not automatically slot ground.",
+      "filters": {
+        "interface": "analog",
+        "domain": "mechanical"
+      }
+    },
+    {
+      "prompt": "Can PCB heat flow affect microvolt measurements?",
+      "query": "thermoelectric",
+      "expected_id": "precision-analog-thermal-gradients",
+      "ai_expectation": "Review junctions and heat sources along with electrical returns."
+    },
+    {
+      "prompt": "A vendor two-layer prototype works. Can we claim our product passes EMC?",
+      "query": "reference design production",
+      "expected_id": "two-layer-reference-design-transfer",
+      "ai_expectation": "Separate demonstrated functionality from compliance evidence for this product."
+    },
+    {
+      "prompt": "Can I copy the CN0282 two-layer routing choices for another design?",
+      "query": "CN0282",
+      "expected_id": "two-layer-reference-design-transfer",
+      "ai_expectation": "Preserve the actual reference scope and recheck geometry, drive strength and product tests."
+    },
+    {
+      "prompt": "The flex connector pin order looks reversed after assembly. Why?",
+      "query": "FPC orientation",
+      "expected_id": "touch-fpc-orientation",
+      "ai_expectation": "Check contact side and folding path using exact mating drawings.",
+      "filters": {
+        "level": "mechanical",
+        "interface": "capacitive-touch"
+      }
+    },
+    {
+      "prompt": "How should I verify the touch-panel connector mapping?",
+      "query": "folding path",
+      "expected_id": "touch-fpc-orientation",
+      "ai_expectation": "Trace numbered contacts in assembled orientation; do not invent a reversed pin mapping."
+    }
+  ]
+}

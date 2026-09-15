@@ -1,0 +1,181 @@
+{
+  "description": "USB-C and impedance retrieval checks; AI expectations require separate fresh-session evaluation.",
+  "cases": [
+    {
+      "prompt": "Do all traces need to be 50 ohms?",
+      "query": "50 ohm",
+      "expected_id": "impedance-requirement-selection",
+      "ai_expectation": "Do not assign a universal target or resistor; establish interface, edges, delay and stackup."
+    },
+    {
+      "prompt": "Does a 50-ohm trace have 50 ohms DC resistance?",
+      "query": "characteristic DC resistance",
+      "expected_id": "impedance-requirement-selection",
+      "ai_expectation": "Distinguish characteristic impedance from conductor resistance."
+    },
+    {
+      "prompt": "Should every GPIO get a 50-ohm resistor?",
+      "query": "50 ohm termination",
+      "expected_id": "impedance-requirement-selection",
+      "ai_expectation": "Require topology and driver/receiver evidence before termination."
+    },
+    {
+      "prompt": "Add USB-C to this board.",
+      "query": "USB C overview",
+      "expected_id": "usb-c-overview",
+      "ai_expectation": "Establish power role, data generation and PD support independently.",
+      "expected_related": [
+        "usb-c-specifications",
+        "usb-c-sink-cc",
+        "usb-c-source-port",
+        "usb-c-dual-role",
+        "usb-c-usb2-routing",
+        "usb-c-superspeed-routing",
+        "usb-c-vconn-cable",
+        "usb-c-port-protection",
+        "usb-c-mechanical-review",
+        "usb-c-verification",
+        "usb-pd-contract"
+      ]
+    },
+    {
+      "prompt": "Which USB-C specifications should we use?",
+      "query": "USB C specifications revision",
+      "expected_id": "usb-c-specifications",
+      "ai_expectation": "Record separate Type-C, data and PD editions; a release listing is not an ingested normative specification."
+    },
+    {
+      "prompt": "Make a fixed 5 V USB-C sink.",
+      "query": "USB C sink CC",
+      "expected_id": "usb-c-sink-cc",
+      "ai_expectation": "Use independent Rd paths or supported integrated terminations and a valid current budget."
+    },
+    {
+      "prompt": "Can I join CC1 and CC2 to one resistor?",
+      "query": "USB C Rd",
+      "expected_id": "usb-c-sink-cc",
+      "ai_expectation": "Reject joined CC pins for a fixed sink receptacle."
+    },
+    {
+      "prompt": "Can two 5.1k resistors guarantee 3 A?",
+      "query": "USB C current advertisement",
+      "expected_id": "usb-c-sink-cc",
+      "ai_expectation": "Require detection of permitted current; Rd alone does not authorize 3 A."
+    },
+    {
+      "prompt": "Make a USB-C source with VBUS always on.",
+      "query": "USB C source attach",
+      "expected_id": "usb-c-source-port",
+      "ai_expectation": "Use attach-controlled VBUS and advertise only supported current."
+    },
+    {
+      "prompt": "Add a dual-role USB-C power port.",
+      "query": "USB C DRP",
+      "expected_id": "usb-c-dual-role",
+      "ai_expectation": "Use supported role logic and power-path control; static Rp plus Rd is not DRP."
+    },
+    {
+      "prompt": "Can a CC-only chip negotiate USB PD?",
+      "query": "USB C dual role",
+      "expected_id": "usb-c-dual-role",
+      "ai_expectation": "Separate CC attach/current detection from PD protocol policy."
+    },
+    {
+      "prompt": "Does my cable need VCONN?",
+      "query": "USB C VCONN",
+      "expected_id": "usb-c-vconn-cable",
+      "ai_expectation": "Check cable/controller requirements and orientation switching."
+    },
+    {
+      "prompt": "My USB-C data works only in one orientation.",
+      "query": "USB C A6 B6",
+      "expected_id": "usb-c-usb2-routing",
+      "ai_expectation": "Read duplicate D+ and D- connectivity; check both orientations."
+    },
+    {
+      "prompt": "Route the USB-C USB2 pair as 50 ohms differential.",
+      "query": "USB C 90 ohm",
+      "expected_id": "usb-c-usb2-routing",
+      "ai_expectation": "Use the PHY USB 2.0 high-speed differential requirement and actual stackup, not a universal 50-ohm target."
+    },
+    {
+      "prompt": "Can I add AC coupling capacitors to USB2?",
+      "query": "USB 2.0 receptacle",
+      "expected_id": "usb-c-usb2-routing",
+      "ai_expectation": "Do not insert USB3-style AC coupling into USB2 D+/D-."
+    },
+    {
+      "prompt": "Can I parallel the two SuperSpeed connector orientations?",
+      "query": "USB C SuperSpeed orientation",
+      "expected_id": "usb-c-superspeed-routing",
+      "ai_expectation": "Use the supported lane selection; do not wire alternate TX/RX groups in parallel."
+    },
+    {
+      "prompt": "Protect CC pins from VBUS shorts.",
+      "query": "USB C short VBUS",
+      "expected_id": "usb-c-port-protection",
+      "ai_expectation": "Distinguish sustained OVP from ESD and check ratings for the actual port."
+    },
+    {
+      "prompt": "Can a legacy 24V protector be assumed suitable for EPR?",
+      "query": "USB C ESD OVP",
+      "expected_id": "usb-c-port-protection",
+      "ai_expectation": "Verify the full fault envelope; do not transfer SPR-era protection ratings to EPR."
+    },
+    {
+      "prompt": "Position the USB-C connector at the board edge.",
+      "query": "USB C mechanical edge",
+      "expected_id": "usb-c-mechanical-review",
+      "ai_expectation": "Use the exact connector and enclosure drawings; no fixed universal setback.",
+      "filters": {
+        "interface": "usb-c",
+        "domain": "mechanical"
+      }
+    },
+    {
+      "prompt": "Get 12 V using just CC pull-downs.",
+      "query": "PD 12 V",
+      "expected_id": "usb-pd-contract",
+      "ai_expectation": "Require supported PD negotiation; resistors do not request a higher voltage."
+    },
+    {
+      "prompt": "Review the PD input capacitance and reverse current.",
+      "query": "PD inrush reverse current",
+      "expected_id": "usb-pd-power-path",
+      "ai_expectation": "Review power-path topology and connector-side limits rather than choosing one universal capacitance."
+    },
+    {
+      "prompt": "Does every PD port support 240 W?",
+      "query": "PD EPR",
+      "expected_id": "usb-pd-epr-pps",
+      "ai_expectation": "Check EPR controller, power path and cable capability."
+    },
+    {
+      "prompt": "Are PPS and AVS interchangeable?",
+      "query": "PD PPS AVS",
+      "expected_id": "usb-pd-epr-pps",
+      "ai_expectation": "Treat supply capabilities separately and read current specification/device support.",
+      "filters": {
+        "interface": "usb-pd"
+      }
+    },
+    {
+      "prompt": "Does a certified PD controller certify my whole board?",
+      "query": "USB C compliance test",
+      "expected_id": "usb-c-verification",
+      "ai_expectation": "Distinguish controller qualification from product and port compliance."
+    },
+    {
+      "prompt": "Run USB4 tunneling compliance entirely from this database.",
+      "query": "USB4 tunneling compliance procedure",
+      "expected_id": null,
+      "ai_expectation": "Report missing detailed USB4 compliance coverage; obtain normative documents and device channel guidance."
+    },
+    {
+      "prompt": "Design a USB-C DisplayPort AUX switch from these rules.",
+      "query": "DisplayPort AUX switch pin assignment",
+      "expected_id": null,
+      "ai_expectation": "Report missing alternate-mode implementation coverage."
+    }
+  ]
+}

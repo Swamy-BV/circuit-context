@@ -1,0 +1,443 @@
+[
+  {
+    "id": "usb-channel-constraints",
+    "title": "Set USB channel constraints for the selected generation",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb"
+    ],
+    "keywords": [
+      "usb",
+      "usb2",
+      "channel",
+      "impedance",
+      "skew",
+      "differential"
+    ],
+    "summary": "Obtain the selected USB generation and device channel requirements before assigning impedance, skew and length constraints.",
+    "applies_to": "USB data channels; the source includes USB 2.0 and SuperSpeed guidance.",
+    "required_inputs": [
+      "USB generation and device data",
+      "Stackup, connectors and channel budget"
+    ],
+    "verification": [
+      "Read back net rules and inspect the complete channel against device requirements."
+    ],
+    "limitations": "Do not transfer limits between generations or use a generic trace width.",
+    "citations": [
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Sections 2.1-2.2, USB protocol-specific guidelines, pages 3-4"
+      }
+    ],
+    "related_ids": [
+      "usb-c-overview",
+      "impedance-requirement-selection"
+    ]
+  },
+  {
+    "id": "usb-branch-stubs",
+    "title": "Avoid unnecessary branches on USB data pairs",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [
+      "usb"
+    ],
+    "keywords": [
+      "usb",
+      "stub",
+      "test point",
+      "branch",
+      "reflection"
+    ],
+    "summary": "Keep unused branches and test-point stubs out of high-speed USB data paths; account for discontinuities in the channel review.",
+    "applies_to": "USB high-speed differential routing.",
+    "required_inputs": [
+      "Test access needs",
+      "Channel topology and device layout guidance"
+    ],
+    "verification": [
+      "Inspect routing and test-point connections for branches."
+    ],
+    "limitations": "This does not authorize adding AC coupling to USB 2.0 or cover Type-C power negotiation.",
+    "citations": [
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Section 4.7, Trace Stubs, page 18"
+      }
+    ]
+  },
+  {
+    "id": "can-end-termination",
+    "title": "Place CAN termination at the bus ends",
+    "topic": "termination",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "can"
+    ],
+    "keywords": [
+      "can",
+      "termination",
+      "bus ends",
+      "topology",
+      "stub"
+    ],
+    "summary": "For a conventional high-speed CAN bus, terminate its physical ends and keep node branches electrically short. Match termination to the intended cable.",
+    "applies_to": "Conventional high-speed CAN physical layers.",
+    "required_inputs": [
+      "Full bus topology and node positions",
+      "Cable impedance and transceiver requirements"
+    ],
+    "verification": [
+      "Check endpoint termination count and observe bus waveforms at remote nodes."
+    ],
+    "limitations": "The cited classical CAN guide does not establish CAN FD timing or every CAN physical-layer variant.",
+    "citations": [
+      {
+        "source_id": "ti-can",
+        "locator": "Sections 4.5 and 4.8, Line Termination and Stubs"
+      }
+    ]
+  },
+  {
+    "id": "can-split-termination",
+    "title": "Evaluate split termination for CAN common-mode noise",
+    "topic": "termination",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "can"
+    ],
+    "keywords": [
+      "can",
+      "split termination",
+      "common mode",
+      "emi",
+      "emc"
+    ],
+    "summary": "Evaluate split termination when common-mode noise needs attenuation. Keep the network balanced and consider its reference connection.",
+    "applies_to": "High-speed CAN endpoints using an appropriate split-termination topology.",
+    "required_inputs": [
+      "Cable and transceiver requirements",
+      "Termination tolerance and reference scheme"
+    ],
+    "verification": [
+      "Measure common-mode noise and confirm differential signal margins."
+    ],
+    "limitations": "Split termination is an option, not an instruction to populate it at every node.",
+    "citations": [
+      {
+        "source_id": "ti-can",
+        "locator": "Section 4.5, Figure 10, Split Termination"
+      }
+    ]
+  },
+  {
+    "id": "rs485-termination-stubs",
+    "title": "Review RS-485 termination and stub delay",
+    "topic": "termination",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "rs485"
+    ],
+    "keywords": [
+      "rs485",
+      "rs 485",
+      "termination",
+      "stub",
+      "edge rate"
+    ],
+    "summary": "For transmission-line operation, match endpoint termination to the cable and assess stubs against driver transition time.",
+    "applies_to": "RS-485 bus trunks with attached nodes.",
+    "required_inputs": [
+      "Cable topology and propagation",
+      "Driver edge rate"
+    ],
+    "verification": [
+      "Inspect endpoint loads and measure reflections at the furthest nodes."
+    ],
+    "limitations": "Bit rate alone cannot set a permitted stub length.",
+    "citations": [
+      {
+        "source_id": "ti-rs485",
+        "locator": "Section 6, Bus Termination and Stub Length"
+      }
+    ]
+  },
+  {
+    "id": "rs485-failsafe-loading",
+    "title": "Include failsafe bias in the RS-485 load budget",
+    "topic": "termination",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "rs485"
+    ],
+    "keywords": [
+      "rs485",
+      "rs 485",
+      "failsafe",
+      "bias",
+      "idle",
+      "unit load"
+    ],
+    "summary": "Check receiver behavior on an idle or disconnected bus. Include external bias and termination in the driver load budget.",
+    "applies_to": "RS-485 networks needing a defined receiver idle state.",
+    "required_inputs": [
+      "Receiver thresholds and internal failsafe",
+      "Node loads and noise margin"
+    ],
+    "verification": [
+      "Calculate worst-case idle margin and driven load."
+    ],
+    "limitations": "Bias values depend on the complete bus; internal failsafe capabilities vary.",
+    "citations": [
+      {
+        "source_id": "ti-rs485",
+        "locator": "Sections 7-8, Failsafe and Bus Loading"
+      }
+    ]
+  },
+  {
+    "id": "rs485-ground-potential",
+    "title": "Check RS-485 ground potential and common-mode range",
+    "topic": "grounding",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "rs485"
+    ],
+    "keywords": [
+      "rs485",
+      "rs 485",
+      "ground potential",
+      "common mode",
+      "isolation"
+    ],
+    "summary": "Assess remote ground differences against receiver limits. Consider signal and supply isolation when the installation requires it.",
+    "applies_to": "RS-485 links spanning independently powered equipment.",
+    "required_inputs": [
+      "Ground differences and receiver ratings",
+      "Installation grounding arrangement"
+    ],
+    "verification": [
+      "Review the full reference-current path and common-mode budget."
+    ],
+    "limitations": "This is not insulation coordination or a prescription for a ground resistor.",
+    "citations": [
+      {
+        "source_id": "ti-rs485",
+        "locator": "Section 11, Grounding and Isolation"
+      }
+    ]
+  },
+  {
+    "id": "i2c-pullup-window",
+    "title": "Calculate the I2C pull-up resistance window",
+    "topic": "interface-design",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2c"
+    ],
+    "keywords": [
+      "i2c",
+      "pullup",
+      "pull up",
+      "rise time",
+      "sink current",
+      "capacitance"
+    ],
+    "summary": "Bound pull-up resistance using bus rise time and the weakest permitted sink current. Include effective parallel pull-ups.",
+    "applies_to": "Open-drain I2C modes covered by UM10204 Section 7.1.",
+    "required_inputs": [
+      "Bus mode, voltage and capacitance",
+      "Device sink-current and low-level limits"
+    ],
+    "verification": [
+      "Calculate resistance bounds and measure rise time and low voltage."
+    ],
+    "limitations": "A customary resistor value is not evidence of compliance; push-pull variants differ.",
+    "citations": [
+      {
+        "source_id": "nxp-i2c",
+        "locator": "Section 7.1, Pull-up resistor sizing, page 50"
+      }
+    ]
+  },
+  {
+    "id": "i2c-capacitance-segments",
+    "title": "Review I2C capacitance before adding buffers",
+    "topic": "interface-design",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2c"
+    ],
+    "keywords": [
+      "i2c",
+      "bus capacitance",
+      "buffer",
+      "segment",
+      "delay"
+    ],
+    "summary": "When capacitance is excessive, assess speed reduction or segmentation. Buffer delay and voltage offsets become part of each segment budget.",
+    "applies_to": "Capacitance-limited I2C buses.",
+    "required_inputs": [
+      "Segment capacitance and speed",
+      "Buffer compatibility and timing"
+    ],
+    "verification": [
+      "Recalculate each segment and verify logic levels and timing."
+    ],
+    "limitations": "A buffer is not transparent; follow its connection restrictions.",
+    "citations": [
+      {
+        "source_id": "nxp-i2c",
+        "locator": "Sections 7.2.1-7.2.3, page 51"
+      }
+    ]
+  },
+  {
+    "id": "ethernet-mdi-symmetry",
+    "title": "Preserve Ethernet MDI pair geometry",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [
+      "ethernet"
+    ],
+    "keywords": [
+      "ethernet",
+      "mdi",
+      "phy",
+      "magnetics",
+      "pair symmetry",
+      "impedance"
+    ],
+    "summary": "Derive MDI trace geometry from the stackup and PHY requirements. Maintain pair symmetry through bends and layer transitions.",
+    "applies_to": "Twisted-pair Ethernet PHY-to-magnetics paths; source targets SMSC devices.",
+    "required_inputs": [
+      "PHY requirements and magnetics",
+      "Fabricator stackup"
+    ],
+    "verification": [
+      "Inspect pair geometry, reference continuity and transition symmetry."
+    ],
+    "limitations": "Do not reuse source-specific dimensions across PHY families or Ethernet variants.",
+    "citations": [
+      {
+        "source_id": "microchip-ethernet",
+        "locator": "Section 3.1, Controlled Impedance for Differential Signals, pages 6-7"
+      }
+    ]
+  },
+  {
+    "id": "ethernet-mac-series-option",
+    "title": "Evaluate series termination on Ethernet MAC-side signals",
+    "topic": "termination",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "ethernet"
+    ],
+    "keywords": [
+      "ethernet",
+      "mii",
+      "rmii",
+      "mac",
+      "series termination",
+      "emi"
+    ],
+    "summary": "Consider source-side series termination for MAC interface ringing or emissions, with an uninterrupted reference path.",
+    "applies_to": "MII/RMII connections consistent with the selected PHY and MAC.",
+    "required_inputs": [
+      "Signal direction and timing",
+      "Driver and load models"
+    ],
+    "verification": [
+      "Check receiver timing and waveforms with the proposed resistor."
+    ],
+    "limitations": "AN18.6 example values are device-specific and are not RGMII timing guidance.",
+    "citations": [
+      {
+        "source_id": "microchip-ethernet",
+        "locator": "Section 2.4, Figure 2.8, page 6"
+      }
+    ]
+  },
+  {
+    "id": "ethernet-magnetics-boundary",
+    "title": "Respect the Ethernet magnetics isolation boundary",
+    "topic": "grounding",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [
+      "ethernet"
+    ],
+    "keywords": [
+      "ethernet",
+      "magnetics",
+      "rj45",
+      "isolation boundary",
+      "chassis",
+      "copper"
+    ],
+    "summary": "Review copper and reference regions on both sides of Ethernet magnetics against the selected PHY, connector and isolation design.",
+    "applies_to": "Transformer-isolated Ethernet; the source layout is LAN9512/LAN9513/LAN9514.",
+    "required_inputs": [
+      "Magnetics and connector construction",
+      "System isolation and chassis requirements"
+    ],
+    "verification": [
+      "Inspect all copper layers and components across the intended boundary."
+    ],
+    "limitations": "This family-specific layout is not a universal plane-splitting rule or safety-clearance calculation.",
+    "citations": [
+      {
+        "source_id": "microchip-lan951x",
+        "locator": "Section 5.5, PCB Layer Strategy, page 22"
+      }
+    ]
+  }
+]

@@ -1,0 +1,427 @@
+[
+  {
+    "id": "stackup-planning",
+    "title": "Choose stackup and reference layers before routing",
+    "topic": "stackup",
+    "keywords": [
+      "stackup",
+      "stack up",
+      "layer count",
+      "four layer",
+      "six layer",
+      "4 layer",
+      "6 layer",
+      "reference plane"
+    ],
+    "summary": "Select layer roles around signal reference paths and routing needs. Establish edge rates, sensitive nets and manufacturing capabilities before choosing a stackup.",
+    "applies_to": "Multilayer boards carrying fast digital or sensitive analog signals.",
+    "required_inputs": [
+      "Signal requirements and edge rates",
+      "Fabricator stackup and layer roles"
+    ],
+    "verification": [
+      "Read back board stackup and net rules; inspect each critical route's reference layer."
+    ],
+    "limitations": "Example stackups are conditional. Layer count alone does not establish signal integrity.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Sections 2.1-2.2, pages 9-10"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "reference-plane-continuity",
+    "title": "Preserve signal return paths across reference planes",
+    "topic": "grounding",
+    "keywords": [
+      "return path",
+      "return current",
+      "ground plane",
+      "split plane",
+      "void",
+      "gap",
+      "slot",
+      "ground pour",
+      "loop area"
+    ],
+    "summary": "Avoid routing fast signals across reference-plane gaps. A return-current detour increases loop area; inspect the copper beneath the entire route.",
+    "applies_to": "Signals relying on a nearby plane for high-frequency return current.",
+    "required_inputs": [
+      "Selected reference layer",
+      "Actual filled copper geometry"
+    ],
+    "verification": [
+      "Refill zones, then inspect crossings and reference continuity along the route."
+    ],
+    "limitations": "A ground net name or successful DRC does not prove a continuous return path. Isolation boundaries require separate design review.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Section 1.6, pages 8-9; section 2.3, pages 10-12"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "decoupling-loop",
+    "title": "Minimize the decoupling capacitor connection loop",
+    "topic": "power",
+    "keywords": [
+      "decoupling",
+      "bypass",
+      "capacitor placement",
+      "power pin",
+      "supply noise",
+      "connection inductance",
+      "complete loop",
+      "ground connection"
+    ],
+    "summary": "Give local decoupling a short, low-inductance connection to the IC supply and ground. Inspect the return connection as well as capacitor proximity.",
+    "applies_to": "IC supply bypassing, including analog and mixed-signal devices.",
+    "required_inputs": [
+      "Device bypass requirements",
+      "Supply/ground pin and capacitor pad locations"
+    ],
+    "verification": [
+      "Inspect the complete IC power pin-capacitor-ground return path and its vias; a nearby capacitor body alone is insufficient."
+    ],
+    "limitations": "Capacitor values and acceptable inductance depend on the device and power network; this guide supplies no universal distance or capacitance.",
+    "citations": [
+      {
+        "source_id": "adi-mt031",
+        "locator": "Low and High Frequency Decoupling, pages 3-4, Figure 2"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "mixed-signal-grounding",
+    "title": "Choose mixed-signal grounding from current paths",
+    "topic": "grounding",
+    "keywords": [
+      "analog digital",
+      "AGND",
+      "DGND",
+      "ADC",
+      "DAC",
+      "mixed signal",
+      "ground split",
+      "ground island"
+    ],
+    "summary": "Keep digital switching currents from corrupting analog references. Ground-pin names alone do not determine whether system planes should be split.",
+    "applies_to": "Mixed-signal converters and associated analog/digital circuitry.",
+    "required_inputs": [
+      "Exact converter grounding requirements",
+      "Digital current levels and system interconnects"
+    ],
+    "verification": [
+      "Review ground topology and shared return impedances against the device documentation."
+    ],
+    "limitations": "Converter architectures differ. Flag conflicting sources; do not join isolated grounds or impose one grounding topology automatically.",
+    "citations": [
+      {
+        "source_id": "adi-mt031",
+        "locator": "Grounding and Decoupling Mixed-Signal ICs, pages 6-8; high digital currents, page 13"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "controlled-impedance",
+    "title": "Calculate trace width and pair gap from the fabrication stackup",
+    "topic": "impedance",
+    "keywords": [
+      "controlled impedance",
+      "trace width",
+      "track width",
+      "pair gap",
+      "microstrip",
+      "stripline",
+      "dielectric",
+      "copper thickness",
+      "50 ohm",
+      "90 ohm",
+      "100 ohm"
+    ],
+    "summary": "Derive controlled-impedance geometry from the selected fabrication stackup, routing layer, copper and target impedance. Coupled traces also require spacing inputs.",
+    "applies_to": "Single-ended or differential routes with a specified impedance target.",
+    "required_inputs": [
+      "Fabricator stackup identifier and geometry",
+      "Target impedance and transmission-line structure"
+    ],
+    "verification": [
+      "Use a suitable impedance calculator or field solver; record assumptions and read back the chosen net-class dimensions."
+    ],
+    "limitations": "The cited calculator has manufacturing-specific restrictions. A copied width does not establish impedance on another stackup. This is not a current-capacity calculation.",
+    "citations": [
+      {
+        "source_id": "jlcpcb-impedance",
+        "locator": "Calculator inputs, supported structures and restrictions"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "related_ids": [
+      "impedance-requirement-selection"
+    ]
+  },
+  {
+    "id": "differential-pair-routing",
+    "title": "Keep differential geometry and timing within interface requirements",
+    "topic": "routing",
+    "keywords": [
+      "differential pair",
+      "pair spacing",
+      "pair skew",
+      "length matching",
+      "USB",
+      "PCIe",
+      "HDMI",
+      "crosstalk"
+    ],
+    "summary": "Route pair members with consistent geometry and reference conditions. Apply the selected interface's impedance and skew requirements; limit asymmetric breakouts.",
+    "applies_to": "High-speed differential interfaces within the cited guide's scope.",
+    "required_inputs": [
+      "Interface/version and endpoint requirements",
+      "Pair identities, stackup and skew budget"
+    ],
+    "verification": [
+      "Inspect pair paths, gaps and transitions; compare measured geometry against explicit constraints."
+    ],
+    "limitations": "Equal copper lengths alone do not prove equal delay or interface compliance. Numeric limits vary by interface.",
+    "citations": [
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Sections 3.1-3.3, page 5; sections 4.1-4.3, pages 12-13"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "layer-transition-return",
+    "title": "Account for return paths and stubs at signal vias",
+    "topic": "routing",
+    "keywords": [
+      "via",
+      "stitching",
+      "return via",
+      "layer transition",
+      "backside",
+      "back drill",
+      "stub",
+      "reference change"
+    ],
+    "summary": "When signals change reference planes, provide an appropriate return-current transition. Review via stubs and pair symmetry as part of the channel.",
+    "applies_to": "High-speed routes using vias or changing reference layers.",
+    "required_inputs": [
+      "Signal/reference layer transitions",
+      "Via construction and interface bandwidth"
+    ],
+    "verification": [
+      "Inspect transitions and nearby reference connections; assess stubs using fabrication data and channel analysis where needed."
+    ],
+    "limitations": "A nearby ground via helps only when it connects the relevant ground references. No universal stitching pitch or back-drilling requirement is supplied.",
+    "citations": [
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Section 3.5, pages 6-11, Figure 3-9; sections 4.5-4.9, pages 15-19"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "connector-esd",
+    "title": "Place connector protection around the discharge path",
+    "topic": "protection",
+    "keywords": [
+      "ESD",
+      "TVS",
+      "connector",
+      "protection",
+      "discharge",
+      "EMC",
+      "EMI"
+    ],
+    "summary": "Locate suitable transient protection near external signal entry points and give its return connection low inductance. Consider the path taken by discharge current.",
+    "applies_to": "Externally accessible interfaces requiring transient protection.",
+    "required_inputs": [
+      "Interface limits and protection-device characteristics",
+      "Enclosure, grounding and expected exposure"
+    ],
+    "verification": [
+      "Inspect connector-protection-return routing and validate the assembled system under its required immunity tests."
+    ],
+    "limitations": "A component ESD rating or clean DRC does not establish system immunity. Protection selection is interface-specific.",
+    "citations": [
+      {
+        "source_id": "microchip-an2587",
+        "locator": "Introduction, pages 1-2; section 7.1, item 22, page 32"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "crystal-placement",
+    "title": "Keep crystal and load components close to oscillator pins",
+    "topic": "placement",
+    "keywords": [
+      "crystal",
+      "oscillator",
+      "clock",
+      "load capacitor",
+      "placement",
+      "XTAL"
+    ],
+    "summary": "Place the crystal circuit close to the device oscillator pins, with nearby load components and short connections. Keep unrelated routing away from the oscillator region.",
+    "applies_to": "MCU crystal oscillator layouts; consult the selected device's recommendations.",
+    "required_inputs": [
+      "Oscillator topology and crystal specifications",
+      "Pin locations and loading requirements"
+    ],
+    "verification": [
+      "Inspect crystal connections and nearby routing; verify startup and clock performance on hardware."
+    ],
+    "limitations": "Guarding, ground beneath the crystal and load capacitance depend on the oscillator design. Source dimensions are not universal placement constraints.",
+    "citations": [
+      {
+        "source_id": "microchip-an2587",
+        "locator": "Section 7.1, item 18 and Figure 7-4, page 31"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "functional-placement",
+    "title": "Group circuitry by function and separate interference paths",
+    "topic": "placement",
+    "keywords": [
+      "functional group",
+      "component placement",
+      "partition",
+      "noisy",
+      "sensitive",
+      "analog",
+      "digital",
+      "switching",
+      "mechanical constraints",
+      "connectors first",
+      "mounting holes"
+    ],
+    "summary": "Arrange related circuitry together and consider how noise travels between functional regions. Placement should support the intended signal and return-current paths.",
+    "applies_to": "Boards mixing sensitive, switching and externally connected circuitry.",
+    "required_inputs": [
+      "Functional diagram and interconnections",
+      "Mechanical constraints and noise-sensitive nodes"
+    ],
+    "verification": [
+      "Establish connector mating, mounting-hole and enclosure constraints before placing unconstrained functional circuitry.",
+      "Review placement and crossing routes against the functional diagram; document compromises."
+    ],
+    "limitations": "Functional grouping is not a requirement to split ground planes. This is qualitative guidance, not an automatic placement algorithm. Mechanical-first ordering is an editorial workflow; positions and clearances come from the actual assembly drawings.",
+    "citations": [
+      {
+        "source_id": "nxp-an10897",
+        "locator": "Section 3.1, Board structure - functional grouping, page 14"
+      }
+    ],
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": []
+  },
+  {
+    "id": "impedance-requirement-selection",
+    "title": "Choose impedance requirements; do not default every trace to 50 ohms",
+    "topic": "routing",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "50 ohm",
+      "50 ohms",
+      "impedance requirement",
+      "characteristic",
+      "DC resistance",
+      "termination",
+      "edge rate",
+      "rise time",
+      "propagation delay",
+      "single ended",
+      "differential"
+    ],
+    "summary": "Determine whether controlled impedance is required from the interface/device requirements and the signal edge rate relative to route propagation delay. A 50-ohm target is not universal and is not a termination resistor to add automatically.",
+    "applies_to": "Signal-integrity planning before choosing net constraints, trace dimensions or termination.",
+    "required_inputs": [
+      "Interface generation, driver/receiver requirements and topology",
+      "Driver rise/fall times, route propagation delay and actual stackup",
+      "Specified single-ended or differential target and tolerance, if applicable"
+    ],
+    "verification": [
+      "Distinguish characteristic impedance from DC copper resistance and single-ended from differential impedance.",
+      "Use a suitable model and fabrication stackup to derive geometry; evaluate termination with driver impedance and receiver timing.",
+      "Check receiver waveforms for ringing and valid transitions; DRC cannot establish signal integrity."
+    ],
+    "limitations": "Short GPIO/UART/I2C links have no blanket 50-ohm requirement; fast edges can still require transmission-line analysis. Power paths need current, voltage-drop and transient-impedance review, not a 50-ohm target. Do not infer width from impedance without stackup data.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Sections 1.2-1.3 and 2.4: edge rates, transmission lines and termination"
+      },
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Section 3.1: protocol-specific single-ended/differential impedance and stackup geometry"
+      }
+    ],
+    "related_ids": [
+      "controlled-impedance",
+      "emc-clock-edge-rate",
+      "emc-source-termination",
+      "power-conductor-sizing"
+    ]
+  }
+]

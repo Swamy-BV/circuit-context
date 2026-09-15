@@ -1,0 +1,223 @@
+[
+  {
+    "id": "i2c-overview",
+    "title": "I2C overview: shared bus, segmentation and cable review",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2c"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "i2c",
+      "overview",
+      "two wire",
+      "controller",
+      "peripheral"
+    ],
+    "summary": "Select a shared bus or explicitly translated/segmented connection. Establish mode, addresses and electrical loading before choosing pull-ups.",
+    "applies_to": "Standard-mode, Fast-mode and Fast-mode Plus I2C; selected devices must support the chosen mode.",
+    "required_inputs": [
+      "Devices, addresses, bus mode and pull-up supply",
+      "Clock stretching, capacitance and power sequence"
+    ],
+    "verification": [
+      "Review compatibility and read the linked pull-up and topology guides."
+    ],
+    "limitations": "I3C, SMBus, PMBus, Hs-mode and Ultra-Fast mode are outside these patterns.",
+    "citations": [
+      {
+        "source_id": "ti-sbaa565",
+        "locator": "Sections 2, 5 and 6: physical layer, reserved addresses and advanced topics"
+      }
+    ],
+    "related_ids": [
+      "i2c-shared-bus",
+      "i2c-translated-segments",
+      "i2c-off-board",
+      "i2c-pullup-window",
+      "i2c-capacitance-segments"
+    ]
+  },
+  {
+    "id": "i2c-shared-bus",
+    "title": "I2C shared open-drain bus pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2c"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "i2c",
+      "shared",
+      "open drain",
+      "addresses",
+      "parallel pullups"
+    ],
+    "summary": "Connect SDA and SCL as shared open-drain nets with a compatible pull-up supply. Include every fitted pull-up in the resistance calculation.",
+    "applies_to": "Standard-mode, Fast-mode and Fast-mode Plus I2C; selected devices must support the chosen mode.",
+    "required_inputs": [
+      "Mode, addresses, capacitance and weakest sink specification",
+      "Clock stretching and power states"
+    ],
+    "verification": [
+      "Check address conflicts, effective resistance, rise time and LOW voltage."
+    ],
+    "limitations": "Do not copy a default pull-up value or treat SDA/SCL as a differential pair.",
+    "citations": [
+      {
+        "source_id": "ti-sbaa565",
+        "locator": "Sections 2, 5 and 6: physical layer, reserved addresses and advanced topics"
+      }
+    ],
+    "related_ids": [
+      "i2c-pullup-window",
+      "i2c-capacitance-segments",
+      "reference-plane-continuity",
+      "layer-transition-return"
+    ],
+    "pattern": {
+      "diagram": "VPU -- R_SDA -- SDA: Controller, Target1, Target2\nVPU -- R_SCL -- SCL: Controller, Target1, Target2\nCommon signal ground",
+      "placement": [
+        "Group bus devices to control parasitic loading."
+      ],
+      "routing": [
+        "Keep branches short and separate from switching aggressors."
+      ],
+      "return_path": [
+        "Use a continuous reference; see the linked shared return guidance."
+      ],
+      "pitfalls": [
+        "Address conflicts cannot be corrected by PCB routing."
+      ]
+    }
+  },
+  {
+    "id": "i2c-translated-segments",
+    "title": "I2C translated or buffered segment pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2c"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "i2c",
+      "translation",
+      "level shifter",
+      "buffer",
+      "segments"
+    ],
+    "summary": "Use a compatible bidirectional translator or buffer when the voltage or loading analysis requires it; review each segment separately.",
+    "applies_to": "Standard-mode, Fast-mode and Fast-mode Plus I2C; selected devices must support the chosen mode.",
+    "required_inputs": [
+      "Translator/buffer part, mode and power sequence",
+      "Per-segment pull-ups, capacitance, delay and LOW-level offsets"
+    ],
+    "verification": [
+      "Check combined timing and LOW/HIGH margins, including powered-off behavior."
+    ],
+    "limitations": "A pass-FET translator need not isolate capacitance. Buffer cascading and clock stretching require device review.",
+    "citations": [
+      {
+        "source_id": "ti-sbaa565",
+        "locator": "Sections 2, 5 and 6: physical layer, reserved addresses and advanced topics"
+      },
+      {
+        "source_id": "nxp-i2c",
+        "locator": "Sections 7.1-7.2 and 7.5: pull-ups, segmentation and bus wiring"
+      }
+    ],
+    "related_ids": [
+      "i2c-pullup-window",
+      "i2c-capacitance-segments"
+    ],
+    "pattern": {
+      "diagram": "V_A -> pull-ups -> SDA_A/SCL_A <-> selected device <-> SDA_B/SCL_B <- pull-ups <- V_B\nBoth lines require the selected bidirectional behavior",
+      "placement": [
+        "Place the chosen device at the planned electrical segment boundary."
+      ],
+      "routing": [
+        "Budget each side's load and the selected device's transfer behavior."
+      ],
+      "return_path": [
+        "Maintain the required reference; translation alone is not galvanic isolation."
+      ],
+      "pitfalls": [
+        "An ordinary push-pull translator may not support arbitration or stretching."
+      ]
+    }
+  },
+  {
+    "id": "i2c-off-board",
+    "title": "I2C cable and off-board routing pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2c"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "i2c",
+      "off board",
+      "cable",
+      "ribbon",
+      "twisted pair",
+      "crosstalk"
+    ],
+    "summary": "Include cable capacitance, crosstalk and returns in the bus review. Evaluate a buffered or differential extension if the direct bus cannot meet requirements.",
+    "applies_to": "Standard-mode, Fast-mode and Fast-mode Plus I2C; selected devices must support the chosen mode.",
+    "required_inputs": [
+      "Cable geometry, capacitance, noise exposure and mode",
+      "Power/ground relationship and protection capacitance"
+    ],
+    "verification": [
+      "Measure rise time, LOW voltage and noise at both ends with the intended cable."
+    ],
+    "limitations": "No fixed cable distance guarantees operation; a differential extender needs its own datasheet and termination plan.",
+    "citations": [
+      {
+        "source_id": "nxp-i2c",
+        "locator": "Sections 7.1-7.2 and 7.5: pull-ups, segmentation and bus wiring"
+      }
+    ],
+    "related_ids": [
+      "i2c-pullup-window",
+      "i2c-translated-segments",
+      "emc-cable-return-path",
+      "esd-flow-through"
+    ],
+    "pattern": {
+      "diagram": "SDA ---------------- SDA   (with its return)\nSCL ---------------- SCL   (with its return)\nShared reference / chosen extension hardware",
+      "placement": [
+        "Place selected protection at the cable boundary."
+      ],
+      "routing": [
+        "Avoid treating SDA and SCL as a twisted pair together; review coupling and loading."
+      ],
+      "return_path": [
+        "For twisted-pair wiring, pair each signal with a ground return as described in UM10204 section 7.5."
+      ],
+      "pitfalls": [
+        "Protection and cable capacitance consume the same bus loading budget."
+      ]
+    }
+  }
+]

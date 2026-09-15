@@ -1,0 +1,373 @@
+[
+  {
+    "id": "usb-c-overview",
+    "title": "USB-C overview: choose power role, data capability and PD support",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "overview",
+      "roles",
+      "USB2",
+      "USB3",
+      "USB4",
+      "power delivery"
+    ],
+    "summary": "Specify sink/source/dual-role power behavior, data generation and Power Delivery support separately before selecting a port circuit.",
+    "applies_to": "USB-C receptacles on end products; cables and adapters need their own requirements.",
+    "required_inputs": [
+      "Power role, data role/rate, voltage/current budget and cable types",
+      "Connector, controller, startup supply and required modes"
+    ],
+    "verification": [
+      "Record supported modes and applicable specification editions; read only the matching patterns."
+    ],
+    "limitations": "A connector does not imply SuperSpeed, USB4, PD or a particular power rating.",
+    "citations": [
+      {
+        "source_id": "ti-usbc-primer",
+        "locator": "USB Type-C DFP/UFP and DRP/DRD block diagrams; USB PD and SuperSpeed sections, pages 3-10 (historical edition)"
+      }
+    ],
+    "related_ids": [
+      "usb-c-specifications",
+      "usb-c-sink-cc",
+      "usb-c-source-port",
+      "usb-c-dual-role",
+      "usb-c-usb2-routing",
+      "usb-c-superspeed-routing",
+      "usb-c-vconn-cable",
+      "usb-c-port-protection",
+      "usb-c-mechanical-review",
+      "usb-c-verification",
+      "usb-pd-contract"
+    ]
+  },
+  {
+    "id": "usb-c-specifications",
+    "title": "USB-C specification selection and edition tracking",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "specifications",
+      "revision",
+      "release",
+      "2.5",
+      "3.2",
+      "standards"
+    ],
+    "summary": "Track Type-C connector/CC requirements, USB data requirements and USB PD requirements as separate documents, with applicable amendments and compliance tests.",
+    "applies_to": "Selecting normative references for a defined USB-C product.",
+    "required_inputs": [
+      "Product roles and supported USB/PD features",
+      "Selected controller's supported revisions and relevant USB-IF test documents"
+    ],
+    "verification": [
+      "Record editions and section references in the project; verify release updates before design release."
+    ],
+    "limitations": "The recorded Type-C 2.5 and PD 3.2 Version 1.2 listings are release pointers, not fully ingested specifications or proof of conformance.",
+    "citations": [
+      {
+        "source_id": "usbif-typec25",
+        "locator": "Release 2.5 publication page and linked March 2026 release package; release identification only"
+      },
+      {
+        "source_id": "usbif-pd32",
+        "locator": "Publisher release page and linked USB_PD_R3.2_V1.2(3).zip; edition identification only"
+      }
+    ],
+    "related_ids": [
+      "usb-c-verification"
+    ]
+  },
+  {
+    "id": "usb-c-sink-cc",
+    "title": "USB-C fixed 5 V sink CC pattern",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "sink",
+      "5 V",
+      "Rd",
+      "5.1k",
+      "CC1",
+      "CC2",
+      "current advertisement"
+    ],
+    "summary": "For a fixed sink receptacle, provide independent Rd termination on CC1 and CC2. Nominal discrete Rd is 5.1 kOhm; review specified tolerance and any integrated termination.",
+    "applies_to": "A non-PD fixed sink receptacle; optional USB 2.0 data is a separate path.",
+    "required_inputs": [
+      "CC implementation, current entitlement and load budget",
+      "Controller integrated Rd/dead-battery behavior, if present"
+    ],
+    "verification": [
+      "Verify independent CC paths in both plug orientations and limit load to the detected or otherwise permitted current."
+    ],
+    "limitations": "Two Rd resistors do not negotiate higher voltage or authorize 3 A. Do not parallel extra Rd with a controller's integrated terminations.",
+    "citations": [
+      {
+        "source_id": "ti-tusb320",
+        "locator": "Sections 7.3-7.4 and 8: port roles, current detection, dead-battery behavior and application circuits"
+      },
+      {
+        "source_id": "ti-usbc-primer",
+        "locator": "USB Type-C DFP/UFP and DRP/DRD block diagrams; USB PD and SuperSpeed sections, pages 3-10 (historical edition)"
+      }
+    ],
+    "related_ids": [
+      "usb-c-usb2-routing",
+      "usb-c-port-protection",
+      "usb-pd-contract"
+    ],
+    "pattern": {
+      "diagram": "CC1 -- Rd1 -- GND\nCC2 -- Rd2 -- GND\nVBUS -> reviewed input power path -> load\nRd may be integrated; CC1 and CC2 stay separate.",
+      "placement": [
+        "Place CC circuitry near the receptacle."
+      ],
+      "routing": [
+        "Keep each CC path independent and include protection loading in the review."
+      ],
+      "return_path": [
+        "Connect receptacle ground contacts to the system reference."
+      ],
+      "pitfalls": [
+        "Do not join CC1 and CC2 or use a single shared Rd."
+      ]
+    }
+  },
+  {
+    "id": "usb-c-source-port",
+    "title": "USB-C source with controlled VBUS pattern",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "source",
+      "Rp",
+      "VBUS",
+      "attach",
+      "discharge"
+    ],
+    "summary": "Advertise only available current through CC source behavior and enable VBUS through an appropriate controlled power path after valid attachment.",
+    "applies_to": "A fixed source receptacle; PD sources additionally need PD negotiation.",
+    "required_inputs": [
+      "Available source power, CC controller and switch protections",
+      "Attach/detach policy, VBUS discharge and fault behavior"
+    ],
+    "verification": [
+      "Verify unattached, attached, detached and fault states with both orientations; measure current limiting and VBUS behavior."
+    ],
+    "limitations": "An always-on supply and sink Rd resistors are not a source implementation. Controller example capacitances are not universal port limits.",
+    "citations": [
+      {
+        "source_id": "ti-tusb320",
+        "locator": "Sections 7.3-7.4 and 8: port roles, current detection, dead-battery behavior and application circuits"
+      },
+      {
+        "source_id": "ti-usbc-primer",
+        "locator": "USB Type-C DFP/UFP and DRP/DRD block diagrams; USB PD and SuperSpeed sections, pages 3-10 (historical edition)"
+      }
+    ],
+    "related_ids": [
+      "usb-pd-power-path",
+      "usb-c-verification"
+    ],
+    "pattern": {
+      "diagram": "CC1/CC2 <-> source CC controller -> power-switch control\nSupply -> protected switch -> receptacle VBUS",
+      "placement": [
+        "Place the controller and power switch near the connector boundary."
+      ],
+      "routing": [
+        "Size the supply path from current, loss and thermal budgets."
+      ],
+      "return_path": [
+        "Keep power and signal return paths connected with deliberate geometry."
+      ],
+      "pitfalls": [
+        "Do not advertise current the supply, connector or PCB cannot sustain."
+      ]
+    }
+  },
+  {
+    "id": "usb-c-dual-role",
+    "title": "USB-C dual power role and data role review",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "DRP",
+      "DRD",
+      "role swap",
+      "dead battery",
+      "startup"
+    ],
+    "summary": "Use supported role-control behavior for a dual-role port; power role and data role can be managed separately when the implementation supports it.",
+    "applies_to": "DRP and role-swap-capable USB-C designs.",
+    "required_inputs": [
+      "Controller features, allowed power/data roles and startup state",
+      "Power-path interlocks, firmware configuration and dead-battery supply"
+    ],
+    "verification": [
+      "Exercise each supported role, startup without a battery and rejected/accepted role changes."
+    ],
+    "limitations": "Do not build DRP by fitting static Rp and Rd together. A CC-only controller does not supply a USB PD policy engine.",
+    "citations": [
+      {
+        "source_id": "ti-tusb320",
+        "locator": "Sections 7.3-7.4 and 8: port roles, current detection, dead-battery behavior and application circuits"
+      },
+      {
+        "source_id": "ti-usbc-primer",
+        "locator": "USB Type-C DFP/UFP and DRP/DRD block diagrams; USB PD and SuperSpeed sections, pages 3-10 (historical edition)"
+      }
+    ],
+    "related_ids": [
+      "usb-c-source-port",
+      "usb-c-sink-cc",
+      "usb-pd-contract"
+    ]
+  },
+  {
+    "id": "usb-c-vconn-cable",
+    "title": "USB-C VCONN and cable capability review",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "VCONN",
+      "cable",
+      "e marker",
+      "emark",
+      "active"
+    ],
+    "summary": "Determine whether the design must supply VCONN and discover cable capabilities. Cable power rating and supported data rates are separate properties.",
+    "applies_to": "Ports using electronically marked or active cables and PD cable discovery.",
+    "required_inputs": [
+      "Cable classes, current/data requirements and controller VCONN support"
+    ],
+    "verification": [
+      "Check orientation-controlled VCONN, cable discovery and behavior with lower-capability cables."
+    ],
+    "limitations": "Do not treat both CC pins as permanent power outputs or assume any USB-C cable supports 5 A, EPR or the chosen data rate.",
+    "citations": [
+      {
+        "source_id": "ti-usbc-primer",
+        "locator": "USB Type-C DFP/UFP and DRP/DRD block diagrams; USB PD and SuperSpeed sections, pages 3-10 (historical edition)"
+      },
+      {
+        "source_id": "ti-usbc-epr",
+        "locator": "SPR/EPR comparison and battery-powered system architecture; verify current PD requirements separately"
+      }
+    ],
+    "related_ids": [
+      "usb-pd-epr-pps",
+      "usb-c-verification"
+    ]
+  },
+  {
+    "id": "usb-c-verification",
+    "title": "USB-C orientation, power-state and compliance review",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "verification",
+      "compliance",
+      "orientation",
+      "reversed",
+      "test"
+    ],
+    "summary": "Test supported plug orientations, cable classes, power states and data modes. Separate functional tests from the applicable USB-IF compliance program.",
+    "applies_to": "Review and qualification planning for a selected USB-C product.",
+    "required_inputs": [
+      "Supported modes, cable matrix, controller configuration and specification/test editions"
+    ],
+    "verification": [
+      "Read schematic nets and inspect layout; test attach/detach, board-off behavior, power limits and data in both orientations.",
+      "Record PD negotiation/fault behavior where applicable, electrical test results and unresolved findings."
+    ],
+    "limitations": "ERC/DRC, successful charging, or a controller's certification does not establish end-product compliance.",
+    "citations": [
+      {
+        "source_id": "usbif-typec25",
+        "locator": "Release 2.5 publication page and linked March 2026 release package; release identification only"
+      },
+      {
+        "source_id": "usbif-pd32",
+        "locator": "Publisher release page and linked USB_PD_R3.2_V1.2(3).zip; edition identification only"
+      },
+      {
+        "source_id": "ti-tusb320",
+        "locator": "Sections 7.3-7.4 and 8: port roles, current detection, dead-battery behavior and application circuits"
+      }
+    ],
+    "related_ids": [
+      "two-layer-emc-test-plan"
+    ]
+  }
+]

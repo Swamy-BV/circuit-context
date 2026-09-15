@@ -1,0 +1,66 @@
+{
+  "ti-slva959b": {
+    "sha256": "89adbce11092779a4c024ea5832c3b3f62ff9c2a153646530dc8847f89c45eb9",
+    "pages": {
+      "4": [
+        "Figure 1-2 depicts separate analog and digital placement areas around a driver. Section 1.1 defines this as functional partitioning, not a physical cut separating their grounds.",
+        "Figure 1-3 compares ground connectivity before and after local layout changes. In the first arrangement, many branches end without a second connection. Added copper connections and adjusted geometry in the second arrangement produce multiple interconnected return paths. The drawing illustrates connectivity improvement; it does not specify a universal via pitch or certify equivalence to a solid plane."
+      ],
+      "12": [
+        "Figure 3-1 contrasts a direct copper connection to a via with a connection through spokes. The source recommends the direct connection in this motor-driver context; this is not an unconditional assembly rule for every pad.",
+        "Table 3-1 was visually compared with the extracted two-column table: the five data rows run from 6 mil / 0.2 A to 16 mil / 1.1 A. The preceding source paragraph states 10 degrees C rise and a 1 oz PCB. These example values are not a general via-current calculator or proof for a different fabrication process."
+      ]
+    }
+  },
+  "microchip-touch-an0208": {
+    "sha256": "941e4c54bdb0d203b7331f29185381b21559e83193d7d966dfb7b5770d5e41fb",
+    "pages": {
+      "17": [
+        "Figure 13 shows top and bottom copper separated by one core. It labels total height and core without numerical thickness values. Figure 14 shows outer copper plus two internal copper layers separated by core/prepreg; one internal layer is explicitly labeled GND. These are maXTouch construction illustrations, not a general requirement to assign every layer or a quantified EMC comparison."
+      ]
+    }
+  },
+  "ti-spma056": {
+    "sha256": "ca66ba0d6baddb7601d76afe4ba09d6504daa940977e5056c3a961d441998f21",
+    "pages": {
+      "6": [
+        "Figure 4 is a four-layer construction example: outer signal copper, inner ground and power copper, and a thick central core. Signal-to-reference spacing depends on the outer prepreg, not the finished board thickness. This figure must not be indexed as a two-layer construction."
+      ],
+      "7": [
+        "Figure 5 depicts two mixed signal/plane copper layers around one core. There is a source inconsistency: the diagram prints a core label of 0.58 inches, while the explanatory paragraph and thickness equation use 0.058 inches. Preserve the discrepancy for review; use a fabricator-confirmed stackup rather than copying either label without checking. Figure 6 below it is a separate six-layer example."
+      ]
+    }
+  },
+  "ti-buck-emi": {
+    "sha256": "0866d991724dc57047231c47e1b1c7ab885ab8af1943bc9309b82c0a96a49428",
+    "pages": {
+      "3": [
+        "Figure 3 places a series filter inductor between the converter-side input capacitors and the upstream supply-side shunt capacitor. The accompanying text treats the converter as the noise source, so filter input/output terminology follows noise propagation toward the supply. Figure 2 is a source-specific conducted-EMI plot; do not transfer its plotted limits or example attenuation to another product without its test requirements."
+      ]
+    }
+  },
+  "ti-sbaa565": {
+    "sha256": "d8c1cf181e634998e1d4b13ff9ab0f8b58394c9880914e395641342e05961b21",
+    "pages": {
+      "4": [
+        "Figure 2-1 shows shared SDA and SCL, a separate pull-up on each line, and common ground. The drawing includes two controllers and two targets; a single-controller design may omit the second controller. This is electrical connectivity, not physical component placement. Multi-controller arbitration must be supported if that variant is used."
+      ]
+    }
+  },
+  "ti-tusb320": {
+    "sha256": "1306e448c3f3b169f3b90854710033b9a1aede1d04ba35088f3d2e3ed260d2c4",
+    "pages": {
+      "21": [
+        "Figure 8-7 shows separate CC1 and CC2 paths to the controller and the USB2 data connections for the reversible receptacle. The drawing explicitly disconnects a bulk capacitor in UFP operation. Its 150 uF bulk value and switch implementation are example-specific, not a universal sink capacitance. The section is a DRP implementation using a CC controller, not evidence of USB PD protocol support."
+      ]
+    }
+  },
+  "gct-usb4105": {
+    "sha256": "fb331fbabee8392ed2937ed757c1610cb0f174b84625147c0b580a18eea8c0e5",
+    "pages": {
+      "1": [
+        "The recommended PCB layout is explicitly a component-side view and marks the PCB edge separately from the component outline. The mating view and ordering grid distinguish plug clearance from selectable shell-stake length. The pin table lists separate A6/B6 D+ and A7/B7 D- contacts. These dimensions and ratings belong to USB4105 drawing B4, not every USB-C connector."
+      ]
+    }
+  }
+}

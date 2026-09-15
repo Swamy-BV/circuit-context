@@ -1,0 +1,232 @@
+[
+  {
+    "id": "usb-c-usb2-routing",
+    "title": "USB-C USB 2.0 receptacle data routing pattern",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "USB2",
+      "USB 2.0",
+      "D+",
+      "D-",
+      "A6",
+      "B6",
+      "A7",
+      "B7",
+      "90 ohm",
+      "differential"
+    ],
+    "summary": "Join the receptacle's duplicate D+ contacts together and duplicate D- contacts together near the connector, then route one pair to the PHY.",
+    "applies_to": "USB 2.0 data on a USB-C receptacle with the indicated contacts; inspect the actual connector pinout.",
+    "required_inputs": [
+      "Connector contact mapping, USB speed, PHY requirements and stackup",
+      "Differential target/tolerance, channel budget and protection parasitics"
+    ],
+    "verification": [
+      "Read back A6/B6 and A7/B7 connectivity; verify data in both orientations.",
+      "Use the PHY's channel requirements; USB 2.0 high-speed routing commonly targets 90 ohms differential, not 50 ohms per arbitrary net."
+    ],
+    "limitations": "Connector variants can combine contacts internally. No AC coupling on USB 2.0 D+/D-; series damping is PHY-specific.",
+    "citations": [
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Sections 2.1, 3.1-3.5 and 4.4: USB 2.0 impedance, return paths and receptacle stubs"
+      },
+      {
+        "source_id": "ti-tusb320",
+        "locator": "Section 8.2 application schematics and section 10.1 receptacle duplicate-contact stub guidance"
+      }
+    ],
+    "related_ids": [
+      "usb-channel-constraints",
+      "usb-branch-stubs",
+      "impedance-requirement-selection",
+      "usb-c-sink-cc"
+    ],
+    "pattern": {
+      "diagram": "A6 (D+) --+--> USB_DP -> protection -> PHY D+\nB6 (D+) --+\nA7 (D-) --+--> USB_DM -> protection -> PHY D-\nB7 (D-) --+\nCC and VBUS: separate role-specific circuits",
+      "placement": [
+        "Keep duplicate-contact joins and selected protection close to the receptacle."
+      ],
+      "routing": [
+        "Minimize connector stubs; preserve pair geometry through pads and vias."
+      ],
+      "return_path": [
+        "Maintain a continuous reference beneath both conductors."
+      ],
+      "pitfalls": [
+        "Connecting only one contact pair may leave the port working in only one orientation."
+      ]
+    }
+  },
+  {
+    "id": "usb-c-superspeed-routing",
+    "title": "USB-C SuperSpeed orientation routing pattern",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "SuperSpeed",
+      "USB3",
+      "mux",
+      "orientation",
+      "lanes",
+      "TX",
+      "RX"
+    ],
+    "summary": "Map the reversible connector lanes through supported orientation selection to the PHY; budget the complete channel for the chosen generation.",
+    "applies_to": "USB 3.x over USB-C; USB4 and alternate modes require additional specifications and device-specific review.",
+    "required_inputs": [
+      "USB generation/lane count, PHY/mux topology and orientation mapping",
+      "Stackup, loss/skew budget and TX coupling requirements"
+    ],
+    "verification": [
+      "Verify both orientations and selected lane mapping; inspect discontinuities and test the complete data channel."
+    ],
+    "limitations": "Do not connect alternate SuperSpeed lane groups in parallel as with USB 2.0 duplicates. A generic 90-ohm rule does not cover every USB4 or alternate-mode channel.",
+    "citations": [
+      {
+        "source_id": "ti-usbc-primer",
+        "locator": "USB Type-C DFP/UFP and DRP/DRD block diagrams; USB PD and SuperSpeed sections, pages 3-10 (historical edition)"
+      },
+      {
+        "source_id": "ti-slla414a",
+        "locator": "Sections 2.2 and 3-4; apply generation/device-specific channel limits"
+      }
+    ],
+    "related_ids": [
+      "usb-channel-constraints",
+      "differential-pair-routing",
+      "usb-c-vconn-cable"
+    ],
+    "pattern": {
+      "diagram": "Receptacle TX/RX lane groups <-> orientation mux (or integrated PHY) <-> PHY\nCC orientation -> lane-selection control",
+      "placement": [
+        "Place lane-selection circuitry to minimize connector-to-PHY loss and stubs."
+      ],
+      "routing": [
+        "Follow device lane mapping and TX AC-coupling placement; review any integrated capacitors."
+      ],
+      "return_path": [
+        "Preserve pair reference continuity at every transition."
+      ],
+      "pitfalls": [
+        "An unused orientation branch is not a harmless test stub."
+      ]
+    }
+  },
+  {
+    "id": "usb-c-port-protection",
+    "title": "USB-C ESD and short-to-VBUS protection review",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "ESD",
+      "OVP",
+      "short VBUS",
+      "CC",
+      "SBU",
+      "protection"
+    ],
+    "summary": "Review ESD and sustained short-to-VBUS faults separately for CC, SBU and data pins. Select protection for actual voltage exposure and signal loading.",
+    "applies_to": "USB-C connector-boundary protection.",
+    "required_inputs": [
+      "Maximum normal/fault voltages, controller pin limits and selected modes",
+      "Protection clamping, leakage, capacitance and power-off behavior"
+    ],
+    "verification": [
+      "Inspect the connector-to-protection-to-device path and its discharge return; evaluate affected CC thresholds and data channel.",
+      "Verify any integrated dead-battery termination before adding external parts."
+    ],
+    "limitations": "An ESD array is not automatically sustained overvoltage protection. Historical 20 V examples and 24 V-rated parts do not establish suitability for EPR.",
+    "citations": [
+      {
+        "source_id": "ti-usbc-protection",
+        "locator": "IEC ESD and short-to-VBUS events, pages 3-10; historical 20 V examples are not EPR ratings"
+      }
+    ],
+    "related_ids": [
+      "esd-flow-through",
+      "esd-protected-separation",
+      "usb-pd-epr-pps"
+    ]
+  },
+  {
+    "id": "usb-c-mechanical-review",
+    "title": "USB-C receptacle mounting and shield review",
+    "topic": "usb-c",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [
+      "usb-c"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "USB C",
+      "Type C",
+      "mechanical",
+      "edge",
+      "shield",
+      "footprint",
+      "enclosure"
+    ],
+    "summary": "Use the selected receptacle drawing for board-edge setback, cutouts, shell stakes and mating clearance; review shield bonding with the enclosure.",
+    "applies_to": "Physical integration of a USB-C receptacle.",
+    "required_inputs": [
+      "Exact connector drawing, board thickness and assembly method",
+      "Enclosure opening, plug access, retention and shield strategy"
+    ],
+    "verification": [
+      "Compare footprint pad/contact mapping with the drawing and check plug clearance in the intended assembly.",
+      "Inspect shell and signal-ground connections against the intended ESD/EMC path."
+    ],
+    "limitations": "No universal edge offset, connector footprint or shield RC network is supplied. The GCT drawing illustrates the review; it does not specify dimensions for another connector.",
+    "citations": [
+      {
+        "source_id": "gct-usb4105",
+        "locator": "Sheet 1: recommended PCB layout, component outline, mating view and shell-stake options; example-specific dimensions"
+      },
+      {
+        "source_id": "ti-szza009",
+        "locator": "Sections 2.5.3-2.5.4, ground returns and signals leaving the PCB"
+      }
+    ],
+    "related_ids": [
+      "connector-esd",
+      "emc-cable-return-path"
+    ]
+  }
+]

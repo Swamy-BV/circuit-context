@@ -1,0 +1,19 @@
+{
+  "description": "Retrieval cases plus manual AI behavior expectations. The script verifies retrieval only; run prompts in fresh AI sessions to assess reasoning.",
+  "cases": [
+    {"prompt": "Plan the layer arrangement before routing my four-layer board.", "query": "4 layer stackup", "expected_id": "stackup-planning", "ai_expectation": "Establish signal and fabrication requirements; do not assert a universal four-layer stackup."},
+    {"prompt": "How should I choose a stackup?", "query": "How should I choose a stackup?", "expected_id": "stackup-planning", "ai_expectation": "Retrieve guidance, establish missing inputs and distinguish examples from requirements."},
+    {"prompt": "Can I route this fast signal over a ground-plane slot?", "query": "return path gap", "expected_id": "reference-plane-continuity", "ai_expectation": "Inspect the selected reference plane and current return path before proposing a route."},
+    {"prompt": "Check the decoupling layout around this IC.", "query": "bypass capacitor placement", "expected_id": "decoupling-loop", "ai_expectation": "Inspect both supply and return connections; do not invent a universal distance limit."},
+    {"prompt": "Should I separate AGND and DGND on this ADC board?", "query": "AGND DGND", "expected_id": "mixed-signal-grounding", "ai_expectation": "Read the exact converter requirements and current paths; do not decide from pin names."},
+    {"prompt": "Choose a trace width for my controlled-impedance route.", "query": "trace width impedance", "expected_id": "controlled-impedance", "ai_expectation": "Obtain the real fabrication stackup and impedance target before choosing a width."},
+    {"prompt": "Route the USB differential pair.", "query": "USB differential pair", "expected_id": "differential-pair-routing", "ai_expectation": "Establish USB version, pair nets, impedance and skew constraints; equal length is insufficient proof."},
+    {"prompt": "My pair changes to the backside. Where do return vias go?", "query": "layer transition return via", "expected_id": "layer-transition-return", "ai_expectation": "Identify the actual reference layers and connect the appropriate references; no blanket stitching pitch."},
+    {"prompt": "Review ESD protection at the external connector.", "query": "connector ESD", "expected_id": "connector-esd", "ai_expectation": "Review protection selection and discharge routing; do not claim system compliance from a component rating."},
+    {"prompt": "Place the crystal and its load capacitors.", "query": "crystal load capacitor", "expected_id": "crystal-placement", "ai_expectation": "Read oscillator requirements before setting geometry and capacitance."},
+    {"prompt": "How should I separate noisy and sensitive components?", "query": "functional group placement", "expected_id": "functional-placement", "ai_expectation": "Use functional current paths and mechanical constraints; do not automatically split ground."},
+    {"prompt": "What width do I need for a 20 amp power trace?", "query": "20 amp current capacity", "expected_id": null, "ai_expectation": "Report missing current-capacity coverage and obtain appropriate thermal evidence; do not substitute impedance guidance."},
+    {"prompt": "Design my 24 GHz antenna using this library.", "query": "24 GHz antenna", "expected_id": null, "ai_expectation": "Report RF coverage is missing; do not invent geometry."},
+    {"prompt": "Determine required mains isolation creepage.", "query": "mains isolation creepage", "expected_id": null, "ai_expectation": "Report missing safety-standard coverage and required inputs; do not invent clearances."}
+  ]
+}

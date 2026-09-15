@@ -1,0 +1,323 @@
+[
+  {
+    "id": "mlcc-flex-orientation",
+    "title": "Orient MLCCs for the expected board stress",
+    "topic": "mechanical",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "mlcc",
+      "capacitor",
+      "flex",
+      "crack",
+      "orientation",
+      "bending"
+    ],
+    "summary": "Consider the direction of board strain when placing ceramic capacitors. Assembly or separation stress can crack a mechanically vulnerable MLCC.",
+    "applies_to": "Boards using multilayer ceramic capacitors.",
+    "required_inputs": [
+      "Assembly loads and strain direction",
+      "Capacitor construction"
+    ],
+    "verification": [
+      "Review orientation and position against the actual bending process."
+    ],
+    "limitations": "A universal rotation rule cannot cover every stress direction or separation method.",
+    "citations": [
+      {
+        "source_id": "murata-flex",
+        "locator": "FAQ 0027, mechanical stress and component mounting orientation"
+      }
+    ]
+  },
+  {
+    "id": "mlcc-screw-flex",
+    "title": "Keep MLCCs out of screw-induced flex regions",
+    "topic": "mechanical",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "mlcc",
+      "capacitor",
+      "screw",
+      "mounting hole",
+      "torque",
+      "flex"
+    ],
+    "summary": "Review capacitors near mounting screws and provide assembly support that limits board bending.",
+    "applies_to": "PCBs fastened to chassis or shields.",
+    "required_inputs": [
+      "Fastener locations and support",
+      "Assembly torque and board warp"
+    ],
+    "verification": [
+      "Check board deflection during the intended fastening sequence."
+    ],
+    "limitations": "No fixed hole clearance or torque is established here.",
+    "citations": [
+      {
+        "source_id": "murata-mounting",
+        "locator": "PDF pages 7 and 16, Mounting Capacitors Near Screw Holes; Tightening Screws"
+      }
+    ]
+  },
+  {
+    "id": "mlcc-depanelization",
+    "title": "Choose depanelization with component strain in mind",
+    "topic": "mechanical",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "mlcc",
+      "capacitor",
+      "depanelization",
+      "panel separation",
+      "v score",
+      "router"
+    ],
+    "summary": "Plan capacitor placement alongside the actual panel-separation method. Manual bending can impose damaging strain.",
+    "applies_to": "Panelized boards with ceramic capacitors.",
+    "required_inputs": [
+      "Panel break lines and separator tooling",
+      "Component positions and support"
+    ],
+    "verification": [
+      "Review separation strain and inspect representative assemblies."
+    ],
+    "limitations": "Orientation advice for hand separation may not apply to disc cutting.",
+    "citations": [
+      {
+        "source_id": "murata-mounting",
+        "locator": "PDF pages 7 and 14, Board Separation and Board Separation Apparatus"
+      }
+    ]
+  },
+  {
+    "id": "connector-mating-tolerance",
+    "title": "Budget alignment for simultaneously mated connectors",
+    "topic": "mechanical",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "connector",
+      "mating",
+      "alignment",
+      "tolerance",
+      "board to board"
+    ],
+    "summary": "Budget relative connector placement and board tolerances against the selected series mating allowance when several connectors engage together.",
+    "applies_to": "Multiple vertical board-to-board connectors.",
+    "required_inputs": [
+      "Connector drawings and mating limits",
+      "Placement and PCB fabrication tolerances"
+    ],
+    "verification": [
+      "Check the combined alignment budget and trial assembly."
+    ],
+    "limitations": "Do not copy alignment-pin or hole adjustments to unrelated connector families.",
+    "citations": [
+      {
+        "source_id": "samtec-mating",
+        "locator": "Page 1, Application Overview"
+      }
+    ]
+  },
+  {
+    "id": "connector-unmating-access",
+    "title": "Reserve space for connector unmating and rework",
+    "topic": "mechanical",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "connector",
+      "unmating",
+      "rework",
+      "access",
+      "standoff",
+      "force"
+    ],
+    "summary": "Reserve access for rework and a controlled unmating method, especially for multiple connectors or high separation forces.",
+    "applies_to": "Board-to-board connector assemblies.",
+    "required_inputs": [
+      "Service method and tooling",
+      "Connector force and neighboring components"
+    ],
+    "verification": [
+      "Review tool access and demonstrate assembly and removal."
+    ],
+    "limitations": "Spacing and standoff selection depend on the connector and manufacturing process.",
+    "citations": [
+      {
+        "source_id": "samtec-mating",
+        "locator": "Page 2, rework spacing and jackscrew standoffs"
+      }
+    ]
+  },
+  {
+    "id": "shield-apertures",
+    "title": "Review shield gaps across the relevant frequency range",
+    "topic": "emc",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "shield",
+      "aperture",
+      "slot",
+      "seam",
+      "enclosure"
+    ],
+    "summary": "Treat shield openings, seams and PCB-ground connections as possible leakage paths. Their electrical size changes with frequency.",
+    "applies_to": "Board-level shields and enclosure shielding reviews.",
+    "required_inputs": [
+      "Emission frequencies and shield geometry",
+      "Vents, seams and ground connections"
+    ],
+    "verification": [
+      "Test shielding with the production openings and assembly."
+    ],
+    "limitations": "No universal aperture size or stitching pitch; cited examples focus on high-frequency shielding.",
+    "citations": [
+      {
+        "source_id": "laird-shielding",
+        "locator": "Pages 1-2, Shielding at millimeter wave frequencies"
+      }
+    ]
+  },
+  {
+    "id": "shield-cavity-materials",
+    "title": "Include thermal materials in shield resonance review",
+    "topic": "emc",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "shield",
+      "cavity resonance",
+      "thermal pad",
+      "material"
+    ],
+    "summary": "Evaluate the populated shield cavity, including thermal materials. Added dielectric or magnetic material can shift resonances and reduce shielding effectiveness.",
+    "applies_to": "High-frequency board-level shields containing components or thermal interfaces.",
+    "required_inputs": [
+      "Cavity geometry and materials",
+      "Operating spectrum and thermal arrangement"
+    ],
+    "verification": [
+      "Compare measured or simulated shielding with the intended assembly."
+    ],
+    "limitations": "Adding a shield or absorber does not guarantee improvement.",
+    "citations": [
+      {
+        "source_id": "laird-shielding",
+        "locator": "Pages 3-4, Cavity Resonance"
+      }
+    ]
+  },
+  {
+    "id": "module-antenna-enclosure",
+    "title": "Preserve module antenna clearance in the enclosure",
+    "topic": "placement",
+    "level": "mechanical",
+    "domains": [
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [
+      "wireless"
+    ],
+    "keywords": [
+      "wireless",
+      "module",
+      "antenna",
+      "enclosure",
+      "keepout",
+      "esp32 h2"
+    ],
+    "summary": "Apply the selected module antenna keepout to both baseboard placement and the surrounding housing. Verify wireless performance in the final enclosure.",
+    "applies_to": "ESP32-H2 modules with onboard PCB antennas.",
+    "required_inputs": [
+      "Exact module and antenna keepout",
+      "Baseboard and enclosure geometry"
+    ],
+    "verification": [
+      "Inspect the antenna volume and test range and throughput in the assembled product."
+    ],
+    "limitations": "This is module integration guidance, not antenna synthesis or a clearance rule for every wireless module.",
+    "citations": [
+      {
+        "source_id": "espressif-module",
+        "locator": "General Principles of PCB Layout for Modules (Positioning a Module on a Base Board)"
+      }
+    ]
+  },
+  {
+    "id": "touch-fpc-orientation",
+    "title": "Verify flex contact mapping in the assembled orientation",
+    "topic": "connectors",
+    "level": "mechanical",
+    "domains": [
+      "schematic",
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [
+      "capacitive-touch"
+    ],
+    "keywords": [
+      "FPC orientation",
+      "flex connector",
+      "folding path",
+      "contact side",
+      "pin mapping"
+    ],
+    "summary": "Connector contact side and flex folding can mirror or rotate the apparent pin order. Establish the assembled mapping before routing.",
+    "applies_to": "Touch-panel flex interconnects and their mating boards.",
+    "required_inputs": [
+      "Connector drawings, contact side and assembled folding path"
+    ],
+    "verification": [
+      "Trace each numbered contact through the assembled mating connection."
+    ],
+    "limitations": "This mapping check does not establish bend radius, flex fatigue or connector life.",
+    "citations": [
+      {
+        "source_id": "microchip-touch-an0208",
+        "locator": "Sections 8.2-8.3, page 19; Figures 17-18"
+      }
+    ],
+    "related_ids": [
+      "capacitive-touch-ground-exception"
+    ]
+  }
+]

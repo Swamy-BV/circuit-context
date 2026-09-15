@@ -1,0 +1,163 @@
+{
+  "description": "MCP retrieval cases and separate manual AI expectations; retrieval checks do not measure AI reasoning.",
+  "cases": [
+    {
+      "prompt": "Plan basic GPIO connections.",
+      "query": "GPIO overview",
+      "expected_id": "gpio-overview",
+      "ai_expectation": "Choose output type and define reset/input behavior before placement.",
+      "expected_related": [
+        "gpio-push-pull",
+        "gpio-open-drain",
+        "stm32-gpio-configuration",
+        "emc-clock-edge-rate"
+      ]
+    },
+    {
+      "prompt": "Route a push-pull enable output.",
+      "query": "push pull",
+      "expected_id": "gpio-push-pull",
+      "ai_expectation": "Verify voltage and edge limits; do not join push-pull drivers."
+    },
+    {
+      "prompt": "Wire two shared interrupt outputs.",
+      "query": "shared interrupt",
+      "expected_id": "gpio-open-drain",
+      "ai_expectation": "Confirm both outputs are open-drain and calculate the pull-up from load."
+    },
+    {
+      "prompt": "Can every MCU unused pin be analog?",
+      "query": "STM32 unused",
+      "expected_id": "stm32-gpio-configuration",
+      "ai_expectation": "Keep the STM32 note scoped; read the actual MCU datasheet."
+    },
+    {
+      "prompt": "Plan a USART asynchronous link.",
+      "query": "UART overview",
+      "expected_id": "uart-overview",
+      "ai_expectation": "Select the physical connection and confirm baud/framing.",
+      "expected_related": [
+        "uart-direct",
+        "uart-debug-header",
+        "uart-external-transceiver",
+        "gpio-overview"
+      ]
+    },
+    {
+      "prompt": "Connect two UART devices.",
+      "query": "UART direct",
+      "expected_id": "uart-direct",
+      "ai_expectation": "Connect TX to RX, check voltage and oscillator errors; no pair length-matching rule."
+    },
+    {
+      "prompt": "Add a UART console header.",
+      "query": "UART debug header",
+      "expected_id": "uart-debug-header",
+      "ai_expectation": "Label directions and logic rail; review adapter power and backpowering."
+    },
+    {
+      "prompt": "Connect UART to an RS-232 cable.",
+      "query": "UART external transceiver",
+      "expected_id": "uart-external-transceiver",
+      "ai_expectation": "Use compatible physical-layer hardware rather than direct MCU pins."
+    },
+    {
+      "prompt": "Plan SPI connections.",
+      "query": "SPI overview",
+      "expected_id": "spi-overview",
+      "ai_expectation": "Select a supported topology and exact device timing.",
+      "expected_related": [
+        "spi-point-to-point",
+        "spi-shared-bus",
+        "spi-daisy-chain",
+        "spi-off-board",
+        "emc-source-termination"
+      ]
+    },
+    {
+      "prompt": "Route SPI to one ADC.",
+      "query": "SPI single target",
+      "expected_id": "spi-point-to-point",
+      "ai_expectation": "Budget forward clock plus reverse data timing; no invented fixed resistor."
+    },
+    {
+      "prompt": "Share SPI with three sensors.",
+      "query": "SPI independent chip selects",
+      "expected_id": "spi-shared-bus",
+      "ai_expectation": "Verify inactive MISO release and every branch's clock integrity."
+    },
+    {
+      "prompt": "Chain SPI devices to save chip-select pins.",
+      "query": "SPI daisy chain",
+      "expected_id": "spi-daisy-chain",
+      "ai_expectation": "Require documented daisy-chain support and whole-chain frame timing."
+    },
+    {
+      "prompt": "Run SPI over a cable.",
+      "query": "SPI off board",
+      "expected_id": "spi-off-board",
+      "ai_expectation": "Request cable and return-path information and check end-to-end timing."
+    },
+    {
+      "prompt": "Plan I2C for several peripherals.",
+      "query": "I2C overview",
+      "expected_id": "i2c-overview",
+      "ai_expectation": "Establish mode, addresses, voltage and loading before pull-ups.",
+      "expected_related": [
+        "i2c-shared-bus",
+        "i2c-translated-segments",
+        "i2c-off-board",
+        "i2c-pullup-window",
+        "i2c-capacitance-segments"
+      ]
+    },
+    {
+      "prompt": "Route a shared I2C bus.",
+      "query": "I2C shared open drain",
+      "expected_id": "i2c-shared-bus",
+      "ai_expectation": "Check addresses and every fitted pull-up; SDA/SCL are not a differential pair."
+    },
+    {
+      "prompt": "Translate an I2C bus between power domains.",
+      "query": "I2C translated segments",
+      "expected_id": "i2c-translated-segments",
+      "ai_expectation": "Check bidirectional support, per-segment margins and powered-off behavior."
+    },
+    {
+      "prompt": "Extend I2C through a ribbon cable.",
+      "query": "I2C cable",
+      "expected_id": "i2c-off-board",
+      "ai_expectation": "Include cable loading and return arrangement; no universal length allowance."
+    },
+    {
+      "prompt": "Does STM32 input advice apply to a different MCU?",
+      "query": "GPIO reset",
+      "expected_id": "gpio-overview",
+      "ai_expectation": "Require the selected part's pin specification and reset defaults."
+    },
+    {
+      "prompt": "How should I set SPI CPOL and CPHA?",
+      "query": "SPI CPOL CPHA",
+      "expected_id": "spi-overview",
+      "ai_expectation": "Read both endpoint timing diagrams; do not infer mode from interface name."
+    },
+    {
+      "prompt": "Can I remove an I2C address collision by moving traces?",
+      "query": "I2C addresses",
+      "expected_id": "i2c-shared-bus",
+      "ai_expectation": "Resolve addressing explicitly with devices or bus selection; layout cannot solve it."
+    },
+    {
+      "prompt": "Design an I3C HDR-DDR channel.",
+      "query": "I3C HDR DDR",
+      "expected_id": null,
+      "ai_expectation": "Report that this initial set does not cover I3C HDR-DDR."
+    },
+    {
+      "prompt": "Route Octal DDR flash.",
+      "query": "OSPI DQS strobe",
+      "expected_id": null,
+      "ai_expectation": "Report missing memory-channel coverage and require device guidance."
+    }
+  ]
+}

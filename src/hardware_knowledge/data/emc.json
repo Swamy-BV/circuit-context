@@ -1,0 +1,426 @@
+[
+  {
+    "id": "emc-source-path-victim",
+    "title": "Identify interference sources, coupling paths and victims",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "source path victim",
+      "coupling",
+      "conducted",
+      "radiated"
+    ],
+    "summary": "Map noise sources, coupling paths and susceptible circuits before choosing an EMC mitigation. Changing the path can be as useful as changing the source.",
+    "applies_to": "System-level EMC planning and troubleshooting.",
+    "required_inputs": [
+      "Operating modes and cables",
+      "Susceptible circuits and failure symptoms"
+    ],
+    "verification": [
+      "Compare noise and victim behavior before and after a controlled mitigation."
+    ],
+    "limitations": "A plausible coupling path is a hypothesis until measured; this is not a compliance test.",
+    "citations": [
+      {
+        "source_id": "nxp-an10897",
+        "locator": "Section 2.2.1, EMC model"
+      }
+    ]
+  },
+  {
+    "id": "emc-emissions-immunity-plan",
+    "title": "Plan emissions and immunity checks separately",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb",
+      "mechanical"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "emissions",
+      "immunity",
+      "susceptibility",
+      "test plan"
+    ],
+    "summary": "Assess both disturbances a product generates and disturbances it must tolerate. Component EMC characterization does not establish assembled-product performance.",
+    "applies_to": "MCU products with defined environments and operating modes.",
+    "required_inputs": [
+      "Intended environment and applicable product requirements",
+      "Cables, enclosure and operating modes"
+    ],
+    "verification": [
+      "Record emissions and functional behavior under the agreed disturbance tests."
+    ],
+    "limitations": "Choose current product standards separately; this MCU note supplies no universal product limits.",
+    "citations": [
+      {
+        "source_id": "st-emc",
+        "locator": "EMC definitions; EMC characterization of microcontrollers"
+      }
+    ]
+  },
+  {
+    "id": "emc-brownout-recovery",
+    "title": "Define recovery from supply disturbances",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "immunity",
+      "brownout",
+      "reset",
+      "recovery",
+      "firmware",
+      "bor"
+    ],
+    "summary": "Select supported brownout/reset behavior and recovery handling for supply disturbances. Verify the selected threshold against the MCU operating range.",
+    "applies_to": "MCUs with documented brownout and reset facilities.",
+    "required_inputs": [
+      "MCU voltage/frequency limits and reset options",
+      "Required output state during recovery"
+    ],
+    "verification": [
+      "Disturb the supply under controlled conditions and observe reset cause, outputs and restart."
+    ],
+    "limitations": "Reset behavior is device-specific and does not guarantee safe system behavior by itself.",
+    "citations": [
+      {
+        "source_id": "st-emc",
+        "locator": "MCU design strategy: Brownout reset (BOR); Programmable voltage detector (PVD)"
+      }
+    ]
+  },
+  {
+    "id": "emc-clock-edge-rate",
+    "title": "Assess edge rate as well as clock frequency",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "clock",
+      "edge rate",
+      "rise time",
+      "harmonics",
+      "slew"
+    ],
+    "summary": "Use signal transition time when assessing high-frequency content. A low repetition rate can still have fast edges that excite unwanted coupling.",
+    "applies_to": "Digital clocks and switching I/O.",
+    "required_inputs": [
+      "Driver rise/fall times under load",
+      "Timing and receiver requirements"
+    ],
+    "verification": [
+      "Measure edge shape and timing at the receiver before accepting a slew-rate change."
+    ],
+    "limitations": "Slower edges must still satisfy the interface; nominal clock frequency is insufficient.",
+    "citations": [
+      {
+        "source_id": "ti-scaa082a",
+        "locator": "Section 1.2, Clock Signals, page 2"
+      }
+    ]
+  },
+  {
+    "id": "emc-cable-return-path",
+    "title": "Plan signal return paths through cables and connectors",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "cable",
+      "connector",
+      "return pins",
+      "common mode"
+    ],
+    "summary": "Include cable and connector return conductors in the current-path review. Off-board wiring can carry noise and enlarge radiating loops.",
+    "applies_to": "Signals leaving a PCB through a harness or connector.",
+    "required_inputs": [
+      "Pinout and cable construction",
+      "Ground and shield arrangement"
+    ],
+    "verification": [
+      "Trace signal and return paths through the complete interconnect; compare cable-dependent emissions."
+    ],
+    "limitations": "Do not assign shield bonding or ground connections without system context.",
+    "citations": [
+      {
+        "source_id": "ti-szza009",
+        "locator": "Sections 2.5.3-2.5.4, Ground Returns and Signals Leaving the PCB"
+      }
+    ]
+  },
+  {
+    "id": "emc-source-termination",
+    "title": "Evaluate source termination for ringing",
+    "topic": "emc",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "series resistor",
+      "source termination",
+      "ringing",
+      "clock"
+    ],
+    "summary": "For a suitable point-to-point line, evaluate a resistor near the driver to reduce reflections. Include driver impedance when selecting it.",
+    "applies_to": "Digital lines for which source termination suits the topology.",
+    "required_inputs": [
+      "Driver impedance, line impedance and receiver load",
+      "Timing budget and topology"
+    ],
+    "verification": [
+      "Simulate or measure receiver settling and timing across component tolerances."
+    ],
+    "limitations": "No universal resistor value; multidrop and bidirectional buses need separate analysis.",
+    "citations": [
+      {
+        "source_id": "ti-szza009",
+        "locator": "Section 2.4.3, Series Termination"
+      }
+    ]
+  },
+  {
+    "id": "emc-ferrite-bias",
+    "title": "Check ferrite impedance under operating current",
+    "topic": "filtering",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "ferrite",
+      "dc bias",
+      "impedance",
+      "saturation"
+    ],
+    "summary": "Choose ferrites using impedance versus frequency and DC bias, alongside current and voltage-drop limits. A headline impedance alone can misrepresent filtering in operation.",
+    "applies_to": "Ferrite beads used in power filtering.",
+    "required_inputs": [
+      "Load current and transients",
+      "Biased impedance curves and DCR"
+    ],
+    "verification": [
+      "Evaluate attenuation and rail drop at operating current."
+    ],
+    "limitations": "Current rating does not promise retained impedance; use the selected part data.",
+    "citations": [
+      {
+        "source_id": "adi-ferrite",
+        "locator": "DC Bias Current Considerations"
+      }
+    ]
+  },
+  {
+    "id": "emc-filter-resonance",
+    "title": "Check bead-capacitor resonance and damping",
+    "topic": "filtering",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "filter",
+      "ferrite",
+      "resonance",
+      "damping",
+      "peaking"
+    ],
+    "summary": "A bead and low-loss capacitors can amplify noise near resonance. Evaluate damping with realistic parasitics and bias.",
+    "applies_to": "Supply filters containing ferrites and capacitors.",
+    "required_inputs": [
+      "Filter models, capacitor ESR and bias",
+      "Source and load impedance"
+    ],
+    "verification": [
+      "Check frequency response and load-step behavior for peaking."
+    ],
+    "limitations": "Adding capacitance is not automatically an improvement; damping depends on the network.",
+    "citations": [
+      {
+        "source_id": "adi-ferrite",
+        "locator": "LC Resonance Effect; Damping Methods"
+      }
+    ]
+  },
+  {
+    "id": "emc-buck-hot-loop",
+    "title": "Minimize the buck converter commutation loop",
+    "topic": "power",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "buck",
+      "hot loop",
+      "commutation",
+      "input capacitor"
+    ],
+    "summary": "Identify the changing current path between switch states. Keep the input bypass and switching-device connections compact to reduce parasitic inductance and radiated noise.",
+    "applies_to": "Buck converter layouts; cited example is LMR160X0.",
+    "required_inputs": [
+      "Converter topology and pinout",
+      "Input bypass placement and current paths"
+    ],
+    "verification": [
+      "Inspect the commutation loop geometry and measure switching transients."
+    ],
+    "limitations": "Other converter topologies have different critical loops; follow the selected device layout.",
+    "citations": [
+      {
+        "source_id": "ti-buck-emi",
+        "locator": "Sections 3.1-3.3, pages 5-6"
+      }
+    ]
+  },
+  {
+    "id": "emc-converter-input-filter",
+    "title": "Check converter input-filter interaction",
+    "topic": "filtering",
+    "level": "general",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "buck",
+      "input filter",
+      "conducted",
+      "damping",
+      "stability"
+    ],
+    "summary": "Size input filtering for the required conducted-noise attenuation and check its interaction with the converter. Resonant input impedance may require damping.",
+    "applies_to": "Switching converters with added input filters; source demonstrates LMR160X0.",
+    "required_inputs": [
+      "Noise spectrum and target attenuation",
+      "Filter parasitics and converter dynamics"
+    ],
+    "verification": [
+      "Measure conducted noise and confirm stable startup and load transients."
+    ],
+    "limitations": "Example component values and measured compliance margins do not transfer to another product.",
+    "citations": [
+      {
+        "source_id": "ti-buck-emi",
+        "locator": "Sections 2.1-2.5, pages 3-4"
+      }
+    ]
+  },
+  {
+    "id": "esd-flow-through",
+    "title": "Route incoming ESD through the protection connection",
+    "topic": "protection",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "esd",
+      "tvs",
+      "flow through",
+      "stub",
+      "clamping"
+    ],
+    "summary": "Route an exposed line through the TVS connection before the protected circuit, avoiding a long shunt stub. Keep the discharge return inductance low.",
+    "applies_to": "PCB lines using external ESD protection.",
+    "required_inputs": [
+      "TVS pinout and exposed connector",
+      "Discharge return and protected IC location"
+    ],
+    "verification": [
+      "Inspect connector-to-TVS-to-IC routing and the TVS return geometry."
+    ],
+    "limitations": "Layout cannot compensate for unsuitable protection ratings or signal loading.",
+    "citations": [
+      {
+        "source_id": "ti-esd-layout",
+        "locator": "Section 2.1, Optimizing Impedance for Dissipating ESD, page 4"
+      }
+    ]
+  },
+  {
+    "id": "esd-protected-separation",
+    "title": "Separate exposed and protected routing",
+    "topic": "protection",
+    "level": "general",
+    "domains": [
+      "pcb"
+    ],
+    "interfaces": [],
+    "keywords": [
+      "emi",
+      "emc",
+      "esd",
+      "protected",
+      "unprotected",
+      "coupling",
+      "separation"
+    ],
+    "summary": "Avoid routing exposed conductors alongside protected signals where an ESD pulse can couple around the protection path.",
+    "applies_to": "Connector entry regions and protection circuits.",
+    "required_inputs": [
+      "Exposed nets and protected nets",
+      "Layer stack and discharge path"
+    ],
+    "verification": [
+      "Inspect adjacent layers as well as same-layer parallel routing."
+    ],
+    "limitations": "No universal spacing is established here; validate the assembled product under the required stress.",
+    "citations": [
+      {
+        "source_id": "ti-esd-layout",
+        "locator": "Section 2.2, Limiting EMI from ESD, page 5"
+      }
+    ]
+  }
+]

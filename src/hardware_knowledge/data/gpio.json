@@ -1,0 +1,212 @@
+[
+  {
+    "id": "gpio-overview",
+    "title": "GPIO overview: output type, input bias and reset state",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "gpio"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "gpio",
+      "overview",
+      "digital io",
+      "reset",
+      "unused",
+      "input bias"
+    ],
+    "summary": "Choose push-pull or open-drain behavior and define input bias before layout. Review voltage compatibility, reset states and loading.",
+    "applies_to": "Digital GPIO circuits; pin capabilities and electrical limits require the selected device datasheet.",
+    "required_inputs": [
+      "Pin modes, supply sequence and receiver thresholds",
+      "Required startup state and load"
+    ],
+    "verification": [
+      "Check pin electrical limits and reset configuration against the exact datasheet."
+    ],
+    "limitations": "GPIO labels alone do not establish tolerance, available current or powered-off behavior.",
+    "citations": [
+      {
+        "source_id": "st-gpio",
+        "locator": "GPIO functional description and GPIO hardware configuration; apply with the selected STM32 datasheet"
+      },
+      {
+        "source_id": "ti-scba004e",
+        "locator": "Sections 1-3 and 5: input characteristics, transition rate, reliable design and pull-up/pull-down resistors"
+      }
+    ],
+    "related_ids": [
+      "gpio-push-pull",
+      "gpio-open-drain",
+      "stm32-gpio-configuration",
+      "emc-clock-edge-rate"
+    ]
+  },
+  {
+    "id": "gpio-push-pull",
+    "title": "GPIO push-pull point-to-point pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "gpio"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "gpio",
+      "push pull",
+      "point to point",
+      "output",
+      "input transition"
+    ],
+    "summary": "Connect one push-pull driver to a compatible input; check input transition requirements under the actual load.",
+    "applies_to": "Digital GPIO circuits; pin capabilities and electrical limits require the selected device datasheet.",
+    "required_inputs": [
+      "VOH/VOL, VIH/VIL, input capacitance and edge limits",
+      "Reset states and power sequence"
+    ],
+    "verification": [
+      "Check loaded logic levels, edge shape and startup behavior."
+    ],
+    "limitations": "Do not assume that slower edges always improve operation.",
+    "citations": [
+      {
+        "source_id": "st-gpio",
+        "locator": "GPIO functional description and GPIO hardware configuration; apply with the selected STM32 datasheet"
+      },
+      {
+        "source_id": "ti-scba004e",
+        "locator": "Sections 1-3 and 5: input characteristics, transition rate, reliable design and pull-up/pull-down resistors"
+      }
+    ],
+    "related_ids": [
+      "reference-plane-continuity",
+      "layer-transition-return"
+    ],
+    "pattern": {
+      "diagram": "A.OUT (push-pull) ---> B.IN\nA.GND --------------- B.GND",
+      "placement": [
+        "Keep the receiver near its source where placement permits."
+      ],
+      "routing": [
+        "Keep the connection direct; evaluate damping through emc-source-termination if ringing is observed."
+      ],
+      "return_path": [
+        "Use the shared reference and transition guidance linked here."
+      ],
+      "pitfalls": [
+        "Do not tie push-pull outputs together."
+      ]
+    }
+  },
+  {
+    "id": "gpio-open-drain",
+    "title": "GPIO open-drain shared interrupt pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "gpio"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "gpio",
+      "open drain",
+      "interrupt",
+      "wired and",
+      "pullup"
+    ],
+    "summary": "Share an active-low interrupt only among compatible open-drain outputs. Size the pull-up for the combined load and sink capability.",
+    "applies_to": "Digital GPIO circuits; pin capabilities and electrical limits require the selected device datasheet.",
+    "required_inputs": [
+      "Output type of every participant",
+      "Pull-up rail, leakage, capacitance and receiver timing"
+    ],
+    "verification": [
+      "Verify the released HIGH and asserted LOW with every participant and power state."
+    ],
+    "limitations": "Internal pull-ups and unpowered-device tolerance are device-specific.",
+    "citations": [
+      {
+        "source_id": "st-gpio",
+        "locator": "GPIO functional description and GPIO hardware configuration; apply with the selected STM32 datasheet"
+      },
+      {
+        "source_id": "ti-scba004e",
+        "locator": "Sections 1-3 and 5: input characteristics, transition rate, reliable design and pull-up/pull-down resistors"
+      }
+    ],
+    "related_ids": [
+      "reference-plane-continuity",
+      "layer-transition-return"
+    ],
+    "pattern": {
+      "diagram": "VPU -- Rpull --+-- MCU.IN\n              +-- A.OD\n              +-- B.OD",
+      "placement": [
+        "Group participants to limit the shared node's loading."
+      ],
+      "routing": [
+        "Avoid unnecessary branches; verify rise time at the farthest receiver."
+      ],
+      "return_path": [
+        "Provide the common signal reference; the diagram omits ground pins."
+      ],
+      "pitfalls": [
+        "A push-pull participant can contend with an asserted interrupt."
+      ]
+    }
+  },
+  {
+    "id": "stm32-gpio-configuration",
+    "title": "STM32 device note: GPIO speed and unused pins",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "gpio"
+    ],
+    "kind": "device-note",
+    "keywords": [
+      "gpio",
+      "stm32",
+      "unused",
+      "analog mode",
+      "speed",
+      "slew"
+    ],
+    "summary": "Use AN4899 alongside the exact STM32 datasheet for output speed, unused-pin configuration and low-power states.",
+    "applies_to": "STM32 MCUs covered by AN4899; confirm the exact device, pin and low-power mode in its datasheet and reference manual.",
+    "required_inputs": [
+      "STM32 part, pin type and low-power mode",
+      "Signal timing and board load"
+    ],
+    "verification": [
+      "Check firmware configuration and measure current and transitions under load."
+    ],
+    "limitations": "STM32 guidance is not a universal unused-pin rule for other MCUs; analog mode, tolerance and reset defaults vary.",
+    "citations": [
+      {
+        "source_id": "st-gpio",
+        "locator": "GPIO functional description and GPIO hardware configuration; apply with the selected STM32 datasheet"
+      }
+    ],
+    "related_ids": [
+      "gpio-overview",
+      "emc-clock-edge-rate"
+    ]
+  }
+]

@@ -1,0 +1,192 @@
+{
+  "origin": "https://github.com/Swamy-BV/kicad-flow",
+  "base_commit": "b34cbd43d3a639623abc4e25caa41c9ef3a2e7ef",
+  "source_state": "Working tree on codex/emc-guidance, including uncommitted knowledge additions",
+  "files": [
+    {
+      "source_path": "src/kicad_flow/knowledge/__init__.py",
+      "source_sha256": "a481745abfadb0c8dd8c171d8b1d0e8e10463d9682c6ab64c834788b7d5f9fbd",
+      "destination": "src/hardware_knowledge/__init__.py"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/corpus.py",
+      "source_sha256": "c6767f110781fd7e95d1c5ba5bf123724d1998e2da448a9ebdabb2d85f8ba685",
+      "destination": "src/hardware_knowledge/corpus.py"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/emc.json",
+      "source_sha256": "6600a6a8ebe2d8a703589d8060bf2028ab649492ead10cf164e42cbe566a9709",
+      "destination": "src/hardware_knowledge/data/emc.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/general.json",
+      "source_sha256": "ab8f1b9e89dc9dd00ace2b78540530e927cf170c6c2d7b8b6f114244bf602f62",
+      "destination": "src/hardware_knowledge/data/general.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/gpio.json",
+      "source_sha256": "d8e96262c2a6ef32f48c6e2cb1a98411b9b3ff34142e22fc55f4b8daabbfd6fe",
+      "destination": "src/hardware_knowledge/data/gpio.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/i2c.json",
+      "source_sha256": "75b9364ba43687c64926e8c2beb808d9b2f650feff6adc75fdedd76a016b9db5",
+      "destination": "src/hardware_knowledge/data/i2c.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/interfaces.json",
+      "source_sha256": "466e6c3258dcfd80ea742bedd310be227f621844655d598c4e301384e55a05bb",
+      "destination": "src/hardware_knowledge/data/interfaces.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/mechanical.json",
+      "source_sha256": "a8a03beea4957ceee616f0cb2316c945062f6f5275642b413840731bbbef7c5d",
+      "destination": "src/hardware_knowledge/data/mechanical.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/sources.json",
+      "source_sha256": "ffc82edbf4d669bb148f1dcdac34975f94e87d2786031702f613713b37ac0eb7",
+      "destination": "src/hardware_knowledge/data/sources.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/spi.json",
+      "source_sha256": "70aeb002899b0a9e91bc2a5938d8270123e4890db6ca5fca708bffbba86b5c08",
+      "destination": "src/hardware_knowledge/data/spi.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/two_layer.json",
+      "source_sha256": "7cf1c9af0d91fb8037c9098747b7f5056ab3fb0ae2f1f5955c714bf27469c3b6",
+      "destination": "src/hardware_knowledge/data/two_layer.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/uart.json",
+      "source_sha256": "2806305074b80826936584f6d97ead95a7ab0bfde0bf5d109ce71a617028684f",
+      "destination": "src/hardware_knowledge/data/uart.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/usb_c.json",
+      "source_sha256": "df640e4dbc0f091176027e9c83866a9fbff8e508c609b2c4dbc6e3ece6113cf0",
+      "destination": "src/hardware_knowledge/data/usb_c.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/usb_c_layout.json",
+      "source_sha256": "7cdbee048fdc13662bab6d5cde8b6618233dad4df80c4f0751cee433b119bc8f",
+      "destination": "src/hardware_knowledge/data/usb_c_layout.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/data/usb_pd.json",
+      "source_sha256": "98cf2ffc19939b33a75f322848166154230fc331535797800566d09b27159a32",
+      "destination": "src/hardware_knowledge/data/usb_pd.json"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/index.py",
+      "source_sha256": "f56ad12e385f1b9a1e669e9832a4cc6ecb7173ae5c476af2847f33da12514fa5",
+      "destination": "src/hardware_knowledge/index.py"
+    },
+    {
+      "source_path": "src/kicad_flow/knowledge/models.py",
+      "source_sha256": "c28d6d6d40c7d9c3b0c6219eafc1e1c5f40e012ed2630297d80d2ca02ebb82c2",
+      "destination": "src/hardware_knowledge/models.py"
+    },
+    {
+      "source_path": "docs/pcb-knowledge.md",
+      "source_sha256": "7a5089baef8f6d70c026c7f51b0fd93ba306a7daf9401a96df9fc94ceeb8ede9",
+      "destination": "docs/pcb-knowledge.md"
+    },
+    {
+      "source_path": "docs/basic-interfaces.md",
+      "source_sha256": "4de9de26e42fe389e1699017844ec70fc4c33d6fd5eacd21fb931a3614cd6c3c",
+      "destination": "docs/basic-interfaces.md"
+    },
+    {
+      "source_path": "docs/usb-c-guidance.md",
+      "source_sha256": "4945e5ef463e7aeb1496b0f7eca9e09ed5d97792652d68b2c454fa76e06e84b1",
+      "destination": "docs/usb-c-guidance.md"
+    },
+    {
+      "source_path": "docs/two-layer-emc.md",
+      "source_sha256": "63d59d5fbc5181f1268815bae6611be8d493a0188ecdea39d864b4d0935f6991",
+      "destination": "docs/two-layer-emc.md"
+    },
+    {
+      "source_path": "docs/two-layer-source-review.md",
+      "source_sha256": "bd9716d5c4b9c2d2e0addfc8eb535c38ca1173d71cc7d22c87d8172c06d66817",
+      "destination": "docs/two-layer-source-review.md"
+    },
+    {
+      "source_path": "docs/source-markdown.md",
+      "source_sha256": "3eab6192764a9acad213f0f4b5a0f9212878fa2b6d2f28c49bde4c44d2283b72",
+      "destination": "docs/source-markdown.md"
+    },
+    {
+      "source_path": "docs/knowledge-source-notes.json",
+      "source_sha256": "fd40d4e02430b7ebf80b3832170549e18d2c658c7b22ce305024cf32fca2e2a5",
+      "destination": "docs/knowledge-source-notes.json"
+    },
+    {
+      "source_path": "examples/prompts/pcb_knowledge.json",
+      "source_sha256": "bd2bdad2b38163c09032cc4b60310bbf450682728920ffcda191d2a8cd87ebd1",
+      "destination": "examples/prompts/pcb_knowledge.json"
+    },
+    {
+      "source_path": "examples/prompts/emc_knowledge.json",
+      "source_sha256": "f23d77a6ac62ff8636c02355a200276a3b58afe370fa85432027f4e2ba923a06",
+      "destination": "examples/prompts/emc_knowledge.json"
+    },
+    {
+      "source_path": "examples/prompts/two_layer_knowledge.json",
+      "source_sha256": "efd8e281042be3d63edb5adc73efb3d12720ac58cacbbd42c2190e1551d8ac7d",
+      "destination": "examples/prompts/two_layer_knowledge.json"
+    },
+    {
+      "source_path": "examples/prompts/basic_interface_knowledge.json",
+      "source_sha256": "57a3e431207d38fd6c3890bb077e30d9690faca9d5f03a757ee60b821d11c80d",
+      "destination": "examples/prompts/basic_interface_knowledge.json"
+    },
+    {
+      "source_path": "examples/prompts/usb_c_knowledge.json",
+      "source_sha256": "7ff364e60c865b9c4fa18efdf242b6d70e3bc8e96a718acaa7746a319ef27aa6",
+      "destination": "examples/prompts/usb_c_knowledge.json"
+    },
+    {
+      "source_path": "examples/scripts/pcb_knowledge.py",
+      "source_sha256": "90035b8d8ecdbe93e0b83d191f4db61c920458504b0187bdbca9127b29529522",
+      "destination": "examples/scripts/pcb_knowledge.py"
+    },
+    {
+      "source_path": "examples/scripts/capture_knowledge_sources.py",
+      "source_sha256": "a49e295e11af787106f7eaa3978e1fe560471ab38af87ee985573fec399261ea",
+      "destination": "examples/scripts/capture_knowledge_sources.py"
+    },
+    {
+      "source_path": "examples/scripts/convert_knowledge_sources.py",
+      "source_sha256": "1767502d98f7357ca34e15220f4bc703fc2af26f728e8bd0b616815ad3cdb809",
+      "destination": "examples/scripts/convert_knowledge_sources.py"
+    },
+    {
+      "source_path": "examples/scripts/knowledge_markdown/__init__.py",
+      "source_sha256": "f8aff7be3cbef964919cee2b199186bfd50d61d4e8bcdb282b0842160a233ddd",
+      "destination": "examples/scripts/knowledge_markdown/__init__.py"
+    },
+    {
+      "source_path": "examples/scripts/knowledge_markdown/html.py",
+      "source_sha256": "a126f767821ce626d1f8af9e5795319eff431e5a9ebb97cf869896f9a011ef05",
+      "destination": "examples/scripts/knowledge_markdown/html.py"
+    },
+    {
+      "source_path": "examples/scripts/knowledge_markdown/pdf.py",
+      "source_sha256": "a14d0943ab6cf658fda0eeba0d3ea26e5c5adfd521be00a0a9f9553511ef674e",
+      "destination": "examples/scripts/knowledge_markdown/pdf.py"
+    },
+    {
+      "source_path": "LICENSE",
+      "source_sha256": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+      "destination": "LICENSE"
+    },
+    {
+      "source_path": "src/kicad_flow/server/tools_knowledge.py",
+      "source_sha256": "37590210141d9d14f0747454261f4138a835f2d267b279d781356707fbdd1855",
+      "destination": "src/hardware_knowledge/server.py"
+    }
+  ]
+}
