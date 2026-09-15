@@ -1,4 +1,12 @@
 {
+  "ti-pcmd3140": {
+    "sha256": "38a9dd374b55981d6cb720b1def1d79595d7d3bca42ffdc79598ba9d729806e5",
+    "pages": {
+      "92": [
+        "Figure 8-1 shows four PDM microphones with local supply capacitors, paired data connections and different SEL states within each pair. The converter provides a microphone clock and forwards digital audio to the host. This is a device-specific example, not permission to connect arbitrary microphone outputs together or reuse these supply values."
+      ]
+    }
+  },
   "ti-slva959b": {
     "sha256": "89adbce11092779a4c024ea5832c3b3f62ff9c2a153646530dc8847f89c45eb9",
     "pages": {

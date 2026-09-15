@@ -1,0 +1,158 @@
+[
+  {
+    "id": "debug-port-overview",
+    "title": "JTAG and SWD overview: preserve debug access and reset states",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "jtag",
+      "swd"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "debug overview",
+      "SWJ",
+      "JTAG",
+      "SWD",
+      "reset state"
+    ],
+    "summary": "Choose the supported debug interface and connector. Check pin multiplexing, reset behavior and input bias before reusing debug pins.",
+    "applies_to": "MCU debug interfaces; STM32F4 reset-state examples are device-specific.",
+    "required_inputs": [
+      "Target/package, probe and intended debug/recovery access"
+    ],
+    "verification": [
+      "Verify connection under reset and after application startup."
+    ],
+    "limitations": "Internal pull resistors differ by device; do not apply STM32F4 defaults to every target.",
+    "citations": [
+      {
+        "source_id": "st-an4488",
+        "locator": "Sections 5.1-5.2, pages 29-31"
+      }
+    ],
+    "related_ids": [
+      "swd-connector",
+      "jtag-chain",
+      "gpio-overview",
+      "connector-unmating-access"
+    ]
+  },
+  {
+    "id": "swd-connector",
+    "title": "SWD connector and voltage-reference pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "swd"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "SWD connector",
+      "VTref",
+      "SWCLK",
+      "SWDIO",
+      "SWO"
+    ],
+    "summary": "Connect SWCLK, bidirectional SWDIO, ground and the probe voltage reference; provide target reset where required. SWO is optional trace, not required for basic SWD.",
+    "applies_to": "Probe-to-target SWD; connector assignments depend on the probe adapter.",
+    "required_inputs": [
+      "Probe pinout and target I/O voltage/reset requirements"
+    ],
+    "verification": [
+      "Check orientation and voltage-reference sensing before connecting the probe."
+    ],
+    "limitations": "VTref is a sense/reference input on the cited J-Link connector, not an assumed target-power output.",
+    "citations": [
+      {
+        "source_id": "segger-debug-interface",
+        "locator": "SWD Connector Pinout table"
+      }
+    ],
+    "related_ids": [
+      "debug-port-overview",
+      "ground-loop-review",
+      "connector-esd"
+    ],
+    "pattern": {
+      "diagram": "Probe SWCLK -> target; SWDIO <-> target; target VIO -> probe VTref",
+      "placement": [
+        "Keep the connector accessible."
+      ],
+      "routing": [
+        "Use the actual adapter mapping; review reset loading."
+      ],
+      "return_path": [
+        "Connect the specified ground contacts."
+      ],
+      "pitfalls": [
+        "Do not confuse the optional supply pin with VTref."
+      ]
+    }
+  },
+  {
+    "id": "jtag-chain",
+    "title": "JTAG scan-chain connection pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "jtag"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "JTAG chain",
+      "TDI",
+      "TDO",
+      "TCK",
+      "TMS"
+    ],
+    "summary": "Chain each target TDO to the next target TDI; share TCK and TMS as specified. Configure the probe for the chain order and instruction-register lengths.",
+    "applies_to": "Supported multi-target JTAG chains.",
+    "required_inputs": [
+      "Device order, voltage domains and instruction-register lengths"
+    ],
+    "verification": [
+      "Verify enumeration and access to every target in the intended power state."
+    ],
+    "limitations": "An unpowered or misconfigured target can prevent chain access. SWD is not wired as a JTAG serial chain.",
+    "citations": [
+      {
+        "source_id": "segger-um08001",
+        "locator": "JTAG interface; multiple devices and scan-chain configuration"
+      }
+    ],
+    "related_ids": [
+      "debug-port-overview",
+      "emc-source-termination",
+      "reference-plane-continuity"
+    ],
+    "pattern": {
+      "diagram": "Probe TDI -> A.TDI; A.TDO -> B.TDI; B.TDO -> probe TDO",
+      "placement": [
+        "Plan access to the complete chain."
+      ],
+      "routing": [
+        "Review shared-clock loading and reset requirements."
+      ],
+      "return_path": [
+        "Keep clock returns continuous."
+      ],
+      "pitfalls": [
+        "Do not wire target TDO outputs together."
+      ]
+    }
+  }
+]
+

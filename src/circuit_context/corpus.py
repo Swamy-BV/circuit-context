@@ -14,6 +14,7 @@ _COLLECTIONS = (
     "gpio.json", "uart.json", "spi.json", "i2c.json",
     "usb_c.json", "usb_c_layout.json", "usb_pd.json", "four_layer.json",
     "pcb_calculations.json",
+    "serial_flash.json", "sdmmc.json", "digital_audio.json", "debug.json",
 )
 
 

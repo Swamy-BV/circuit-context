@@ -1,0 +1,143 @@
+[
+  {
+    "id": "sdmmc-overview",
+    "title": "SD SDIO and eMMC overview: establish mode and voltage",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "sd",
+      "sdio",
+      "emmc"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "SDMMC overview",
+      "SDIO",
+      "eMMC",
+      "bus voltage",
+      "bus width"
+    ],
+    "summary": "Select the device type, supported bus width, I/O voltage and operating mode. Review clock, command and data requirements before routing.",
+    "applies_to": "Initial SD/MMC interface review; exact host and peripheral documentation governs.",
+    "required_inputs": [
+      "Host/peripheral versions, mode, I/O rails and initialization requirements"
+    ],
+    "verification": [
+      "Compare power states, pull configuration and timing at both ends."
+    ],
+    "limitations": "SD memory, SDIO peripherals and eMMC are not interchangeable; this overview is not an HS200/HS400 specification.",
+    "citations": [
+      {
+        "source_id": "st-an4488",
+        "locator": "Section 8.4.1, page 38"
+      }
+    ],
+    "related_ids": [
+      "sd-card-routing",
+      "emmc-bringup",
+      "connector-esd",
+      "controlled-impedance"
+    ]
+  },
+  {
+    "id": "sd-card-routing",
+    "title": "Removable SD card and SDIO routing review",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "sd",
+      "sdio"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "SD card routing",
+      "SDIO routing",
+      "card detect",
+      "pull ups"
+    ],
+    "summary": "Review CMD/data pulls, clock integrity and card-detect behavior. Include connector loading and external protection in the channel review.",
+    "applies_to": "Removable SD or board-level SDIO links; peripheral-specific signals vary.",
+    "required_inputs": [
+      "Connector or peripheral pinout; host pull and voltage requirements"
+    ],
+    "verification": [
+      "Inspect CMD/CLK waveforms and initialization; verify card detection where present."
+    ],
+    "limitations": "OMAP44xx resistor and ramp-time examples must not become universal rules. SDIO devices may need additional enable or interrupt signals.",
+    "citations": [
+      {
+        "source_id": "ti-swpa221",
+        "locator": "Sections 2 and 3.1-3.4, pages 5-10"
+      }
+    ],
+    "related_ids": [
+      "sdmmc-overview",
+      "emc-source-termination",
+      "connector-esd",
+      "reference-plane-continuity"
+    ],
+    "pattern": {
+      "diagram": "Host CLK -> Card/device; CMD/DAT <-> Card/device",
+      "placement": [
+        "Keep the connector channel compact."
+      ],
+      "routing": [
+        "Review signal loading, clock ringing and protection capacitance."
+      ],
+      "return_path": [
+        "Maintain a continuous reference through connector escape."
+      ],
+      "pitfalls": [
+        "Do not apply one pull-up value to every host and mode."
+      ]
+    }
+  },
+  {
+    "id": "emmc-bringup",
+    "title": "eMMC power and bring-up review",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "emmc"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "eMMC boot",
+      "eMMC bringup",
+      "CMD DAT",
+      "power sequence"
+    ],
+    "summary": "Review power and I/O validity, boot configuration and CMD/data behavior before attributing failures to routing. Capture waveforms and check host configuration.",
+    "applies_to": "Initial eMMC bring-up; cited OMAP44xx troubleshooting is device-scoped.",
+    "required_inputs": [
+      "Host and memory requirements, rails, boot state and target mode"
+    ],
+    "verification": [
+      "Verify initialization, read/write integrity and supported speed transitions."
+    ],
+    "limitations": "Detailed HS200/HS400 strobe routing is not covered. Obtain the selected SoC and memory design guides before setting high-speed geometry.",
+    "citations": [
+      {
+        "source_id": "ti-swpa221",
+        "locator": "Sections 1, 2.4 and 3.1-3.3, pages 3-9"
+      }
+    ],
+    "related_ids": [
+      "sdmmc-overview",
+      "decoupling-loop",
+      "controlled-impedance"
+    ]
+  }
+]

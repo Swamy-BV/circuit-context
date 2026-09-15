@@ -1,0 +1,159 @@
+[
+  {
+    "id": "digital-audio-overview",
+    "title": "I2S TDM and PDM overview: establish format and clock ownership",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2s",
+      "tdm",
+      "pdm"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "digital audio overview",
+      "I2S",
+      "TDM",
+      "PDM",
+      "slots",
+      "clock owner"
+    ],
+    "summary": "Specify which device drives each clock, the sample rate, framing, slot width and active data directions. PDM reception requires compatible hardware or conversion to PCM.",
+    "applies_to": "Digital audio links; the cited converter illustrates supported formats.",
+    "required_inputs": [
+      "Endpoint formats, clock roles and I/O voltages"
+    ],
+    "verification": [
+      "Check both endpoints agree on framing and sample timing."
+    ],
+    "limitations": "Do not assume identical pin labels imply compatible framing or that every I2S receiver accepts PDM.",
+    "citations": [
+      {
+        "source_id": "ti-pcmd3140",
+        "locator": "Sections 7.1 and 7.3.1.2, pages 15-17"
+      }
+    ],
+    "related_ids": [
+      "i2s-tdm-routing",
+      "pdm-microphone-routing",
+      "shared-return-impedance"
+    ]
+  },
+  {
+    "id": "i2s-tdm-routing",
+    "title": "I2S and TDM clock and data routing pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "i2s",
+      "tdm"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "I2S routing",
+      "TDM routing",
+      "BCLK",
+      "FSYNC",
+      "LRCLK"
+    ],
+    "summary": "Route bit clock, frame synchronization and each data direction according to the selected endpoint connection; separate sensitive circuitry from noisy power paths.",
+    "applies_to": "Board-level audio; TAS2563 connections illustrate one implementation.",
+    "required_inputs": [
+      "Clock ownership, data directions, slot mapping and endpoint timing"
+    ],
+    "verification": [
+      "Verify framing and audio transfer with every intended channel enabled."
+    ],
+    "limitations": "Device-specific unused-pin and stereo-chain instructions are not general I2S rules.",
+    "citations": [
+      {
+        "source_id": "ti-slaa920",
+        "locator": "Typical application schematics; Layout Guidelines Summary, pages 27-29"
+      }
+    ],
+    "related_ids": [
+      "digital-audio-overview",
+      "reference-plane-continuity",
+      "emc-clock-edge-rate",
+      "emc-source-termination"
+    ],
+    "pattern": {
+      "diagram": "Clock owner BCLK/FSYNC -> Receivers; transmitter SDOUT -> receiver SDIN",
+      "placement": [
+        "Place connected audio devices to limit channel length."
+      ],
+      "routing": [
+        "Review clock loading and data timing; MCLK is device-dependent."
+      ],
+      "return_path": [
+        "Provide continuous signal returns."
+      ],
+      "pitfalls": [
+        "Do not tie multiple active clock outputs together."
+      ]
+    }
+  },
+  {
+    "id": "pdm-microphone-routing",
+    "title": "PDM microphone clock and data pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "pdm"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "PDM microphone",
+      "PDMCLK",
+      "latching edge",
+      "decimation"
+    ],
+    "summary": "Supply the microphone clock and connect PDM data to a compatible receiver. Match channel edge selection and decimation configuration to the microphone.",
+    "applies_to": "Digital PDM microphones and compatible receivers or converters.",
+    "required_inputs": [
+      "Microphone clock, voltage, edge and receiver requirements"
+    ],
+    "verification": [
+      "Verify clock, channel assignment and recovered audio."
+    ],
+    "limitations": "Shared data wiring requires compatible output-enable timing; do not parallel arbitrary microphone outputs.",
+    "citations": [
+      {
+        "source_id": "ti-pcmd3140",
+        "locator": "Sections 7.3 and 8.2, digital microphone configuration and typical application"
+      }
+    ],
+    "related_ids": [
+      "digital-audio-overview",
+      "decoupling-loop",
+      "reference-plane-continuity"
+    ],
+    "pattern": {
+      "diagram": "Receiver PDMCLK -> Microphone; microphone DATA -> PDM input",
+      "placement": [
+        "Place bypass capacitors at the microphone supply."
+      ],
+      "routing": [
+        "Check clock/data timing and loading."
+      ],
+      "return_path": [
+        "Keep clock and data referenced to ground."
+      ],
+      "pitfalls": [
+        "PDM is not PCM framing; conversion may be required."
+      ]
+    }
+  }
+]

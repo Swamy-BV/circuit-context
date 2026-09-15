@@ -1,0 +1,143 @@
+[
+  {
+    "id": "serial-flash-overview",
+    "title": "QSPI and OSPI overview: select memory protocol and boot behavior",
+    "topic": "interface-overview",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "qspi",
+      "ospi"
+    ],
+    "kind": "overview",
+    "keywords": [
+      "serial flash overview",
+      "QSPI",
+      "OSPI",
+      "XIP",
+      "dummy cycles",
+      "boot memory"
+    ],
+    "summary": "Check controller, package and memory compatibility, transfer mode and command timing before choosing a serial-memory connection.",
+    "applies_to": "External serial memory planning; STM32 examples are scoped to their listed devices.",
+    "required_inputs": [
+      "Exact controller/memory, voltage, mode and boot requirements"
+    ],
+    "verification": [
+      "Check initialization, dummy cycles and memory-mapped operation against both devices."
+    ],
+    "limitations": "QSPI and OSPI are not interchangeable capabilities; consult errata and exact device guides.",
+    "citations": [
+      {
+        "source_id": "st-xspi-interoperability",
+        "locator": "Sections 3, 4 and 6"
+      }
+    ],
+    "related_ids": [
+      "qspi-point-to-point",
+      "ospi-strobe-review",
+      "spi-overview",
+      "decoupling-loop"
+    ]
+  },
+  {
+    "id": "qspi-point-to-point",
+    "title": "QSPI point-to-point flash routing pattern",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "qspi"
+    ],
+    "kind": "routing-pattern",
+    "keywords": [
+      "QSPI point to point",
+      "flash routing",
+      "clock data chip select"
+    ],
+    "summary": "Connect the selected clock, chip select and data pins consistently; keep the memory channel compact and preserve its reference.",
+    "applies_to": "Single QSPI memory; STM32F4 layout guidance is an example.",
+    "required_inputs": [
+      "Pin mapping, timing budget and fabrication construction"
+    ],
+    "verification": [
+      "Check clock/data timing and reads across the intended operating conditions."
+    ],
+    "limitations": "ST example dimensions are not universal limits for other controllers or packages.",
+    "citations": [
+      {
+        "source_id": "st-an4488",
+        "locator": "Section 8.4.3, pages 39-40"
+      }
+    ],
+    "related_ids": [
+      "serial-flash-overview",
+      "reference-plane-continuity",
+      "controlled-impedance",
+      "emc-source-termination"
+    ],
+    "pattern": {
+      "diagram": "Controller CLK/CS -> Flash; IO[3:0] <-> Flash",
+      "placement": [
+        "Place flash near its controller interface."
+      ],
+      "routing": [
+        "Limit transitions; evaluate clock separation and data skew."
+      ],
+      "return_path": [
+        "Keep an uninterrupted reference under the channel."
+      ],
+      "pitfalls": [
+        "Do not copy an example length tolerance into another timing budget."
+      ]
+    }
+  },
+  {
+    "id": "ospi-strobe-review",
+    "title": "OSPI data-strobe and calibration review",
+    "topic": "routing",
+    "level": "interface",
+    "domains": [
+      "schematic",
+      "pcb"
+    ],
+    "interfaces": [
+      "ospi"
+    ],
+    "kind": "principle",
+    "keywords": [
+      "OSPI",
+      "DQS",
+      "strobe",
+      "DTR",
+      "DDR",
+      "calibration"
+    ],
+    "summary": "Determine whether the selected memory mode uses a data strobe and how the controller samples it. Include supported delay-block or PHY calibration in bring-up.",
+    "applies_to": "Strobe-capable serial-memory controllers; ST AN5050 describes specific STM32 implementations.",
+    "required_inputs": [
+      "Controller/memory mode, strobe timing and supported calibration procedure"
+    ],
+    "verification": [
+      "Review data/strobe timing and repeat transfer checks across intended operating conditions."
+    ],
+    "limitations": "No universal DQS length tolerance or register value is supplied. HyperBus and regular-command protocols need separate configuration.",
+    "citations": [
+      {
+        "source_id": "st-an5050",
+        "locator": "Sections 3.1-3.2, 5 and 6; pages 17-42"
+      }
+    ],
+    "related_ids": [
+      "serial-flash-overview",
+      "controlled-impedance",
+      "layer-transition-return"
+    ]
+  }
+]

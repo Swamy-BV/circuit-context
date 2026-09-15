@@ -156,8 +156,10 @@
     {
       "prompt": "Route Octal DDR flash.",
       "query": "OSPI DQS strobe",
-      "expected_id": null,
-      "ai_expectation": "Report missing memory-channel coverage and require device guidance."
+      "expected_id": "ospi-strobe-review",
+      "previous_expected_id": null,
+      "coverage_change": "2026-09-15.3 adds initial OSPI strobe review; device-specific numerical routing constraints remain outside coverage.",
+      "ai_expectation": "Read the strobe review, report missing device-specific timing and routing constraints, and require controller and memory guidance before routing."
     }
   ]
 }

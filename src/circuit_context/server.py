@@ -73,7 +73,9 @@ def get_guideline(id: str) -> dict[str, Any]:
     they are not expanded automatically. Start a two-layer EMC review with
     two-layer-emc-workflow. Four-layer review starts with four-layer-workflow.
     Basic interface entry points are gpio-overview,
-    uart-overview, spi-overview and i2c-overview. USB-C starts at usb-c-overview;
+    uart-overview, spi-overview and i2c-overview. Further entry points are
+    serial-flash-overview, sdmmc-overview, digital-audio-overview and
+    debug-port-overview. USB-C starts at usb-c-overview;
     impedance decisions start at impedance-requirement-selection.
     Routing-pattern records include
     text diagrams, placement, routing, returns and pitfalls. Device notes retain

@@ -4,6 +4,9 @@ Start with an interface overview, select the applicable routing pattern, then
 read its shared principles and the exact device requirements. The MCP supplies
 reference material; the caller chooses the circuit, constraints and coordinates.
 
+For QSPI/OSPI, SD/SDIO/eMMC, audio and debug interfaces, see
+[peripheral interface guidance](peripheral-interfaces.md).
+
 | Family / entry ID | Initial patterns |
 | --- | --- |
 | `gpio-overview` | Push-pull point-to-point; open-drain shared interrupt |

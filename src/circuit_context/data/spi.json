@@ -44,7 +44,8 @@
       "spi-shared-bus",
       "spi-daisy-chain",
       "spi-off-board",
-      "emc-source-termination"
+      "emc-source-termination",
+      "serial-flash-overview"
     ]
   },
   {

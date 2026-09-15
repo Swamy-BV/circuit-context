@@ -21,6 +21,7 @@ ARCHIVE = ROOT / "out/knowledge/sources"
 OUT = ROOT / "out/knowledge/markdown"
 NOTES = ROOT / "docs/knowledge-source-notes.json"
 SELECTORS = {
+    "segger-um08001": "mw-parser-output",
     "jlcpcb-finishes": "jlc-article-page-container",
     "jlcpcb-capabilities": "jlc-wm-capabilities",
     "tek-emi-precompliance": "main-content",

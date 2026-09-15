@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-15.2",
+  "version": "2026-09-15.3",
   "sources": [
     {
       "id": "ti-scaa082a",
@@ -520,6 +520,86 @@
       "accessed": "2026-09-15",
       "sha256": "a25fa60de8a0ff3baa3c08a719a7892796a2c658987568c58e89f8f27fef716b",
       "capture_note": "Publisher PDF captured and selected equation/table page visually reviewed. Other pages are not claimed as reviewed. Numeric values retain model and material scope."
+    },
+    {
+      "id": "st-an5050",
+      "publisher": "STMicroelectronics",
+      "title": "Getting started with Octo-SPI, Hexadeca-SPI, and XSPI interfaces on STM32 MCUs",
+      "url": "https://www.st.com/resource/en/application_note/an5050-octospi-interface-on-stm32-microcontrollers-stmicroelectronics.pdf",
+      "revision": "AN5050 Rev 14, June 2026",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Publisher web PDF extraction reviewed; direct capture failed on 2026-09-15, so no file checksum is claimed."
+    },
+    {
+      "id": "st-an4488",
+      "publisher": "STMicroelectronics",
+      "title": "Getting started with STM32F4xxxx MCU hardware development",
+      "url": "https://www.st.com/resource/en/application_note/dm00115714.pdf",
+      "revision": "AN4488 Rev 7, October 2018",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Publisher web PDF extraction reviewed; direct capture failed on 2026-09-15, so no file checksum is claimed."
+    },
+    {
+      "id": "ti-swpa221",
+      "publisher": "Texas Instruments",
+      "title": "OMAP44xx SD/MMC Debug Guidelines",
+      "url": "https://www.ti.com/lit/an/swpa221/swpa221.pdf",
+      "revision": "SWPA221, September 2012",
+      "accessed": "2026-09-15",
+      "sha256": "ec9b788c89f96d59c2bba832cee1b9a0437f34e2e494982d2c4dd9646e2f3ca8",
+      "capture_note": "Publisher source captured; selected interface sections reviewed. Numeric limits remain device-scoped; original is not bundled."
+    },
+    {
+      "id": "ti-pcmd3140",
+      "publisher": "Texas Instruments",
+      "title": "PCMD3140-Q1 Quad-Channel PDM Input to TDM or I2S Output Converter",
+      "url": "https://www.ti.com/lit/ds/symlink/pcmd3140-q1.pdf",
+      "revision": "SBASAH3A, September 2022",
+      "accessed": "2026-09-15",
+      "sha256": "38a9dd374b55981d6cb720b1def1d79595d7d3bca42ffdc79598ba9d729806e5",
+      "capture_note": "Publisher source captured; selected interface sections reviewed. Numeric limits remain device-scoped; original is not bundled."
+    },
+    {
+      "id": "ti-slaa920",
+      "publisher": "Texas Instruments",
+      "title": "TAS2563 Schematic and Layout Guidelines",
+      "url": "https://www.ti.com/lit/an/slaa920/slaa920.pdf",
+      "revision": "SLAA920, January 2020",
+      "accessed": "2026-09-15",
+      "sha256": "5af7d36b2ce0553d09ff04f32ac7bfd1178f14239a55d958b6a517d922642452",
+      "capture_note": "Publisher source captured; selected interface sections reviewed. Numeric limits remain device-scoped; original is not bundled."
+    },
+    {
+      "id": "segger-debug-interface",
+      "publisher": "SEGGER",
+      "title": "J-Link Interface Description",
+      "url": "https://www.segger.com/products/debug-probes/j-link/technology/interface-description/",
+      "revision": "Web snapshot, 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": "d59fa59847d7f87e8d7ed3160d732351ce43d09e88a7ebcf9c5fce25387a6e6d",
+      "capture_note": "Publisher source captured; selected interface sections reviewed. Numeric limits remain device-scoped; original is not bundled."
+    },
+    {
+      "id": "segger-um08001",
+      "publisher": "SEGGER",
+      "title": "UM08001 J-Link / J-Trace User Guide",
+      "url": "https://kb.segger.com/UM08001",
+      "revision": "Web snapshot, 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": "0dbc6176cf717573ac6402d9ff8cc1276692c11be1b42916095dbcc28dd35593",
+      "capture_note": "Publisher source captured; selected interface sections reviewed. Numeric limits remain device-scoped; original is not bundled."
+    },
+    {
+      "id": "st-xspi-interoperability",
+      "publisher": "STMicroelectronics",
+      "title": "Introduction to external serial memories XSPI interoperability for STM32",
+      "url": "https://wiki.st.com/stm32mcu/wiki/Introduction_to_external_serial_memories_XSPI_interoperability_for_STM32",
+      "revision": "Wiki revision 83752; accessed 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Publisher web text reviewed, especially sections 3, 4 and 6; not an exact routing specification."
     }
   ]
 }

@@ -1,0 +1,113 @@
+{
+  "description": "First expansion: flash, storage, digital audio and debug. Manual AI expectations are not measured by retrieval checks.",
+  "cases": [
+    {
+      "prompt": "QSPI and OSPI overview: select memory protocol and boot behavior",
+      "query": "serial flash overview",
+      "filters": {
+        "interface": "qspi"
+      },
+      "expected_id": "serial-flash-overview",
+      "ai_expectation": "QSPI and OSPI are not interchangeable capabilities; consult errata and exact device guides."
+    },
+    {
+      "prompt": "QSPI point-to-point flash routing pattern",
+      "query": "QSPI point to point",
+      "filters": {
+        "interface": "qspi"
+      },
+      "expected_id": "qspi-point-to-point",
+      "ai_expectation": "ST example dimensions are not universal limits for other controllers or packages."
+    },
+    {
+      "prompt": "OSPI data-strobe and calibration review",
+      "query": "OSPI DQS strobe",
+      "filters": {
+        "interface": "ospi"
+      },
+      "expected_id": "ospi-strobe-review",
+      "ai_expectation": "No universal DQS length tolerance or register value is supplied. HyperBus and regular-command protocols need separate configuration."
+    },
+    {
+      "prompt": "SD SDIO and eMMC overview: establish mode and voltage",
+      "query": "SDMMC overview",
+      "filters": {
+        "interface": "sd"
+      },
+      "expected_id": "sdmmc-overview",
+      "ai_expectation": "SD memory, SDIO peripherals and eMMC are not interchangeable; this overview is not an HS200/HS400 specification."
+    },
+    {
+      "prompt": "Removable SD card and SDIO routing review",
+      "query": "SD card routing",
+      "filters": {
+        "interface": "sd"
+      },
+      "expected_id": "sd-card-routing",
+      "ai_expectation": "OMAP44xx resistor and ramp-time examples must not become universal rules. SDIO devices may need additional enable or interrupt signals."
+    },
+    {
+      "prompt": "eMMC power and bring-up review",
+      "query": "eMMC boot",
+      "filters": {
+        "interface": "emmc"
+      },
+      "expected_id": "emmc-bringup",
+      "ai_expectation": "Detailed HS200/HS400 strobe routing is not covered. Obtain the selected SoC and memory design guides before setting high-speed geometry."
+    },
+    {
+      "prompt": "I2S TDM and PDM overview: establish format and clock ownership",
+      "query": "digital audio overview",
+      "filters": {
+        "interface": "i2s"
+      },
+      "expected_id": "digital-audio-overview",
+      "ai_expectation": "Do not assume identical pin labels imply compatible framing or that every I2S receiver accepts PDM."
+    },
+    {
+      "prompt": "I2S and TDM clock and data routing pattern",
+      "query": "I2S routing",
+      "filters": {
+        "interface": "i2s"
+      },
+      "expected_id": "i2s-tdm-routing",
+      "ai_expectation": "Device-specific unused-pin and stereo-chain instructions are not general I2S rules."
+    },
+    {
+      "prompt": "PDM microphone clock and data pattern",
+      "query": "PDM microphone",
+      "filters": {
+        "interface": "pdm"
+      },
+      "expected_id": "pdm-microphone-routing",
+      "ai_expectation": "Shared data wiring requires compatible output-enable timing; do not parallel arbitrary microphone outputs."
+    },
+    {
+      "prompt": "JTAG and SWD overview: preserve debug access and reset states",
+      "query": "debug overview",
+      "filters": {
+        "interface": "jtag"
+      },
+      "expected_id": "debug-port-overview",
+      "ai_expectation": "Internal pull resistors differ by device; do not apply STM32F4 defaults to every target."
+    },
+    {
+      "prompt": "SWD connector and voltage-reference pattern",
+      "query": "SWD connector",
+      "filters": {
+        "interface": "swd"
+      },
+      "expected_id": "swd-connector",
+      "ai_expectation": "VTref is a sense/reference input on the cited J-Link connector, not an assumed target-power output."
+    },
+    {
+      "prompt": "JTAG scan-chain connection pattern",
+      "query": "JTAG chain",
+      "filters": {
+        "interface": "jtag"
+      },
+      "expected_id": "jtag-chain",
+      "ai_expectation": "An unpowered or misconfigured target can prevent chain access. SWD is not wired as a JTAG serial chain."
+    }
+  ]
+}
