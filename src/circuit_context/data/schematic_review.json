@@ -1,0 +1,252 @@
+[
+  {
+    "id": "schematic-text-collisions",
+    "title": "Keep annotations clear of wires and pin text",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic text overlaps",
+      "schematic"
+    ],
+    "summary": "Keep references, values and labels readable and clear of neighboring wires or annotations.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Rendered text bounds"
+    ],
+    "verification": [
+      "Inspect dense areas for collisions."
+    ],
+    "limitations": "An electrical check does not establish visual readability.",
+    "citations": [
+      {
+        "source_id": "cadence-schematic-readability",
+        "locator": "Text recommendations"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-text-scale",
+    "title": "Check text at the intended reading scale",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic text size",
+      "schematic"
+    ],
+    "summary": "Use consistent text sizing and inspect exported output. KLC normally uses 50 mil fields, with smaller pin-text exceptions.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Output size and library style"
+    ],
+    "verification": [
+      "Check the smallest pin text at intended print or display size."
+    ],
+    "limitations": "KLC values are library conventions, not a universal typography standard.",
+    "citations": [
+      {
+        "source_id": "klc-symbol-text",
+        "locator": "S3.2"
+      }
+    ],
+    "related_ids": [
+      "schematic-final-render"
+    ]
+  },
+  {
+    "id": "schematic-power-orientation",
+    "title": "Keep power and ground presentation consistent",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic power orientation",
+      "schematic"
+    ],
+    "summary": "Prefer positive supply pins above and ground or negative pins below; power-conversion symbols can use input-left/output-right.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Power-domain meanings"
+    ],
+    "verification": [
+      "Check that graphical orientation matches the documented domain."
+    ],
+    "limitations": "Ground symbol appearance does not establish isolation or justify merging grounds.",
+    "citations": [
+      {
+        "source_id": "klc-functional-pins",
+        "locator": "S4.2 supply placement and exception"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-multiunit-power",
+    "title": "Account for every unit and its power connections",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic multiunit power",
+      "schematic"
+    ],
+    "summary": "When a library separates shared power into a unit, make that unit and its association easy to find.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Complete package units"
+    ],
+    "verification": [
+      "Check reference identity and power pins."
+    ],
+    "limitations": "KLC separates shared power for multi-unit symbols; it does not recommend removing power from single-unit symbols.",
+    "citations": [
+      {
+        "source_id": "klc-multiunit",
+        "locator": "S3.8"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-local-support",
+    "title": "Keep local feedback and support circuits understandable",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic feedback layout",
+      "schematic"
+    ],
+    "summary": "Editorial convention: show local feedback, bias and timing components beside the circuitry they explain; associate decoupling groups with their IC and rail.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "Circuit purpose"
+    ],
+    "verification": [
+      "Trace the local loop without unrelated sheet jumps."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. Drawing proximity does not specify physical PCB placement; do not replace every local connection with a label just to reduce wire count.",
+    "citations": [
+      {
+        "source_id": "altium-useful-symbols",
+        "locator": "The Left-Hand Side; spacing for external components"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-connector-view",
+    "title": "State connector orientation when pin interpretation matters",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic connector view",
+      "schematic"
+    ],
+    "summary": "Editorial convention: state the mating or board view and identify connector signals without changing pin numbering.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "Connector drawing"
+    ],
+    "verification": [
+      "Cross-check the stated view against its datasheet."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. Schematic symbol position is not a physical connector view.",
+    "citations": [
+      {
+        "source_id": "eurocircuits-orientation",
+        "locator": "Orientation of Through Hole Components; background for orientation clarity"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-design-notes",
+    "title": "Show essential values, configuration and design intent",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic design notes",
+      "schematic"
+    ],
+    "summary": "Editorial convention: keep essential values visible, identify sheet purpose and revision, and place concise notes on configuration, DNP options and important assumptions near the affected circuit.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "BOM and configuration"
+    ],
+    "verification": [
+      "Check notes and values against released data."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. Do not substitute prose for electrical connections or formal assembly data.",
+    "citations": [
+      {
+        "source_id": "cadence-schematic-readability",
+        "locator": "Incomplete design notes and incorrect values"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-final-render",
+    "title": "Review the final exported schematic independently",
+    "topic": "schematic-review",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic final render",
+      "schematic"
+    ],
+    "summary": "Editorial convention: inspect every exported page for clipped content, missing fields and unreadable annotations; retain meaning without color alone.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "Exported pages"
+    ],
+    "verification": [
+      "Review at intended size and compare connectivity before and after cleanup."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. A render review complements ERC; neither proves circuit operation.",
+    "citations": [
+      {
+        "source_id": "cadence-schematic-readability",
+        "locator": "Checking; Use the Power of Your CAD Tools"
+      }
+    ],
+    "related_ids": []
+  }
+]

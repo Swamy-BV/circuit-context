@@ -28,6 +28,7 @@ CASES = (
     PROMPTS / "pcb_calculations.json",
     PROMPTS / "peripheral_knowledge.json",
     PROMPTS / "layout_practices.json",
+    PROMPTS / "schematic_visual.json",
 )
 
 

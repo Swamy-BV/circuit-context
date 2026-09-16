@@ -49,7 +49,7 @@ answers with an internal LLM.
 
 ## Knowledge and retrieval
 
-The corpus has 137 editorial guides and 69 source records, expanded from
+The corpus has 161 editorial guides and 77 source records, expanded from
 KiCadFlow's engineering guidance. JSON is the maintained source; SQLite FTS5/BM25
 provides offline keyword retrieval by default. Optional local semantic search
 handles paraphrases; hybrid search combines both using reciprocal rank fusion.
@@ -79,6 +79,7 @@ The generated index lives in `~/.circuit-context/cache/`; override it with
 - [Four-layer stackup choices and review](docs/four-layer-stackup.md)
 - [Materials, calculations and grounding](docs/pcb-calculations.md)
 - [Placement, routing geometry and manufacturing review](docs/layout-practices.md)
+- [Schematic visual layout and readability](docs/schematic-visual-practices.md)
 - [Evidence format and RAGFlow assessment](docs/rag-documentation.md)
 - [GPIO, UART, SPI and I2C](docs/basic-interfaces.md)
 - [Serial memory, storage, digital audio and debug](docs/peripheral-interfaces.md)

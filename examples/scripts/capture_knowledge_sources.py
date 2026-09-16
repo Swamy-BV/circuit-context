@@ -7,7 +7,9 @@ Originals and page-marked text stay in ignored out/knowledge/sources/.
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
+import io
 import json
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timezone
@@ -65,8 +67,18 @@ def capture(source: dict[str, Any]) -> dict[str, Any]:
             row["final_url"] = response.url
             row["content_type"] = response.headers.get_content_type()
             encoding = response.headers.get_content_charset() or "utf-8"
+            content_encoding = response.headers.get("Content-Encoding", "").lower()
         if len(raw) > MAX_BYTES:
             raise ValueError("response exceeds 32 MiB capture limit")
+        if content_encoding not in {"", "identity", "gzip"}:
+            raise ValueError(f"unsupported content encoding: {content_encoding}")
+        if content_encoding == "gzip" or raw.startswith(b"\x1f\x8b"):
+            row["transport_sha256"] = hashlib.sha256(raw).hexdigest()
+            row["content_encoding"] = "gzip"
+            with gzip.GzipFile(fileobj=io.BytesIO(raw)) as compressed:
+                raw = compressed.read(MAX_BYTES + 1)
+            if len(raw) > MAX_BYTES:
+                raise ValueError("decoded response exceeds 32 MiB capture limit")
         digest = hashlib.sha256(raw).hexdigest()
         row.update(bytes=len(raw), sha256=digest)
         row["matches_catalogue"] = (

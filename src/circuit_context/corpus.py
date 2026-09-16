@@ -16,6 +16,7 @@ _COLLECTIONS = (
     "pcb_calculations.json",
     "serial_flash.json", "sdmmc.json", "digital_audio.json", "debug.json",
     "layout_practices.json",
+    "schematic_layout.json", "schematic_connections.json", "schematic_review.json",
 )
 
 

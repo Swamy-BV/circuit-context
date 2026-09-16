@@ -1,0 +1,250 @@
+[
+  {
+    "id": "schematic-wire-paths",
+    "title": "Keep visible wire paths easy to follow",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic wire paths",
+      "schematic"
+    ],
+    "summary": "Editorial convention: prefer short orthogonal paths and avoid unnecessary bends or wires passing through unrelated symbols.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "Topology and available space"
+    ],
+    "verification": [
+      "Follow every visible path without ambiguity."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. Diagonal bridge drawings can be clearer; schematic paths are not PCB routes.",
+    "citations": [
+      {
+        "source_id": "altium-useful-symbols",
+        "locator": "PCB Symbols for Integrated Circuits"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-junction-clarity",
+    "title": "Distinguish junctions from wire crossings",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic junction dots",
+      "schematic"
+    ],
+    "summary": "Use actual electrical junctions for intended connections; inspect crossings at final scale.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Intended nets"
+    ],
+    "verification": [
+      "Confirm crossing connectivity in the netlist."
+    ],
+    "limitations": "Graphic dots are not electrical junctions.",
+    "citations": [
+      {
+        "source_id": "kicad9-schematic-manual",
+        "locator": "Wires; junction placement"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-label-scope",
+    "title": "Make label scope explicit across sheets",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic label scope",
+      "schematic"
+    ],
+    "summary": "KiCad local labels connect within a sheet; global labels span the design; hierarchical connections use matching sheet interfaces.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Intended scope"
+    ],
+    "verification": [
+      "Check endpoint nets."
+    ],
+    "limitations": "Replacing label types can change connectivity.",
+    "citations": [
+      {
+        "source_id": "kicad9-schematic-manual",
+        "locator": "Labels; Hierarchical Schematics"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-bus-members",
+    "title": "Keep bus members and names explicit",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic bus members",
+      "schematic"
+    ],
+    "summary": "Verify named bus members and their connections; a bus-entry graphic alone creates no connection.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Member names"
+    ],
+    "verification": [
+      "Inspect resulting nets."
+    ],
+    "limitations": "Visual bundling does not prove connectivity.",
+    "citations": [
+      {
+        "source_id": "kicad9-schematic-manual",
+        "locator": "Buses; wire-to-bus entry points"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-net-names",
+    "title": "Use short meaningful net names consistently",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic net naming",
+      "schematic"
+    ],
+    "summary": "Use concise functional names and consistent rail notation so a reader can recognize signals.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Project naming convention"
+    ],
+    "verification": [
+      "Check ambiguous or misleading names."
+    ],
+    "limitations": "Renaming a net can alter connectivity and downstream constraints.",
+    "citations": [
+      {
+        "source_id": "altium-readable-schematics",
+        "locator": "Nets and Ports"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-active-low",
+    "title": "Show active-low meaning without ambiguous notation",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic active low",
+      "schematic"
+    ],
+    "summary": "Preserve active-low meaning in symbol pin names. KLC uses an overbar and avoids duplicating an existing negation prefix.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Datasheet signal polarity"
+    ],
+    "verification": [
+      "Compare displayed names with actual signal meaning."
+    ],
+    "limitations": "KLC pin formatting is not a requirement to rename all project nets.",
+    "citations": [
+      {
+        "source_id": "klc-active-low",
+        "locator": "S4.7"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-pin-order",
+    "title": "Align related interface pins to reduce crossings",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic pin order",
+      "schematic"
+    ],
+    "summary": "Keep interface groups in a consistent order to make related signals easy to follow.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Interface pin mapping"
+    ],
+    "verification": [
+      "Check pin numbers and net identities."
+    ],
+    "limitations": "Only graphical ordering is discussed; physical pin reassignment needs separate authorization and verification.",
+    "citations": [
+      {
+        "source_id": "klc-functional-pins",
+        "locator": "S4.2 pin groups and bus ordering"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-no-connect-display",
+    "title": "Mark intentionally unused pins accurately",
+    "topic": "schematic-connections",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic unused pins",
+      "schematic"
+    ],
+    "summary": "Use no-connect flags only for intentionally unconnected pins.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Device requirements"
+    ],
+    "verification": [
+      "Review unused pins and ERC."
+    ],
+    "limitations": "Do not suppress required connections for appearance.",
+    "citations": [
+      {
+        "source_id": "kicad9-schematic-manual",
+        "locator": "No-connection flag"
+      }
+    ],
+    "related_ids": []
+  }
+]

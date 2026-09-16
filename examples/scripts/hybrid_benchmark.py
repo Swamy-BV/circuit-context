@@ -28,6 +28,7 @@ FILES = (
     "pcb_calculations",
     "peripheral_knowledge",
     "layout_practices",
+    "schematic_visual",
     "semantic_knowledge",
 )
 STRATEGIES = (

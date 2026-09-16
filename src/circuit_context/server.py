@@ -72,6 +72,7 @@ def get_guideline(id: str) -> dict[str, Any]:
     resource. related_ids link to supporting guides for explicit follow-up reads;
     they are not expanded automatically. Start a two-layer EMC review with
     two-layer-emc-workflow. Four-layer review starts with four-layer-workflow.
+    Schematic visual review starts at schematic-visual-workflow.
     Basic interface entry points are gpio-overview,
     uart-overview, spi-overview and i2c-overview. Further entry points are
     serial-flash-overview, sdmmc-overview, digital-audio-overview and

@@ -1,0 +1,262 @@
+[
+  {
+    "id": "schematic-visual-workflow",
+    "title": "Review schematic appearance and connectivity separately",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic visual review",
+      "schematic"
+    ],
+    "summary": "Review organization, connections and annotations, then inspect a rendered sheet and verify electrical connectivity.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "Review output size and netlist"
+    ],
+    "verification": [
+      "Check the exported view as well as ERC."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. This checklist is not an automatic layout or correctness guarantee.",
+    "citations": [
+      {
+        "source_id": "cadence-schematic-readability",
+        "locator": "Tips On How to Create Readable Schematics; Use the Power of Your CAD Tools"
+      }
+    ],
+    "related_ids": [
+      "schematic-functional-groups",
+      "schematic-grid",
+      "schematic-text-collisions",
+      "schematic-junction-clarity",
+      "schematic-final-render"
+    ]
+  },
+  {
+    "id": "schematic-signal-flow",
+    "title": "Keep a consistent signal-flow convention",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic signal flow",
+      "schematic"
+    ],
+    "summary": "Prefer inputs left and outputs right so the main path is easy to follow.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Circuit topology"
+    ],
+    "verification": [
+      "Trace the main path without searching across the sheet."
+    ],
+    "limitations": "Feedback, bidirectional links and bridges need exceptions; do not change circuitry for appearance.",
+    "citations": [
+      {
+        "source_id": "altium-readable-schematics",
+        "locator": "Easy Schematics Flow"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-functional-groups",
+    "title": "Group related circuitry with meaningful headings",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic functional groups",
+      "schematic"
+    ],
+    "summary": "Keep each functional circuit together and identify its purpose with a short heading.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Functional decomposition"
+    ],
+    "verification": [
+      "Check that group boundaries are understandable."
+    ],
+    "limitations": "A small sheet can contain several groups; one sheet per block is not mandatory.",
+    "citations": [
+      {
+        "source_id": "altium-readable-schematics",
+        "locator": "Easy Schematics Layout"
+      }
+    ],
+    "related_ids": [
+      "schematic-hierarchy"
+    ]
+  },
+  {
+    "id": "schematic-hierarchy",
+    "title": "Use hierarchy to make large designs navigable",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic hierarchy",
+      "schematic"
+    ],
+    "summary": "Use meaningful sheet names and a top-level view of subsystem connections.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Subsystem boundaries"
+    ],
+    "verification": [
+      "Follow an interface from overview to detail."
+    ],
+    "limitations": "Excessive nesting can hinder review; select depth for the design.",
+    "citations": [
+      {
+        "source_id": "altium-readable-schematics",
+        "locator": "Easy Schematics Layout; Harnesses"
+      }
+    ],
+    "related_ids": [
+      "schematic-label-scope"
+    ]
+  },
+  {
+    "id": "schematic-repeated-channels",
+    "title": "Draw repeated channels consistently",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic repeated channels",
+      "schematic"
+    ],
+    "summary": "Editorial convention: align equivalent channels and keep their component ordering consistent; clearly identify channel differences.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "Channel mapping"
+    ],
+    "verification": [
+      "Compare channels side by side."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. Do not copy incorrect values or join independent nets to create symmetry.",
+    "citations": [
+      {
+        "source_id": "altium-useful-symbols",
+        "locator": "Standardized PCB Symbols"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-whitespace",
+    "title": "Reserve space for annotations and wire escape",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic whitespace",
+      "schematic"
+    ],
+    "summary": "Editorial convention: reserve room around pin groups for wires, labels and nearby supporting components before filling the page.",
+    "applies_to": "Schematic visual review; editorial convention informed by the cited background.",
+    "required_inputs": [
+      "Visible field and pin extents"
+    ],
+    "verification": [
+      "Check crowded regions at output scale."
+    ],
+    "limitations": "Editorial convention, not a source-mandated rule. There is no universal millimeter gap; enlarge or split the drawing rather than shrink everything.",
+    "citations": [
+      {
+        "source_id": "altium-useful-symbols",
+        "locator": "PCB Symbols for Integrated Circuits; The Left-Hand Side"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-grid",
+    "title": "Use a connectivity-compatible schematic grid",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic grid",
+      "schematic"
+    ],
+    "summary": "For KiCad 9 standard symbols, use the recommended 50 mil (1.27 mm) connection grid.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Library grid"
+    ],
+    "verification": [
+      "Check exact pin/wire coincidence."
+    ],
+    "limitations": "A PCB placement grid is not a schematic connection grid.",
+    "citations": [
+      {
+        "source_id": "kicad9-schematic-manual",
+        "locator": "Grids and snapping"
+      }
+    ],
+    "related_ids": []
+  },
+  {
+    "id": "schematic-functional-symbols",
+    "title": "Arrange symbol pins for function, not package shape",
+    "topic": "schematic-layout",
+    "level": "general",
+    "domains": [
+      "schematic"
+    ],
+    "interfaces": [],
+    "kind": "principle",
+    "keywords": [
+      "schematic logical pins",
+      "schematic"
+    ],
+    "summary": "Group related pins logically while preserving their physical pin-number mapping.",
+    "applies_to": "Schematic visual review; retain cited tool or library scope.",
+    "required_inputs": [
+      "Datasheet and symbol mapping"
+    ],
+    "verification": [
+      "Verify each pin number after symbol changes."
+    ],
+    "limitations": "KLC is a library convention, not authorization to swap electrical pins.",
+    "citations": [
+      {
+        "source_id": "klc-functional-pins",
+        "locator": "S4.2"
+      }
+    ],
+    "related_ids": [
+      "schematic-pin-order"
+    ]
+  }
+]

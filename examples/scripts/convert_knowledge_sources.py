@@ -21,6 +21,9 @@ ARCHIVE = ROOT / "out/knowledge/sources"
 OUT = ROOT / "out/knowledge/markdown"
 NOTES = ROOT / "docs/knowledge-source-notes.json"
 SELECTORS = {
+    "altium-readable-schematics": "b-post__body",
+    "altium-useful-symbols": "b-post__body",
+    "kicad9-schematic-manual": "doc-content",
     "altium-placement-grids": "field--name-body",
     "altium-teardrops": "field--name-body",
     "ti-sszt935": "conbody",

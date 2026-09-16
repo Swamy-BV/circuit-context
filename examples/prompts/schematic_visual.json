@@ -1,0 +1,221 @@
+{
+  "description": "Schematic visual guidance retrieval; AI expectations are manual review criteria, not measured behavior.",
+  "cases": [
+    {
+      "prompt": "Review schematic appearance and connectivity separately",
+      "query": "schematic visual review",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-visual-workflow",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. This checklist is not an automatic layout or correctness guarantee."
+    },
+    {
+      "prompt": "Keep a consistent signal-flow convention",
+      "query": "schematic signal flow",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-signal-flow",
+      "ai_expectation": "Feedback, bidirectional links and bridges need exceptions; do not change circuitry for appearance."
+    },
+    {
+      "prompt": "Group related circuitry with meaningful headings",
+      "query": "schematic functional groups",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-functional-groups",
+      "ai_expectation": "A small sheet can contain several groups; one sheet per block is not mandatory."
+    },
+    {
+      "prompt": "Use hierarchy to make large designs navigable",
+      "query": "schematic hierarchy",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-hierarchy",
+      "ai_expectation": "Excessive nesting can hinder review; select depth for the design."
+    },
+    {
+      "prompt": "Draw repeated channels consistently",
+      "query": "schematic repeated channels",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-repeated-channels",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. Do not copy incorrect values or join independent nets to create symmetry."
+    },
+    {
+      "prompt": "Reserve space for annotations and wire escape",
+      "query": "schematic whitespace",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-whitespace",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. There is no universal millimeter gap; enlarge or split the drawing rather than shrink everything."
+    },
+    {
+      "prompt": "Use a connectivity-compatible schematic grid",
+      "query": "schematic grid",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-grid",
+      "ai_expectation": "A PCB placement grid is not a schematic connection grid."
+    },
+    {
+      "prompt": "Arrange symbol pins for function, not package shape",
+      "query": "schematic logical pins",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-functional-symbols",
+      "ai_expectation": "KLC is a library convention, not authorization to swap electrical pins."
+    },
+    {
+      "prompt": "Keep visible wire paths easy to follow",
+      "query": "schematic wire paths",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-wire-paths",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. Diagonal bridge drawings can be clearer; schematic paths are not PCB routes."
+    },
+    {
+      "prompt": "Distinguish junctions from wire crossings",
+      "query": "schematic junction dots",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-junction-clarity",
+      "ai_expectation": "Graphic dots are not electrical junctions."
+    },
+    {
+      "prompt": "Make label scope explicit across sheets",
+      "query": "schematic label scope",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-label-scope",
+      "ai_expectation": "Replacing label types can change connectivity."
+    },
+    {
+      "prompt": "Keep bus members and names explicit",
+      "query": "schematic bus members",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-bus-members",
+      "ai_expectation": "Visual bundling does not prove connectivity."
+    },
+    {
+      "prompt": "Use short meaningful net names consistently",
+      "query": "schematic net naming",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-net-names",
+      "ai_expectation": "Renaming a net can alter connectivity and downstream constraints."
+    },
+    {
+      "prompt": "Show active-low meaning without ambiguous notation",
+      "query": "schematic active low",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-active-low",
+      "ai_expectation": "KLC pin formatting is not a requirement to rename all project nets."
+    },
+    {
+      "prompt": "Align related interface pins to reduce crossings",
+      "query": "schematic pin order",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-pin-order",
+      "ai_expectation": "Only graphical ordering is discussed; physical pin reassignment needs separate authorization and verification."
+    },
+    {
+      "prompt": "Mark intentionally unused pins accurately",
+      "query": "schematic unused pins",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-no-connect-display",
+      "ai_expectation": "Do not suppress required connections for appearance."
+    },
+    {
+      "prompt": "Keep annotations clear of wires and pin text",
+      "query": "schematic text overlaps",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-text-collisions",
+      "ai_expectation": "An electrical check does not establish visual readability."
+    },
+    {
+      "prompt": "Check text at the intended reading scale",
+      "query": "schematic text size",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-text-scale",
+      "ai_expectation": "KLC values are library conventions, not a universal typography standard."
+    },
+    {
+      "prompt": "Keep power and ground presentation consistent",
+      "query": "schematic power orientation",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-power-orientation",
+      "ai_expectation": "Ground symbol appearance does not establish isolation or justify merging grounds."
+    },
+    {
+      "prompt": "Account for every unit and its power connections",
+      "query": "schematic multiunit power",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-multiunit-power",
+      "ai_expectation": "KLC separates shared power for multi-unit symbols; it does not recommend removing power from single-unit symbols."
+    },
+    {
+      "prompt": "Keep local feedback and support circuits understandable",
+      "query": "schematic feedback layout",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-local-support",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. Drawing proximity does not specify physical PCB placement."
+    },
+    {
+      "prompt": "State connector orientation when pin interpretation matters",
+      "query": "schematic connector view",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-connector-view",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. Schematic symbol position is not a physical connector view."
+    },
+    {
+      "prompt": "Show essential values, configuration and design intent",
+      "query": "schematic design notes",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-design-notes",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. Do not substitute prose for electrical connections or formal assembly data."
+    },
+    {
+      "prompt": "Review the final exported schematic independently",
+      "query": "schematic final render",
+      "filters": {
+        "domain": "schematic"
+      },
+      "expected_id": "schematic-final-render",
+      "ai_expectation": "Editorial convention, not a source-mandated rule. A render review complements ERC; neither proves circuit operation."
+    }
+  ]
+}

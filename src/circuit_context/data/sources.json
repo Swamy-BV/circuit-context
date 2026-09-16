@@ -1,5 +1,5 @@
 {
-  "version": "2026-09-15.4",
+  "version": "2026-09-15.5",
   "sources": [
     {
       "id": "ti-scaa082a",
@@ -690,6 +690,86 @@
       "accessed": "2026-09-15",
       "sha256": "8c28c40f7f2069ee454a105a49553dde830e4cec6dc7b522d74510071d6931c4",
       "capture_note": "Publisher HTML captured locally; selected sections reviewed. Original is not bundled; source-specific dimensions are not universal rules."
+    },
+    {
+      "id": "kicad9-schematic-manual",
+      "publisher": "KiCad",
+      "title": "Schematic Editor 9.0",
+      "url": "https://docs.kicad.org/9.0/en/eeschema/eeschema.html",
+      "revision": "KiCad 9.0 documentation; accessed 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": "51bbb0673bc1171202e7e97469cf7e68f9949e6be5af60b1720aef296628721f",
+      "capture_note": "Publisher HTML captured; selected schematic sections reviewed. Editorial extensions are identified in the records. Original is not bundled."
+    },
+    {
+      "id": "klc-functional-pins",
+      "publisher": "KiCad",
+      "title": "KLC S4.2: Pins should be grouped by function",
+      "url": "https://klc.kicad.org/symbol/s4/s4.2/",
+      "revision": "KLC S4.2 web edition, 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Publisher web text reviewed; direct capture returned HTTP 403. No local original or checksum claimed. KLC scope is official-library contributions."
+    },
+    {
+      "id": "klc-symbol-text",
+      "publisher": "KiCad",
+      "title": "KLC S3.2: Text fields",
+      "url": "https://klc.kicad.org/symbol/s3/s3.2/",
+      "revision": "KLC S3.2 web edition, 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Publisher web text reviewed; direct capture returned HTTP 403. No local original or checksum claimed. KLC scope is official-library contributions."
+    },
+    {
+      "id": "klc-multiunit",
+      "publisher": "KiCad",
+      "title": "KLC S3.8: Multi unit symbols",
+      "url": "https://klc.kicad.org/symbol/s3/s3.8/",
+      "revision": "KLC S3.8 web edition, 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Publisher web text reviewed; direct capture returned HTTP 403. No local original or checksum claimed. KLC scope is official-library contributions."
+    },
+    {
+      "id": "klc-active-low",
+      "publisher": "KiCad",
+      "title": "KLC S4.7: Active low pins",
+      "url": "https://klc.kicad.org/symbol/s4/s4.7/",
+      "revision": "KLC S4.7 web edition, 2026-09-15",
+      "accessed": "2026-09-15",
+      "sha256": null,
+      "capture_note": "Publisher web text reviewed; direct capture returned HTTP 403. No local original or checksum claimed. KLC scope is official-library contributions."
+    },
+    {
+      "id": "altium-readable-schematics",
+      "publisher": "Altium",
+      "title": "Easy Schematics Creation for Elegance and Readability",
+      "url": "https://resources.altium.com/p/creating-elegant-and-readable-schematics",
+      "revision": "Mark Harris; updated January 27, 2024",
+      "accessed": "2026-09-15",
+      "sha256": "aaa542b616cd1a659e70967728a29246617a86b567547583780261a7362ba6f9",
+      "capture_note": "Publisher HTML captured; selected schematic sections reviewed. Editorial extensions are identified in the records. Original is not bundled."
+    },
+    {
+      "id": "altium-useful-symbols",
+      "publisher": "Altium",
+      "title": "Guidelines for Creating Useful PCB Schematic Symbols",
+      "url": "https://resources.altium.com/p/guidelines-creating-useful-schematic-symbols",
+      "revision": "Mark Harris; updated March 17, 2021",
+      "accessed": "2026-09-15",
+      "sha256": "3fcda4f2295fee34aa5f750f5c6de90bf5e2eda3f0b1b78c2c20f63793e38156",
+      "capture_note": "Publisher HTML captured; selected schematic sections reviewed. Editorial extensions are identified in the records. Original is not bundled."
+    },
+    {
+      "id": "cadence-schematic-readability",
+      "publisher": "Cadence",
+      "title": "Schematic Tips for Better Electronic Design Readability",
+      "url": "https://resources.academic.cadence.com/pcb-design-and-analysis-resources/2020-schematic-tips-for-better-electronic-design-readability",
+      "revision": "Displayed publication September 29, 2025; URL retains 2020",
+      "accessed": "2026-09-15",
+      "sha256": "786cede614ea1c5690a0bc2bf041006ef9c64106b802ebc321d30ebbd20c82a1",
+      "capture_note": "Publisher HTML captured after gzip transport decoding; selected text reviewed. Checksum covers decoded HTML, with transport checksum in the capture manifest. Original is not bundled."
     }
   ]
 }
